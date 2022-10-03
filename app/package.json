@@ -8,5 +8,7 @@
   "version": "11.1.0",
   "main": "main.js",
   "private": true,
-  "dependencies": {}
+  "dependencies": {
+    "menubar": "^9.2.2"
+  }
 }

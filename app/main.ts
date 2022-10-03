@@ -1,6 +1,42 @@
-import {app, BrowserWindow, screen} from 'electron';
+import {app, BrowserWindow, screen, Menu} from 'electron';
 import * as path from 'path';
 import * as fs from 'fs';
+
+const {menubar} = require('menubar');
+
+// Tray menu
+const mb = menubar({
+  preloadWindow: true,
+  index: `file://${__dirname}/index.html`,
+})
+
+mb.on('ready', () => {
+  const secondMenu = Menu.buildFromTemplate(
+    [
+      {
+        label: 'Quit',
+        click: _ => {
+          mb.app.quit()
+        },
+        accelerator: 'CmdOrCtrl+Q'
+      },
+      {
+        label: 'Window',
+        submenu: [
+          {role: 'minimize'},
+          {role: 'zoom'}
+        ]
+      },
+    ]
+  )
+
+  mb.tray.on('right-click', () => {
+      mb.tray.popUpContextMenu(secondMenu);
+    }
+  )
+
+})
+
 
 let win: BrowserWindow = null;
 const args = process.argv.slice(1),
@@ -34,7 +70,7 @@ function createWindow(): BrowserWindow {
     let pathIndex = './index.html';
 
     if (fs.existsSync(path.join(__dirname, '../dist/index.html'))) {
-       // Path when running electron in local folder
+      // Path when running electron in local folder
       pathIndex = '../dist/index.html';
     }
 
