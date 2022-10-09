@@ -9,6 +9,6 @@
   "main": "main.js",
   "private": true,
   "dependencies": {
-    "menubar": "^9.2.2"
+    "menubar": "^9.2.3"
   }
 }
