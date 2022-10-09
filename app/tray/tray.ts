@@ -2,12 +2,14 @@ import {Menu} from "electron";
 import {menubar} from "menubar";
 
 export const createTray = trayPath => {
-// Tray menu
-  const mb = menubar({
+  const menubarOptions = {
     preloadWindow: true,
     index: trayPath,
     icon: 'app/build/iconTemplate.png'
-  })
+  };
+
+  const mb = menubar(menubarOptions);
+
   mb.on('ready', () => {
     const secondMenu = Menu.buildFromTemplate(
       [
@@ -19,10 +21,11 @@ export const createTray = trayPath => {
           accelerator: 'CmdOrCtrl+Q'
         }
       ]
-    )
+    );
+
     mb.tray.on('right-click', () => {
         mb.tray.popUpContextMenu(secondMenu);
       }
     )
-  })
+  });
 }
