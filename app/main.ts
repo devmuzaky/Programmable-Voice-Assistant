@@ -1,6 +1,7 @@
 import {app, BrowserWindow, screen} from 'electron';
 import * as path from 'path';
 import * as fs from 'fs';
+import {createTray} from './tray/tray';
 
 let win: BrowserWindow = null;
 const args = process.argv.slice(1),
@@ -23,23 +24,24 @@ function createWindow(): BrowserWindow {
     },
   });
 
+  let frontendPath = '';
   if (serve) {
     const debug = require('electron-debug');
     debug();
 
     require('electron-reloader')(module);
-    win.loadURL('http://localhost:4200');
+    frontendPath = 'http://localhost:4200';
   } else {
     // Path when running electron executable
-    let pathIndex = './index.html';
+    let indexPath = './index.html';
 
     if (fs.existsSync(path.join(__dirname, '../dist/index.html'))) {
-       // Path when running electron in local folder
-      pathIndex = '../dist/index.html';
+      // Path when running electron in local folder
+      indexPath = '../dist/index.html';
     }
 
-    const url = new URL(path.join('file:', __dirname, pathIndex));
-    win.loadURL(url.href);
+    const url = new URL(path.join('file:', __dirname, indexPath));
+    frontendPath = url.href;
   }
 
   // Emitted when the window is closed.
@@ -49,6 +51,9 @@ function createWindow(): BrowserWindow {
     // when you should delete the corresponding element.
     win = null;
   });
+
+  win.loadURL(frontendPath);
+  createTray(frontendPath);
 
   return win;
 }
