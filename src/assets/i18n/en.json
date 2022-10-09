@@ -7,6 +7,10 @@
       "DETAIL": {
         "TITLE": "Detail page !",
         "BACK_TO_HOME": "Back to Home"
+    },
+    "RECORDER": {
+      "TITLE": "Recorder",
+      "BACK_TO_HOME": "Back to Home"
     }
   }
 }

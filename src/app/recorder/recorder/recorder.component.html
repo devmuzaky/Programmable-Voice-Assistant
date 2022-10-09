@@ -1,0 +1,9 @@
+<a routerLink="/">{{ 'PAGES.DETAIL.BACK_TO_HOME' | translate }}</a>
+
+<div style="text-align:center;margin-top: 200px;" >
+  <button (click)="initiateRecording()" class="btn btn-primary" *ngIf="!recording" style="cursor: pointer;background-color: green;color: white;font-size: 40px;"> Start Recording </button>
+  <button (click)="stopRecording()" class="btn btn-danger" *ngIf="recording" style="cursor: pointer;background-color: red;color: white;font-size: 40px;"> Stop Recording </button>
+  <audio controls="" *ngIf="showAudioObs | async">
+    <source [src]="sanitize(url)" type="audio/wav">
+  </audio>
+</div>
