@@ -10,7 +10,7 @@ describe('RecorderComponent', () => {
     await TestBed.configureTestingModule({
       declarations: [ RecorderComponent ]
     })
-    .compileComponents();
+      .compileComponents();
 
     fixture = TestBed.createComponent(RecorderComponent);
     component = fixture.componentInstance;
