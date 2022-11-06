@@ -2,14 +2,14 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
 import { RecorderRoutingModule } from './recorder-routing.module';
-import {RecorderComponent} from './components/recorder/recorder.component';
+import {MicComponent} from './components/mic/mic.component';
 import {SharedModule} from '../shared/shared.module';
 import { AudioVisualizerComponent } from './components/audio-visualizer/audio-visualizer.component';
 
 
 @NgModule({
   declarations: [
-    RecorderComponent,
+    MicComponent,
     AudioVisualizerComponent
   ],
   exports: [

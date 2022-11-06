@@ -1,18 +1,18 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { RecorderComponent } from './recorder.component';
+import { MicComponent } from './mic.component';
 
 describe('RecorderComponent', () => {
-  let component: RecorderComponent;
-  let fixture: ComponentFixture<RecorderComponent>;
+  let component: MicComponent;
+  let fixture: ComponentFixture<MicComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ RecorderComponent ]
+      declarations: [ MicComponent ]
     })
       .compileComponents();
 
-    fixture = TestBed.createComponent(RecorderComponent);
+    fixture = TestBed.createComponent(MicComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

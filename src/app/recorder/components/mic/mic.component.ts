@@ -3,18 +3,16 @@ import * as RecordRTC from 'recordrtc';
 import {DomSanitizer} from '@angular/platform-browser';
 
 @Component({
-  selector: 'app-recorder',
-  templateUrl: './recorder.component.html',
-  styleUrls: ['./recorder.component.scss']
+  selector: 'app-mic',
+  templateUrl: './mic.component.html',
+  styleUrls: ['./mic.component.scss']
 })
-export class RecorderComponent {
+export class MicComponent {
 
-  //Lets initiate Record OBJ
+  isRecording = false;
   private record;
-  //Will use this flag for detect recording
   private recording = false;
-  //Url of Blob
-  private url;
+  url;
   private error;
 
   constructor(private domSanitizer: DomSanitizer, private ngZone: NgZone) {
@@ -24,12 +22,7 @@ export class RecorderComponent {
     return this.domSanitizer.bypassSecurityTrustUrl(url);
   }
 
-  /**
-   * Start recording.
-   */
-
   initiateRecording() {
-
     this.recording = true;
     const mediaConstraints = {
       video: false,
@@ -40,29 +33,21 @@ export class RecorderComponent {
       .then(this.successCallback.bind(this), this.errorCallback.bind(this));
   }
 
-  /**
-   * Will be called automatically.
-   */
   successCallback(stream) {
     const options = {
       mimeType: 'audio/wav',
       numberOfAudioChannels: 1
     };
-    //Start Actuall Recording
-    // eslint-disable-next-line @typescript-eslint/naming-convention
+
     const StereoAudioRecorder = RecordRTC.StereoAudioRecorder;
     this.record = new StereoAudioRecorder(stream, options);
     this.record.record();
   }
 
-  /**
-   * Stop recording.
-   */
   stopRecording() {
     this.recording = false;
     this.record.stop(this.processRecording.bind(this));
   }
-
 
   processRecording(blob) {
     this.url = URL.createObjectURL(blob);
@@ -71,13 +56,22 @@ export class RecorderComponent {
     });
   }
 
-  /**
-   * Process Error.
-   */
+  toggleRecording() {
+    if (this.isRecording) {
+      this.stopRecording();
+    } else {
+      this.initiateRecording();
+    }
+    this.isRecording = !this.isRecording;
+  }
+
+  getRecordingState() {
+    if (this.isRecording) return 'recording'
+    else return '';
+  }
+
   errorCallback(error) {
     this.error = 'Can not play audio in your browser';
   }
-
-
 
 }

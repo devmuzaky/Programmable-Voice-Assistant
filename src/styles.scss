@@ -1,4 +1,11 @@
 /* You can add global styles to this file, and also import other style files */
+@font-face {
+  font-family: 'Material Icons';
+  font-style: normal;
+  font-weight: 400;
+  src: url('assets/fonts/matrialIcons.woff2') format('woff2');
+}
+
 html, body {
   margin: 0;
   padding: 0;
