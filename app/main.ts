@@ -1,14 +1,14 @@
-import {app, BrowserWindow, screen} from 'electron';
+import { app, BrowserWindow, screen, ipcMain, dialog } from 'electron';
 import * as path from 'path';
 import * as fs from 'fs';
-import {createTray} from './tray/tray';
+import { createTray } from './tray/tray';
+import { saveFileSelected } from './textToScript/models/utils';
 
 let win: BrowserWindow = null;
 const args = process.argv.slice(1),
-  serve = args.some(val => val === '--serve');
+  serve = args.some((val) => val === '--serve');
 
 function createWindow(): BrowserWindow {
-
   const size = screen.getPrimaryDisplay().workAreaSize;
 
   // Create the browser window.
@@ -19,8 +19,8 @@ function createWindow(): BrowserWindow {
     height: size.height,
     webPreferences: {
       nodeIntegration: true,
-      allowRunningInsecureContent: (serve),
-      contextIsolation: false,  // false if you want to run e2e test with Spectron
+      allowRunningInsecureContent: serve,
+      contextIsolation: false, // false if you want to run e2e test with Spectron
     },
   });
 
@@ -81,8 +81,12 @@ try {
       createWindow();
     }
   });
-
 } catch (e) {
   // Catch Error
   // throw e;
 }
+
+// listen from render to select file and save it
+ipcMain.on('save-file', (event) => {
+  saveFileSelected(event, dialog);
+});
