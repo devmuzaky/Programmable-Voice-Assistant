@@ -1,18 +1,17 @@
-import {Component, NgZone} from '@angular/core';
+import {Component, NgZone, Output, EventEmitter} from '@angular/core';
 import * as RecordRTC from 'recordrtc';
 import {DomSanitizer} from '@angular/platform-browser';
 
 @Component({
-  selector: 'app-mic',
-  templateUrl: './mic.component.html',
-  styleUrls: ['./mic.component.scss']
+  selector: 'app-mic', templateUrl: './mic.component.html', styleUrls: ['./mic.component.scss']
 })
 export class MicComponent {
 
   isRecording = false;
+  url;
+  @Output() recordingState = new EventEmitter<boolean>();
   private record;
   private recording = false;
-  url;
   private error;
 
   constructor(private domSanitizer: DomSanitizer, private ngZone: NgZone) {
@@ -24,9 +23,9 @@ export class MicComponent {
 
   initiateRecording() {
     this.recording = true;
+    this.url = '';
     const mediaConstraints = {
-      video: false,
-      audio: true
+      video: false, audio: true
     };
     navigator.mediaDevices
       .getUserMedia(mediaConstraints)
@@ -35,8 +34,7 @@ export class MicComponent {
 
   successCallback(stream) {
     const options = {
-      mimeType: 'audio/wav',
-      numberOfAudioChannels: 1
+      mimeType: 'audio/wav', numberOfAudioChannels: 1
     };
 
     const StereoAudioRecorder = RecordRTC.StereoAudioRecorder;
@@ -52,7 +50,6 @@ export class MicComponent {
   processRecording(blob) {
     this.url = URL.createObjectURL(blob);
     this.ngZone.run(() => {
-      console.log('Outside Done!');
     });
   }
 
@@ -66,12 +63,17 @@ export class MicComponent {
   }
 
   getRecordingState() {
-    if (this.isRecording) return 'recording'
-    else return '';
+    return this.isRecording ? 'recording' : '';
   }
 
   errorCallback(error) {
     this.error = 'Can not play audio in your browser';
+  }
+
+
+  handleRecordingClick() {
+    this.toggleRecording();
+    this.recordingState.emit(this.isRecording);
   }
 
 }

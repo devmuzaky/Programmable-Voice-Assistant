@@ -1,23 +1,18 @@
-<a routerLink="/">{{ 'PAGES.DETAIL.BACK_TO_HOME' | translate }}</a>
-
-
 <div style="text-align:center">
   <div class="recorder_wrapper">
     <div class="recorder">
       <button
-        (click)=" toggleRecording()"
+        (click)="handleRecordingClick()"
+        [ngClass]="getRecordingState()"
         class="record_btn"
-        id="button"
-        [ngClass]="getRecordingState()">
+        id="button">
       </button>
       <p id="msg_box"></p>
     </div>
   </div>
   <div class="clearfix"></div>
-  <audio controls="" *ngIf="url">
+  <audio *ngIf="url" controls="">
     <source [src]="sanitize(url)" type="audio/wav">
   </audio>
 
 </div>
-
-

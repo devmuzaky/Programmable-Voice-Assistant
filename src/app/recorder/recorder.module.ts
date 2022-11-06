@@ -5,12 +5,14 @@ import { RecorderRoutingModule } from './recorder-routing.module';
 import {MicComponent} from './components/mic/mic.component';
 import {SharedModule} from '../shared/shared.module';
 import { AudioVisualizerComponent } from './components/audio-visualizer/audio-visualizer.component';
+import { RecorderComponent } from './components/recorder/recorder.component';
 
 
 @NgModule({
   declarations: [
     MicComponent,
-    AudioVisualizerComponent
+    AudioVisualizerComponent,
+    RecorderComponent
   ],
   exports: [
     AudioVisualizerComponent

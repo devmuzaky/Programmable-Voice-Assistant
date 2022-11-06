@@ -3,10 +3,12 @@
   margin: 0;
   display: block;
 }
+
 h1 {
   color: #fff;
   font: 10vh/1.2 sans-serif;
 }
+
 #canvas {
   position: absolute;
   top: 50%;
@@ -19,13 +21,14 @@ h1 {
   position: absolute;
   top: 50%;
   left: 50%;
-  transform: translate3d(-50%,-50%,0);
+  transform: translate3d(-50%, -50%, 0);
   font-size: 2vw;
   border-radius: 9em;
   padding: 0.5em 1.5em;
   border: none;
-  background: rgba(255,255,255,0.8);
+  background: rgba(255, 255, 255, 0.8);
 }
-.close-button{
+
+.close-button {
   width: 150px !important;
 }
