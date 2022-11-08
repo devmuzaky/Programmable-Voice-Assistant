@@ -1,5 +1,3 @@
-// This file connects the database and list of query functions.
-
 import * as path from 'path';
 const sqlite3 = require('sqlite3').verbose();
 let sql: string;
