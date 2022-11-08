@@ -9,6 +9,7 @@
   "main": "main.js",
   "private": true,
   "dependencies": {
-    "menubar": "^9.2.3"
+    "menubar": "^9.2.3",
+    "sqlite3": "^5.1.2"
   }
 }
