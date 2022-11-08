@@ -1,0 +1,18 @@
+<div class="mic-container">
+  <div class="recorder_wrapper">
+    <div class="recorder">
+      <button
+        (click)="handleRecordingClick()"
+        [ngClass]="getRecordingState()"
+        class="record_btn"
+        id="button">
+      </button>
+      <p id="msg_box"></p>
+    </div>
+  </div>
+  <div class="clearfix"></div>
+  <audio *ngIf="url" controls="">
+    <source [src]="sanitize(url)" type="audio/wav">
+  </audio>
+
+</div>
