@@ -1,0 +1,25 @@
+<div class="container">
+<section class="wrapper">
+  <main class="row title">
+    <ul>
+      <li>Icon</li>
+      <li>App Name</li>
+      <li>Command</li>
+      <li>Description</li>
+      <li>Parameter</li>
+      <li>Status</li>
+    </ul>
+  </main>
+
+  <div class="row nfl" *ngFor="let script of scripts" >
+    <ul>
+      <li>{{script.picture}}</li>
+      <li>{{script.name}}</li>
+      <li>{{script.command}}</li>
+      <li>{{script.description}}</li>
+      <li>{{script.parameters}}</li>
+      <li>{{script.status}}</li>
+    </ul>
+  </div>
+</section>
+</div>

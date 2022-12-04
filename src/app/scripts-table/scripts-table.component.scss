@@ -1,0 +1,160 @@
+$blue: rgba(79, 192, 210, 1);
+$green: rgba(82, 210, 154, 1);
+$yellow: rgba(231, 196, 104, 0.7);
+$orange: rgba(235, 118, 85, 1);
+$dark-bg: rgba(0, 0, 0, 0.9);
+$light-bg: rgba(255, 255, 255, 0.1);
+$text: rgba(255, 255, 255, 0.9);
+
+
+/* links */
+.nfl a,
+.mlb a,
+.nhl a,
+.pga a {
+  text-decoration: none;
+  transition: color 0.2s ease-out;
+}
+
+.nfl a {
+  color: $blue;
+}
+
+.nfl a:hover {
+  color: darken($blue, 20%);
+}
+
+.mlb a {
+  color: $green;
+}
+
+.mlb a:hover {
+  color: darken($green, 20%);
+}
+
+.nhl a {
+  color: $yellow;
+}
+
+.nhl a:hover {
+  color: darken($yellow, 20%);
+}
+
+.pga a {
+  color: $orange;
+}
+
+.pga a:hover {
+  color: darken($orange, 20%);
+}
+
+/* wrapper */
+.wrapper {
+  width: 100%;
+  max-width: 1000px;
+  margin: 20px auto 100px auto;
+  padding: 0;
+  background: $light-bg;
+  color: $text;
+  overflow: hidden;
+  position: relative;
+}
+
+/* lists */
+.row ul {
+  margin: 0;
+  padding: 0;
+}
+
+.row ul li {
+  margin: 0;
+  font-size: 16px;
+  font-weight: normal;
+  list-style: none;
+  display: inline-block;
+  width: 15%;
+  box-sizing: border-box;
+  @media only screen and (max-width: 767px) and (min-width: 480px) {
+    font-size: 13px;
+  }
+  @media only screen and (max-width: 479px) {
+    font-size: 13px;
+  }
+}
+
+.title ul li {
+  padding: 15px 13px;
+}
+
+.row ul li {
+  padding: 5px 10px;
+}
+
+/* rows */
+.row {
+  padding: 20px 0;
+  height: 2rem;
+  font-size: 0;
+  position: relative;
+  overflow: hidden;
+  transition: all 0.2s ease-out;
+  border-top: 1px solid darken($light-bg, 100%);
+}
+
+.row:hover {
+  background-color: lighten($dark-bg, 10%);
+  //height: 65px;
+  @media only screen and (max-width: 767px) {
+    //height: 85px;
+  }
+  @media only screen and (max-width: 359px) {
+    //height: 105px;
+  }
+}
+
+.title {
+  padding: 25px 0 5px 0;
+  height: 45px;
+  font-size: 0;
+  background-color: $light-bg;
+  border-left: 3px solid lighten($light-bg, 100%);
+}
+
+.title:hover {
+  height: 45px;
+  background-color: $light-bg;
+  border-left: 3px solid lighten($light-bg, 100%);
+}
+
+
+.nfl {
+  border-left: 3px solid darken($blue, 30%);
+}
+
+.nfl:hover {
+  border-left: 3px solid $blue;
+}
+
+.mlb {
+  border-left: 3px solid darken($green, 30%);
+}
+
+.mlb:hover {
+  border-left: 3px solid $green;
+}
+
+.nhl {
+  border-left: 3px solid darken($yellow, 30%);
+}
+
+.nhl:hover {
+  border-left: 3px solid $yellow;
+}
+
+.pga {
+  border-left: 3px solid darken($orange, 30%);
+}
+
+.pga:hover {
+  border-left: 3px solid $orange;
+}
