@@ -16,8 +16,8 @@ import { DetailModule } from './detail/detail.module';
 
 import { AppComponent } from './app.component';
 import {RecorderModule} from "./recorder/recorder.module";
+import {ScriptsTableModule} from "./scripts-table/scripts-table.module";
 
-// AoT requires an exported function for factories
 const httpLoaderFactory = (http: HttpClient): TranslateHttpLoader =>  new TranslateHttpLoader(http, './assets/i18n/', '.json');
 
 @NgModule({
@@ -32,6 +32,7 @@ const httpLoaderFactory = (http: HttpClient): TranslateHttpLoader =>  new Transl
     DetailModule,
     RecorderModule,
     AppRoutingModule,
+    ScriptsTableModule,
     TranslateModule.forRoot({
       loader: {
         provide: TranslateLoader,
