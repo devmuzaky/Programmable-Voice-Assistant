@@ -1,15 +1,17 @@
-import { NgModule } from '@angular/core';
-import { Routes, RouterModule } from '@angular/router';
-import { PageNotFoundComponent } from './shared/components';
+import {NgModule} from '@angular/core';
+import {Routes, RouterModule} from '@angular/router';
+import {PageNotFoundComponent} from './shared/components';
 
-import { HomeRoutingModule } from './home/home-routing.module';
-import { DetailRoutingModule } from './detail/detail-routing.module';
+import {HomeRoutingModule} from './home/home-routing.module';
+import {DetailRoutingModule} from './detail/detail-routing.module';
 import {RecorderRoutingModule} from "./recorder/recorder-routing.module";
+import {SidebarComponent} from './shared/components/sidebar/sidebar.component';
+import {ScriptsTableModule} from "./scripts-table/scripts-table.module";
 
 const routes: Routes = [
   {
     path: '',
-    redirectTo: 'home',
+    redirectTo: 'recorder',
     pathMatch: 'full'
   },
   {
@@ -20,11 +22,13 @@ const routes: Routes = [
 
 @NgModule({
   imports: [
-    RouterModule.forRoot(routes, { relativeLinkResolution: 'legacy' }),
+    RouterModule.forRoot(routes, {relativeLinkResolution: 'legacy'}),
     HomeRoutingModule,
     DetailRoutingModule,
-    RecorderRoutingModule
+    RecorderRoutingModule,
+    ScriptsTableModule
   ],
   exports: [RouterModule]
 })
-export class AppRoutingModule { }
+export class AppRoutingModule {
+}
