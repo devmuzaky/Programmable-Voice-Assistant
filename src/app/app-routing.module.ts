@@ -7,6 +7,7 @@ import {DetailRoutingModule} from './detail/detail-routing.module';
 import {RecorderRoutingModule} from "./recorder/recorder-routing.module";
 import {SidebarComponent} from './shared/components/sidebar/sidebar.component';
 import {ScriptsTableModule} from "./scripts-table/scripts-table.module";
+import {AuthRoutingModule} from "./auth/auth/auth-routing.module";
 
 const routes: Routes = [
   {
@@ -26,7 +27,8 @@ const routes: Routes = [
     HomeRoutingModule,
     DetailRoutingModule,
     RecorderRoutingModule,
-    ScriptsTableModule
+    ScriptsTableModule,
+    AuthRoutingModule
   ],
   exports: [RouterModule]
 })

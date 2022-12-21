@@ -17,6 +17,7 @@ import { DetailModule } from './detail/detail.module';
 import { AppComponent } from './app.component';
 import {RecorderModule} from "./recorder/recorder.module";
 import {ScriptsTableModule} from "./scripts-table/scripts-table.module";
+import {AuthModule} from "./auth/auth/auth.module";
 
 const httpLoaderFactory = (http: HttpClient): TranslateHttpLoader =>  new TranslateHttpLoader(http, './assets/i18n/', '.json');
 
@@ -33,6 +34,7 @@ const httpLoaderFactory = (http: HttpClient): TranslateHttpLoader =>  new Transl
     RecorderModule,
     AppRoutingModule,
     ScriptsTableModule,
+    AuthModule,
     TranslateModule.forRoot({
       loader: {
         provide: TranslateLoader,

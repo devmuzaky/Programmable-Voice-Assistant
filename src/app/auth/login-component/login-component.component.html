@@ -1,0 +1,86 @@
+<div class="container">
+  <div class="form" #elRef>
+    <div class="logo">Lo<span>GO</span></div>
+
+    <div class="login-form form-box myAnimation" id="js-login">
+      <div class="curve right"></div>
+      <h1>Login</h1>
+      <form (ngSubmit)="onLoginSubmit()" [formGroup]="formDataLogin">
+        <label class="js-item" for="email-login">
+          <span>email</span>
+          <input
+            formControlName="userName"
+            id="email-login"
+            name="email"
+            type="email"
+          />
+        </label>
+
+        <label class="js-item" for="password-login">
+          <span>password</span>
+          <input
+            formControlName="password"
+            id="password-login"
+            name="password"
+            type="password"/>
+        </label>
+
+        <button type="submit">Login</button>
+      </form>
+
+      <span class="question" data-sign="register"
+      >Don't have any account? Sign up</span
+      >
+    </div>
+    <div class="register-form" id="js-register">
+      <div class="curve left"></div>
+      <h1>Register</h1>
+      <form (ngSubmit)="onSignUpSubmit()" [formGroup]="formDataSignUp">
+        <label class="js-item" for="username">
+          <span>username</span>
+          <input
+            formControlName="userName"
+            id="username"
+            name="username"
+            type="text"/>
+        </label>
+
+        <label class="js-item" for="name">
+          <span>name</span>
+          <input
+            formControlName="name"
+            id="name"
+            name="name"
+            type="text"/>
+        </label>
+
+        <label class="js-item" for="email">
+          <span>email</span>
+          <input
+            formControlName="email"
+            id="email"
+            name="email"
+            type="email"/>
+        </label>
+
+        <label class="js-item" for="password">
+          <span>password</span>
+          <input
+            formControlName="password"
+            id="password"
+            name="password" type="password"/>
+        </label>
+
+        <button type="submit">Register</button>
+      </form>
+      <span class="question" data-sign="login"
+      >Already have any account? Sign in</span
+      >
+    </div>
+  </div>
+</div>
+
+
+
+
+

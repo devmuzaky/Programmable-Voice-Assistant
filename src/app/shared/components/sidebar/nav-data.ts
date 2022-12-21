@@ -18,5 +18,10 @@ export const navbarData = [
     routeLink: 'my-scripts',
     icon: './assets/icons/script.svg',
     label: 'My Scripts'
+  },
+  {
+    routeLink: 'login',
+    icon: './assets/icons/login.svg',
+    label: 'Login'
   }
 ];
