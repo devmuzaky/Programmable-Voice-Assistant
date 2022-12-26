@@ -1,7 +1,6 @@
 import {animate, keyframes, style, transition, trigger} from '@angular/animations';
 import {Component, Output, EventEmitter, OnInit, HostListener, Input} from '@angular/core';
 import {navbarData} from './nav-data';
-import {ModalServiceService} from "../auth-modal/services/modal-service.service";
 
 interface SideNavToggle {
   screenWidth: number;
@@ -43,12 +42,14 @@ export class SidebarComponent implements OnInit {
 
 
   @Output() onToggleSideNav: EventEmitter<SideNavToggle> = new EventEmitter();
+  @Output() onToggleModal: EventEmitter<boolean> = new EventEmitter();
 
   collapsed = false;
   screenWidth = 0;
   navData = navbarData;
+  toggleModal: boolean;
 
-  constructor(private modalService: ModalServiceService) {
+  constructor() {
   }
 
   @HostListener('window:resize', ['$event'])
@@ -74,8 +75,10 @@ export class SidebarComponent implements OnInit {
     this.onToggleSideNav.emit({collapsed: this.collapsed, screenWidth: this.screenWidth});
   }
 
-  toggleModal() {
-    this.modalService.toggleModal();
-  }
 
+  setToggleModal(e: MouseEvent) {
+    e.preventDefault();
+    this.toggleModal = !this.toggleModal;
+    this.onToggleModal.emit(this.toggleModal);
+  }
 }

@@ -20,8 +20,7 @@
       </a>
     </li>
     <li class="sidenav-nav-item acc">
-      <a (click)="toggleModal()" [routerLinkActiveOptions]="{exact: true}" class="sidenav-nav-link"
-         routerLink="modal"
+      <a (click)="setToggleModal($event)" [routerLinkActiveOptions]="{exact: true}" class="sidenav-nav-link"
          routerLinkActive="active"
       >
         <img alt="icon" class="sidenav-link-icon" src="assets/icons/acc.svg"/>
@@ -30,3 +29,5 @@
     </li>
   </ul>
 </div>
+
+

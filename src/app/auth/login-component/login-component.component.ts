@@ -5,9 +5,9 @@ import {
   OnInit,
   ViewChild,
 } from '@angular/core';
-import {FormControl, FormGroup} from "@angular/forms";
-import {AuthService} from "../services/auth.service";
-import {Router} from "@angular/router";
+import {FormControl, FormGroup} from '@angular/forms';
+import {Router} from '@angular/router';
+import {AuthService} from '../services/auth.service';
 
 @Component({
   selector: 'app-login-component',
@@ -15,7 +15,7 @@ import {Router} from "@angular/router";
   styleUrls: ['./login-component.component.scss']
 })
 export class LoginComponentComponent implements OnInit, AfterViewInit {
-  @ViewChild('elRef') comp: ElementRef
+  @ViewChild('elRef') comp: ElementRef;
 
   items;
   questions;
@@ -39,31 +39,31 @@ export class LoginComponentComponent implements OnInit, AfterViewInit {
     this.items.forEach((i) => {
       const myInput = i.children[1];
 
-      i.addEventListener("click", () => {
+      i.addEventListener('click', () => {
         myInput.focus();
-        i.classList.add("focus");
+        i.classList.add('focus');
       });
 
-      i.addEventListener("focusout", () => {
-        if (myInput.value.length == 0) {
-          i.classList.remove("focus");
+      i.addEventListener('focusout', () => {
+        if (myInput.value.length === 0) {
+          i.classList.remove('focus');
         }
       });
     });
 
     this.questions.forEach((i) => {
-      i.addEventListener("click", () => {
-        if (i.dataset.sign === "register") {
-          this.login.classList.remove("form-box");
-          this.login.classList.add("invis");
-          this.register.classList.add("form-box");
-          this.register.classList.add("no-invis");
+      i.addEventListener('click', () => {
+        if (i.dataset.sign === 'register') {
+          this.login.classList.remove('form-box');
+          this.login.classList.add('invis');
+          this.register.classList.add('form-box');
+          this.register.classList.add('no-invis');
           return;
         }
-        this.register.classList.remove("no-invis");
-        this.register.classList.remove("form-box");
-        this.login.classList.remove("invis");
-        this.login.classList.add("form-box");
+        this.register.classList.remove('no-invis');
+        this.register.classList.remove('form-box');
+        this.login.classList.remove('invis');
+        this.login.classList.add('form-box');
       });
     });
   }

@@ -8,7 +8,6 @@ import {Router} from "@angular/router";
   styleUrls: ['./logout.component.scss']
 })
 export class LogoutComponent implements OnInit {
-
   constructor(private authService: AuthService, private router: Router) {
   }
 
@@ -16,5 +15,4 @@ export class LogoutComponent implements OnInit {
     this.authService.logout();
     this.router.navigate(['/login']);
   }
-
 }
