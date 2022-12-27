@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import {ScriptsTableComponent} from "./scripts-table.component";
+import {ScriptsTableComponent} from "./script-table-component/scripts-table.component";
 
 const routes: Routes = [
   {

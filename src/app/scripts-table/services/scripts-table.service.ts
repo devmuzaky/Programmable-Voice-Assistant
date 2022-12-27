@@ -1,6 +1,6 @@
 import {Injectable} from '@angular/core';
 
-import {ScriptData} from "../../interfaces/script-data";
+import {ScriptData} from "../interfaces/script-data";
 
 @Injectable(
   {
