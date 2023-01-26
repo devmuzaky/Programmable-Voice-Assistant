@@ -5,7 +5,7 @@
 
 <div [ngClass]="getBodyClass()" class="main-content" id="body">
   <router-outlet></router-outlet>
-  <app-modal *ngIf="toggleModal" (close)="toggleModal = false">
+  <app-modal class="modalApp" *ngIf="toggleModal" (close)="toggleModal = false">
     <app-login-component></app-login-component>
   </app-modal>
 </div>

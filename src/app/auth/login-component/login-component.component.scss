@@ -1,17 +1,29 @@
 
 .form {
-  max-width: 400px;
-  width: 100%;
-  height: 750px;
+  //max-width: 400px;
+  //width: 100%;
+  //height: 750px;
+  //background-color: #262626;
+  //border-radius: 50px;
+  //box-shadow: 0 10px 10px rgba($color: #000000, $alpha: 0.2);
+  //display: flex;
+  //flex-direction: column;
+  //justify-content: space-between;
+  //align-items: center;
+  //overflow: hidden;
+  //margin: auto;
+
+  max-width: 23rem;
+  width: 85%;
+  height: 35rem;
   background-color: #262626;
   border-radius: 50px;
-  box-shadow: 0 10px 10px rgba($color: #000000, $alpha: 0.2);
+  box-shadow: 0 10px 10px rgb(0 0 0 / 20%);
   display: flex;
   flex-direction: column;
   justify-content: space-between;
   align-items: center;
   overflow: hidden;
-  margin: auto;
 }
 
 .logo {
@@ -24,6 +36,8 @@
   align-items: center;
   justify-content: center;
   font-weight: 400;
+  z-index: 99;
+  //min-height: 85px;
 
   span {
     display: inline-block;
@@ -68,7 +82,7 @@
 
   h1 {
     text-align: center;
-    margin-bottom: 40px;
+    //margin-bottom: 40px;
     font-weight: 400;
     letter-spacing: 1px;
     text-shadow: 0 4px 2px rgba($color: #000000, $alpha: 0.1);
@@ -77,8 +91,8 @@
   form {
     display: flex;
     flex-direction: column;
-    gap: 15px;
-    padding: 30px;
+    gap: 12px;
+    padding: 20px;
 
     label {
       display: flex;

@@ -17,6 +17,7 @@ import {AuthService} from '../services/auth.service';
 export class LoginComponentComponent implements OnInit, AfterViewInit {
   @ViewChild('elRef') comp: ElementRef;
 
+  isLogin = false;
   items;
   questions;
   login;
@@ -88,6 +89,7 @@ export class LoginComponentComponent implements OnInit, AfterViewInit {
     const password = this.formDataLogin.value.password;
     this.authService.login({userName, password}).subscribe(data => {
       if (data) {
+        this.isLogin = true;
         this.router.navigate(['/home']);
       }
     });
@@ -98,7 +100,15 @@ export class LoginComponentComponent implements OnInit, AfterViewInit {
     const name = this.formDataSignUp.value.name;
     const email = this.formDataSignUp.value.email;
     const password = this.formDataSignUp.value.password;
-    this.authService.signUp({userName, name, email, password});
+    this.authService.signUp({userName, name, email, password}).subscribe({
+      next: data => {
+        if (data) {
+          this.router.navigate(['/login']);
+        }
+      },
+      error: error => {
+        console.log(error);
+      }
+    });
   }
-
 }

@@ -1,39 +1,36 @@
 import {Injectable} from '@angular/core';
-import {delay, of, tap} from "rxjs";
-import {UserLogin} from "../interface/userLogin";
-import {UserSignUp} from "../interface/userSignUp";
-import {log} from "util";
+import {delay, of, tap} from 'rxjs';
+import {UserLogin} from '../interface/userLogin';
+import {UserSignUp} from '../interface/userSignUp';
+import {log} from 'util';
+import {HttpClient} from "@angular/common/http";
+import {APP_CONFIG} from "../../../environments/environment";
 
 @Injectable({
   providedIn: 'root'
 })
 export class AuthService {
 
-  isUserLoggedIn: boolean = false;
+  isUserLoggedIn = false;
 
-  constructor() {
+  constructor(private http: HttpClient) {
   }
 
-  login(user: UserLogin) {
-    this.isUserLoggedIn = user.userName == 'admin' && user.password == 'admin';
-    localStorage.setItem('isUserLoggedIn', this.isUserLoggedIn ? "true" : "false");
 
-    return of(this.isUserLoggedIn).pipe(
-      delay(1000),
-      tap(val => {
-        console.log("Is User Authentication is successful: " + val);
-      })
-    );
+  login(user: UserLogin) {
+    // this.isUserLoggedIn = user.userName === 'admin' && user.password === 'admin';
+    // localStorage.setItem('isUserLoggedIn', this.isUserLoggedIn ? 'true' : 'false');
+
+    return this.http.post(APP_CONFIG.apiBaseUrl + 'login', user);
   }
 
   signUp(newUser: UserSignUp) {
-    return console.log("User is signed up successfully");
-
+    return this.http.post(APP_CONFIG.apiBaseUrl + 'signup', newUser);
   }
 
   logout() {
     this.isUserLoggedIn = false;
-    localStorage.setItem('isUserLoggedIn', "false");
+    localStorage.setItem('isUserLoggedIn', 'false');
   }
 
 }

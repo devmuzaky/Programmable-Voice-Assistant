@@ -20,3 +20,10 @@
   width: calc(100% - 5rem);
   margin-left: 5rem;
 }
+.modalApp{
+    position: absolute;
+    left: 100px;
+    top: 50%;
+    transform: translateY(-50%);
+//margin-left: 0;
+}

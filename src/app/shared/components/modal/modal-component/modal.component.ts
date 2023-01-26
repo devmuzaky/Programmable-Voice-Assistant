@@ -7,7 +7,6 @@ import {Component, ElementRef, EventEmitter, OnDestroy, OnInit, Output} from '@a
 })
 export class ModalComponent implements OnInit, OnDestroy {
 
-  // eslint-disable-next-line @angular-eslint/no-output-native
   @Output() close = new EventEmitter();
 
   constructor(private element: ElementRef) {
