@@ -5,7 +5,7 @@ import {
   OnInit,
   ViewChild,
 } from '@angular/core';
-import {FormControl, FormGroup} from '@angular/forms';
+import {FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
 import {Router} from '@angular/router';
 import {AuthService} from '../services/auth.service';
 
@@ -23,9 +23,28 @@ export class LoginComponentComponent implements OnInit, AfterViewInit {
   login;
   register;
 
+  isMatchPassword;
   formDataLogin: FormGroup;
   formDataSignUp: FormGroup;
 
+  error_messages = {
+    'name': [
+      {type: 'required', message: 'Name is required.'},
+    ],
+
+    'email': [
+      {type: 'required', message: 'please enter a valid email address.'}
+    ],
+
+    'password': [
+      {type: 'required', message: 'password is required.'},
+      {type: 'minlength', message: 'password length.'},
+      {type: 'maxlength', message: 'password length.'}
+    ],
+    'passwordNotMatch': [
+      {type: 'passwordNotMatch', message: 'password not match.'}
+    ]
+  }
 
   constructor(private authService: AuthService, private router: Router) {
   }
@@ -76,12 +95,32 @@ export class LoginComponentComponent implements OnInit, AfterViewInit {
       password: new FormControl('')
     });
     this.formDataSignUp = new FormGroup({
-      userName: new FormControl(''),
-      name: new FormControl(''),
-      email: new FormControl(''),
-      password: new FormControl('')
+        name: new FormControl('', Validators.compose([
+          Validators.required
+        ])),
+        email: new FormControl('',
+          Validators.compose([
+            Validators.required,
+            Validators.minLength(6),
+            Validators.maxLength(30)
+          ])
+        ),
+        password: new FormControl('', Validators.compose([
+          Validators.required,
+          Validators.minLength(6),
+          Validators.maxLength(30)
+        ])),
+        confirm_password: new FormControl('', Validators.compose([
+          Validators.required,
+          Validators.minLength(6),
+          Validators.maxLength(30)
+        ]))
 
-    });
+      },
+      {
+        validators: this.Password.bind(this)
+      });
+
   }
 
   onLoginSubmit() {
@@ -110,5 +149,12 @@ export class LoginComponentComponent implements OnInit, AfterViewInit {
         console.log(error);
       }
     });
+  }
+
+
+  Password() {
+    const password = this.formDataSignUp?.controls.password.value;
+    const confirmPassword = this.formDataSignUp?.controls.confirm_password.value;
+    this.isMatchPassword = password === confirmPassword ? null : {passwordNotMatch: true};
   }
 }

@@ -1,21 +1,8 @@
 
 .form {
-  //max-width: 400px;
-  //width: 100%;
-  //height: 750px;
-  //background-color: #262626;
-  //border-radius: 50px;
-  //box-shadow: 0 10px 10px rgba($color: #000000, $alpha: 0.2);
-  //display: flex;
-  //flex-direction: column;
-  //justify-content: space-between;
-  //align-items: center;
-  //overflow: hidden;
-  //margin: auto;
-
-  max-width: 23rem;
-  width: 85%;
-  height: 35rem;
+  max-width: 20rem;
+  width: 100%;
+  height: 40rem;
   background-color: #262626;
   border-radius: 50px;
   box-shadow: 0 10px 10px rgb(0 0 0 / 20%);
@@ -121,6 +108,8 @@
         padding: 0 10px;
         transition: 0.2s;
       }
+
+
     }
 
     label.focus {
@@ -281,3 +270,11 @@
     border-top-left-radius: 50px;
   }
 }
+
+.error-message {
+  color: red;
+  font-size: 10px;
+}
+.js-item.ng-touched.ng-invalid {
+    border: 1px solid red;
+  }

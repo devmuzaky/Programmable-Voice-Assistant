@@ -1,14 +1,11 @@
 .main-content {
-  //width: calc(100% - 5rem);
   width: 100vw;
   height: 100vh;
-  //margin-left: 5rem;
   z-index: 0;
   position: relative;
   top: 0;
   transition: all .5s ease;
   background: #f4f7fa;
-  //padding: 3rem;
 }
 
 .body-trimmed {
@@ -23,7 +20,5 @@
 .modalApp{
     position: absolute;
     left: 100px;
-    top: 50%;
-    transform: translateY(-50%);
-//margin-left: 0;
+    bottom: 13px;
 }
