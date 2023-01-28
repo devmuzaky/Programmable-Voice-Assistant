@@ -10,11 +10,10 @@ import { SidebarComponent } from './components/sidebar/sidebar.component';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {RouterModule} from '@angular/router';
 import {ModalComponent} from './components/modal/modal-component/modal.component';
-import {AuthModule} from "../auth/auth/auth.module";
 
 @NgModule({
   declarations: [PageNotFoundComponent, WebviewDirective, SidebarComponent, ModalComponent],
-  imports: [CommonModule, TranslateModule, FormsModule, BrowserAnimationsModule, RouterModule, AuthModule],
+  imports: [CommonModule, TranslateModule, FormsModule, BrowserAnimationsModule, RouterModule],
   exports: [TranslateModule, WebviewDirective, FormsModule, SidebarComponent, ModalComponent]
 })
 export class SharedModule {}

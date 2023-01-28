@@ -18,6 +18,8 @@ import { AppComponent } from './app.component';
 import {RecorderModule} from './recorder/recorder.module';
 import {ScriptsTableModule} from './scripts-table/scripts-table.module';
 import {AuthModule} from './auth/auth/auth.module';
+import {httpInterceptorProviders} from "./auth/_helper/http-request-interceptor.service";
+import {MatSnackBarModule} from "@angular/material/snack-bar";
 
 const httpLoaderFactory = (http: HttpClient): TranslateHttpLoader =>  new TranslateHttpLoader(http, './assets/i18n/', '.json');
 
@@ -35,6 +37,7 @@ const httpLoaderFactory = (http: HttpClient): TranslateHttpLoader =>  new Transl
     AppRoutingModule,
     ScriptsTableModule,
     AuthModule,
+    MatSnackBarModule,
     TranslateModule.forRoot({
       loader: {
         provide: TranslateLoader,
@@ -43,7 +46,7 @@ const httpLoaderFactory = (http: HttpClient): TranslateHttpLoader =>  new Transl
       }
     })
   ],
-  providers: [],
+  providers: [httpInterceptorProviders],
   bootstrap: [AppComponent]
 })
 export class AppModule {}

@@ -8,16 +8,26 @@ import {
 import {FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
 import {Router} from '@angular/router';
 import {AuthService} from '../services/auth.service';
+import {StorageService} from "../services/storage.service";
+import {MatSnackBar} from "@angular/material/snack-bar";
 
 @Component({
-  selector: 'app-login-component',
-  templateUrl: './login-component.component.html',
-  styleUrls: ['./login-component.component.scss']
+  selector: 'app-register-component',
+  templateUrl: './register-component.component.html',
+  styleUrls: ['./register-component.component.scss']
 })
-export class LoginComponentComponent implements OnInit, AfterViewInit {
+export class RegisterComponentComponent implements OnInit, AfterViewInit {
   @ViewChild('elRef') comp: ElementRef;
 
-  isLogin = false;
+  isSuccessful = false;
+  isSignUpFailed = false;
+  registerErrorMessage = '';
+
+  isLoggedIn = false;
+  isLoginFailed = false;
+  errorMessage = '';
+  roles: string[] = [];
+
   items;
   questions;
   login;
@@ -46,7 +56,12 @@ export class LoginComponentComponent implements OnInit, AfterViewInit {
     ]
   }
 
-  constructor(private authService: AuthService, private router: Router) {
+  constructor(
+    private authService: AuthService,
+    private router: Router,
+    private storageService: StorageService,
+    private snackBar: MatSnackBar
+  ) {
   }
 
   ngAfterViewInit(): void {
@@ -71,6 +86,7 @@ export class LoginComponentComponent implements OnInit, AfterViewInit {
       });
     });
 
+
     this.questions.forEach((i) => {
       i.addEventListener('click', () => {
         if (i.dataset.sign === 'register') {
@@ -80,16 +96,18 @@ export class LoginComponentComponent implements OnInit, AfterViewInit {
           this.register.classList.add('no-invis');
           return;
         }
-        this.register.classList.remove('no-invis');
-        this.register.classList.remove('form-box');
-        this.login.classList.remove('invis');
-        this.login.classList.add('form-box');
+        this.showLogin();
       });
     });
   }
 
-
   ngOnInit(): void {
+
+    if (this.storageService.isLoggedIn()) {
+      this.isLoggedIn = true;
+      this.roles = this.storageService.getUser().roles;
+    }
+
     this.formDataLogin = new FormGroup({
       userName: new FormControl(''),
       password: new FormControl('')
@@ -126,35 +144,63 @@ export class LoginComponentComponent implements OnInit, AfterViewInit {
   onLoginSubmit() {
     const userName = this.formDataLogin.value.userName;
     const password = this.formDataLogin.value.password;
-    this.authService.login({userName, password}).subscribe(data => {
-      if (data) {
-        this.isLogin = true;
-        this.router.navigate(['/home']);
-      }
-    });
+    this.authService.login({userName, password}).subscribe(
+      {
+        next: data => {
+          this.storageService.saveUser(data);
+          this.isLoginFailed = false;
+          this.isLoggedIn = true;
+          this.roles = this.storageService.getUser().roles;
+          // this.reloadPage();
+        },
+        error: err => {
+          this.errorMessage = err.error.message;
+          this.isLoginFailed = true;
+        }
+      });
   }
 
   onSignUpSubmit() {
-    const userName = this.formDataSignUp.value.userName;
-    const name = this.formDataSignUp.value.name;
+    const userName = this.formDataSignUp.value.name;
     const email = this.formDataSignUp.value.email;
     const password = this.formDataSignUp.value.password;
-    this.authService.signUp({userName, name, email, password}).subscribe({
+    this.authService.signUp({username: userName, email, password}).subscribe({
       next: data => {
+        this.isSuccessful = true;
+        this.isSignUpFailed = false;
         if (data) {
-          this.router.navigate(['/login']);
+          this.showLogin();
         }
       },
       error: error => {
-        console.log(error);
+        this.registerErrorMessage = error.error.message;
+        this.isSignUpFailed = true;
       }
     });
-  }
 
+  }
 
   Password() {
     const password = this.formDataSignUp?.controls.password.value;
     const confirmPassword = this.formDataSignUp?.controls.confirm_password.value;
     this.isMatchPassword = password === confirmPassword ? null : {passwordNotMatch: true};
   }
+
+  showLogin() {
+    this.register.classList.remove('no-invis');
+    this.register.classList.remove('form-box');
+    this.login.classList.remove('invis');
+    this.login.classList.add('form-box');
+  }
+
+  reloadPage(): void {
+    window.location.reload();
+  }
+
+  openSnackBar(message: string) {
+    this.snackBar.open(message, 'Dismiss', {
+      duration: 2000,
+    });
+  }
+
 }

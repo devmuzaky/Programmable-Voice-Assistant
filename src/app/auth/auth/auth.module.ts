@@ -3,23 +3,26 @@ import { CommonModule } from '@angular/common';
 
 import { AuthRoutingModule } from './auth-routing.module';
 import {LogoutComponent} from '../logout/logout.component';
-import {LoginComponentComponent} from '../login-component/login-component.component';
-import {ReactiveFormsModule} from '@angular/forms';
+import {RegisterComponentComponent} from '../register-component/register-component.component';
+import {FormsModule, ReactiveFormsModule} from '@angular/forms';
+import {SharedModule} from "../../shared/shared.module";
 
 
 @NgModule({
   declarations: [
     LogoutComponent,
-    LoginComponentComponent
+    RegisterComponentComponent
   ],
     exports: [
-        LoginComponentComponent,
+        RegisterComponentComponent,
         LogoutComponent
     ],
   imports: [
     CommonModule,
     AuthRoutingModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    FormsModule,
+    SharedModule
   ]
 })
 export class AuthModule { }
