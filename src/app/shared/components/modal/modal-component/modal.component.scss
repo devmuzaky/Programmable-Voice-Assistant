@@ -1,11 +1,4 @@
 .backdrop {
-  //bottom: 0;
-  //left: 0;
-  //margin: auto;
-  //position: fixed;
-  //right: 0;
-  //top: 0;
-  //z-index: 100;
   backdrop-filter: blur(10px);
   background: transparent;
   display: flex;
@@ -13,11 +6,3 @@
   justify-content: center;
   overflow: hidden;
 }
-
-//.modal.show {
-//  display: block;
-//}
-
-//.modal-backdrop.show {
-//  opacity: .5;
-//}

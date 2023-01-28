@@ -17,7 +17,6 @@ export class AppComponent {
   isSideNavCollapsed = false;
   screenWidth = 0;
 
-  // Mohamed Zaky
   toggleModal: boolean;
 
   constructor(
