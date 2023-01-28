@@ -1,5 +1,5 @@
 import {animate, keyframes, style, transition, trigger} from '@angular/animations';
-import {Component, Output, EventEmitter, OnInit, HostListener} from '@angular/core';
+import {Component, Output, EventEmitter, OnInit, HostListener, Input} from '@angular/core';
 import {navbarData} from './nav-data';
 
 interface SideNavToggle {
@@ -40,10 +40,17 @@ interface SideNavToggle {
 })
 export class SidebarComponent implements OnInit {
 
+
   @Output() onToggleSideNav: EventEmitter<SideNavToggle> = new EventEmitter();
+  @Output() onToggleModal: EventEmitter<boolean> = new EventEmitter();
+
   collapsed = false;
   screenWidth = 0;
   navData = navbarData;
+  toggleModal: boolean;
+
+  constructor() {
+  }
 
   @HostListener('window:resize', ['$event'])
   onResize(event: any) {
@@ -68,4 +75,10 @@ export class SidebarComponent implements OnInit {
     this.onToggleSideNav.emit({collapsed: this.collapsed, screenWidth: this.screenWidth});
   }
 
+
+  setToggleModal(e: MouseEvent) {
+    e.preventDefault();
+    this.toggleModal = !this.toggleModal;
+    this.onToggleModal.emit(this.toggleModal);
+  }
 }

@@ -18,6 +18,7 @@ export class AppComponent {
   screenWidth = 0;
 
   // Mohamed Zaky
+  toggleModal: boolean;
 
   constructor(
     private electronService: ElectronService,
@@ -49,5 +50,9 @@ export class AppComponent {
   onToggleSideNav(data: SideNavToggle): void {
     this.screenWidth = data.screenWidth;
     this.isSideNavCollapsed = data.collapsed;
+  }
+
+  onToggleModal($event: boolean) {
+    this.toggleModal = $event;
   }
 }
