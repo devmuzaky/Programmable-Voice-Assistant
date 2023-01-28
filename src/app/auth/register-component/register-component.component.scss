@@ -45,7 +45,6 @@
 .form-box {
   background-color: #fff;
   width: 100%;
-  //padding: 30px;
   border-radius: 50px;
   position: relative;
   animation: invis 0.5s;
@@ -185,10 +184,8 @@
   border-top-right-radius: 75px;
   border-top-left-radius: 0;
 
-  // TODO: fix this
   .left {
     left: 0;
-    //transition: 0.5s;
 
     &::before {
       border-bottom-left-radius: 50px;
@@ -206,7 +203,6 @@
   opacity: 1;
 }
 
-// Media
 @media (max-width: 475px) {
   .form {
     max-width: 90%;
@@ -275,6 +271,7 @@
   color: red;
   font-size: 10px;
 }
+
 .js-item.ng-touched.ng-invalid {
-    border: 1px solid red;
-  }
+  border: 1px solid red;
+}

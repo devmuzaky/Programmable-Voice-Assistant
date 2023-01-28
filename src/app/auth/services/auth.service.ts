@@ -16,11 +16,9 @@ export class AuthService {
   constructor(private http: HttpClient) {
   }
 
-  login(user: UserLogin): Observable<any> {
-    // this.isUserLoggedIn = user.userName === 'admin' && user.password === 'admin';
-    // localStorage.setItem('isUserLoggedIn', this.isUserLoggedIn ? 'true' : 'false');
 
-    return this.http.post(APP_CONFIG.apiBaseUrl + 'token', user);
+  login(user: UserLogin) {
+    return this.http.post(APP_CONFIG.apiBaseUrl + 'login', user);
   }
 
   signUp(newUser: UserSignUp): Observable<any>  {
@@ -32,4 +30,5 @@ export class AuthService {
     localStorage.setItem('isUserLoggedIn', 'false');
     // return this.http.post(APP_CONFIG.apiBaseUrl + 'signout', { });
   }
+
 }
