@@ -1,7 +1,11 @@
 <app-sidebar
   (onToggleSideNav)="onToggleSideNav($event)"
+  (onToggleModal)="onToggleModal($event)"
 ></app-sidebar>
 
-<div [ngClass]="getBodyClass()" class="body">
+<div [ngClass]="getBodyClass()" class="main-content" id="body">
   <router-outlet></router-outlet>
+  <app-modal class="modalApp" *ngIf="toggleModal" (close)="toggleModal = false">
+    <app-login-component></app-login-component>
+  </app-modal>
 </div>

@@ -19,5 +19,17 @@
                         </span>
       </a>
     </li>
+    <li class="sidenav-nav-item acc">
+      <a (click)="setToggleModal($event)" [routerLinkActiveOptions]="{exact: true}" class="sidenav-nav-link"
+         routerLinkActive="active"
+      >
+        <img alt="icon" class="sidenav-link-icon" src="assets/icons/acc.svg"/>
+        <span *ngIf="collapsed" @fadeInOut class="sidenav-link-text"> Acc </span>
+      </a>
+      <div>
+      </div>
+    </li>
   </ul>
 </div>
+
+

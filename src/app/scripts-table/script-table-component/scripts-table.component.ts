@@ -1,8 +1,8 @@
 import {Component, OnInit} from '@angular/core';
-import { ScriptData } from "../core/interfaces/script-data";
-import {ScriptsTableService} from "../core/services/scripts-table/scripts-table.service";
+import { ScriptData } from "../interfaces/script-data";
+import {ScriptsTableService} from "../services/scripts-table.service";
 @Component({
-  selector: 'app-scripts-table',
+  selector: 'app-services',
   templateUrl: './scripts-table.component.html',
   styleUrls: ['./scripts-table.component.scss']
 })
