@@ -13,14 +13,6 @@
 [![Tweet][twitter-badge]][twitter]
 
 # Introduction
-
-Bootstrap and package your project with Angular 14 and Electron 19 (Typescript + SASS + Hot Reload) for creating Desktop applications.
-
-Currently runs with:
-
-- Angular v14.0.6
-- Electron v19.0.8
-
 With this sample, you can:
 
 - Run your app in a local development environment with Electron & Hot reload
@@ -119,40 +111,7 @@ YES! You can do it! Just by importing your library in npm dependencies section o
 It will be loaded by electron during build phase and added to your final bundle. \
 Then use your library by importing it in `app/main.ts` file. Quite simple, isn't it?
 
-## E2E Testing
 
-E2E Test scripts can be found in `e2e` folder.
-
-| Command       | Description               |
-|---------------|---------------------------|
-| `npm run e2e` | Execute end to end tests  |
-
-Note: To make it work behind a proxy, you can add this proxy exception in your terminal  
-`export {no_proxy,NO_PROXY}="127.0.0.1,localhost"`
-
-## Debug with VsCode
-
-[VsCode](https://code.visualstudio.com/) debug configuration is available! In order to use it, you need the extension [Debugger for Chrome](https://marketplace.visualstudio.com/items?itemName=msjsdiag.debugger-for-chrome).
-
-Then set some breakpoints in your application's source code.
-
-Finally from VsCode press **Ctrl+Shift+D** and select **Application Debug** and press **F5**.
-
-Please note that Hot reload is only available in Renderer process.
-
-## Branch & Packages version
-
-- Angular 4 & Electron 1 : Branch [angular4](https://github.com/maximegris/angular-electron/tree/angular4)
-- Angular 5 & Electron 1 : Branch [angular5](https://github.com/maximegris/angular-electron/tree/angular5)
-- Angular 6 & Electron 3 : Branch [angular6](https://github.com/maximegris/angular-electron/tree/angular6)
-- Angular 7 & Electron 3 : Branch [angular7](https://github.com/maximegris/angular-electron/tree/angular7)
-- Angular 8 & Electron 7 : Branch [angular8](https://github.com/maximegris/angular-electron/tree/angular8)
-- Angular 9 & Electron 7 : Branch [angular9](https://github.com/maximegris/angular-electron/tree/angular9)
-- Angular 10 & Electron 9 : Branch [angular10](https://github.com/maximegris/angular-electron/tree/angular10)
-- Angular 11 & Electron 12 : Branch [angular11](https://github.com/maximegris/angular-electron/tree/angular11)
-- Angular 12 & Electron 16 : Branch [angular12](https://github.com/maximegris/angular-electron/tree/angular12)
-- Angular 13 & Electron 18 : Branch [angular13](https://github.com/maximegris/angular-electron/tree/angular13)
-- Angular 14 & Electron 19 : (main)
 
 [maintained-badge]: https://img.shields.io/badge/maintained-yes-brightgreen
 [license-badge]: https://img.shields.io/badge/license-MIT-blue.svg
