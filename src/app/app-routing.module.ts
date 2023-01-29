@@ -3,7 +3,6 @@ import {Routes, RouterModule} from '@angular/router';
 import {PageNotFoundComponent} from './shared/components';
 
 import {RecorderRoutingModule} from './recorder/recorder-routing.module';
-import {SidebarComponent} from './shared/components/sidebar/sidebar.component';
 import {ScriptsTableModule} from './scripts-table/scripts-table.module';
 import {AuthRoutingModule} from './auth/auth/auth-routing.module';
 
@@ -23,7 +22,8 @@ const routes: Routes = [
   imports: [
     RouterModule.forRoot(routes),
     RecorderRoutingModule,
-    ScriptsTableModule
+    ScriptsTableModule,
+    AuthRoutingModule
   ],
   exports: [RouterModule]
 })
