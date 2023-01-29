@@ -1,0 +1,10 @@
+.backdrop {
+  backdrop-filter: blur(10px);
+  background: transparent;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+}
+
+/*# sourceMappingURL=modal.component.css.map */
