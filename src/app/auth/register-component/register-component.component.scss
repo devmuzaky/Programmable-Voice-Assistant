@@ -275,3 +275,10 @@
 .js-item.ng-touched.ng-invalid {
   border: 1px solid red;
 }
+::ng-deep.mat-snack-bar-container {
+  position: fixed;
+  right: 16px;
+  top: 16px;
+  background-color: #333 !important;
+  color: #ffffff !important;
+}

@@ -31,14 +31,8 @@
       </label>
 
       <button type="submit">Login</button>
-      <div *ngIf="FL.submitted && isLoginFailed">
-        {{openSnackBar("Login failed:" + errorMessage)}}
-      </div>
-    </form>
 
-    <div *ngIf="isLoggedIn">
-      {{openSnackBar("Logged in as " + roles)}}
-    </div>
+    </form>
 
     <span class="question" data-sign="register"
     >Don't have any account? Sign up</span
@@ -129,16 +123,11 @@
 
       <button type="submit">Register</button>
 
-      <div *ngIf="FS.submitted && isSignUpFailed">
-        {{openSnackBar("Signup failed! " + registerErrorMessage)}}
-      </div>
-      <div *ngIf="isSuccessful">
-        {{openSnackBar("Your registration is successful!")}}
-      </div>
-
     </form>
+
     <span class="question" data-sign="login"
-    >Already have any account? Sign in</span
-    >
+    >Already have any account? Sign in</span>
+
   </div>
+
 </div>

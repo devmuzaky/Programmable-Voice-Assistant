@@ -9,7 +9,7 @@ import {FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
 import {Router} from '@angular/router';
 import {AuthService} from '../services/auth.service';
 import {StorageService} from "../services/storage.service";
-import {MatSnackBar} from "@angular/material/snack-bar";
+import {SnackbarService} from "../../shared/services/snackbar.service";
 
 @Component({
   selector: 'app-register-component',
@@ -60,7 +60,7 @@ export class RegisterComponentComponent implements OnInit, AfterViewInit {
     private authService: AuthService,
     private router: Router,
     private storageService: StorageService,
-    private snackBar: MatSnackBar
+    private snackbarService: SnackbarService
   ) {
   }
 
@@ -151,13 +151,16 @@ export class RegisterComponentComponent implements OnInit, AfterViewInit {
           this.isLoginFailed = false;
           this.isLoggedIn = true;
           this.roles = this.storageService.getUser().roles;
-          // this.reloadPage();
+          this.openSnackBar("Logged in as " + this.roles)
         },
         error: err => {
-          this.errorMessage = err.error.message;
+          this.errorMessage = err.message;
           this.isLoginFailed = true;
+          console.log(err)
+          this.openSnackBar("Login failed:" + this.errorMessage)
         }
       });
+
   }
 
   onSignUpSubmit() {
@@ -170,11 +173,13 @@ export class RegisterComponentComponent implements OnInit, AfterViewInit {
         this.isSignUpFailed = false;
         if (data) {
           this.showLogin();
+          this.openSnackBar("Your registration is successful!");
         }
       },
       error: error => {
         this.registerErrorMessage = error.error.message;
         this.isSignUpFailed = true;
+        this.openSnackBar("Signup failed! " + this.registerErrorMessage)
       }
     });
 
@@ -193,14 +198,9 @@ export class RegisterComponentComponent implements OnInit, AfterViewInit {
     this.login.classList.add('form-box');
   }
 
-  reloadPage(): void {
-    window.location.reload();
+  openSnackBar(message: string) {
+    this.snackbarService.openSnackBar(message);
   }
 
-  openSnackBar(message: string) {
-    this.snackBar.open(message, 'Dismiss', {
-      duration: 2000,
-    });
-  }
 
 }
