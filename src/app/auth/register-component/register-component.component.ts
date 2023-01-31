@@ -142,9 +142,9 @@ export class RegisterComponentComponent implements OnInit, AfterViewInit {
   }
 
   onLoginSubmit() {
-    const userName = this.formDataLogin.value.userName;
+    const username = this.formDataLogin.value.userName;
     const password = this.formDataLogin.value.password;
-    this.authService.login({userName, password}).subscribe(
+    this.authService.login({username, password}).subscribe(
       {
         next: data => {
           this.storageService.saveUser(data);
@@ -182,7 +182,6 @@ export class RegisterComponentComponent implements OnInit, AfterViewInit {
         this.openSnackBar("Signup failed! " + this.registerErrorMessage)
       }
     });
-
   }
 
   Password() {
@@ -201,6 +200,4 @@ export class RegisterComponentComponent implements OnInit, AfterViewInit {
   openSnackBar(message: string) {
     this.snackbarService.openSnackBar(message);
   }
-
-
 }

@@ -18,11 +18,12 @@ export class AuthService {
 
 
   login(user: UserLogin) {
-    return this.http.post(APP_CONFIG.apiBaseUrl + 'login', user);
+    return this.http.post("/api/" + 'token/', user);
   }
 
   signUp(newUser: UserSignUp): Observable<any>  {
-    return this.http.post(APP_CONFIG.apiBaseUrl + '', newUser);
+    console.log(newUser);
+    return this.http.post("/api/" + '', newUser);
   }
 
   logout(): Observable<any> | any {
