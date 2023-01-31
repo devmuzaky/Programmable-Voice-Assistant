@@ -9,7 +9,7 @@ import {FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
 import {Router} from '@angular/router';
 import {AuthService} from '../services/auth.service';
 import {StorageService} from "../services/storage.service";
-import {SnackbarService} from "../../shared/services/snackbar.service";
+import {SnackbarService} from "../../shared/snackbar-service/snackbar.service";
 
 @Component({
   selector: 'app-register-component',
@@ -40,10 +40,13 @@ export class RegisterComponentComponent implements OnInit, AfterViewInit {
   error_messages = {
     'name': [
       {type: 'required', message: 'Name is required.'},
+      {type: 'minlength', message: 'Name length.'},
+      {type: 'maxlength', message: 'Name length.'}
     ],
 
     'email': [
-      {type: 'required', message: 'please enter a valid email address.'}
+      {type: 'required', message: 'please enter a valid email address.'},
+      {type: 'email', message: 'please enter a valid email address.'}
     ],
 
     'password': [
@@ -119,8 +122,7 @@ export class RegisterComponentComponent implements OnInit, AfterViewInit {
         email: new FormControl('',
           Validators.compose([
             Validators.required,
-            Validators.minLength(6),
-            Validators.maxLength(30)
+            Validators.email
           ])
         ),
         password: new FormControl('', Validators.compose([
@@ -154,10 +156,10 @@ export class RegisterComponentComponent implements OnInit, AfterViewInit {
           this.openSnackBar("Logged in as " + this.roles)
         },
         error: err => {
-          this.errorMessage = err.message;
+          this.errorMessage = err.error.detail;
           this.isLoginFailed = true;
           console.log(err)
-          this.openSnackBar("Login failed:" + this.errorMessage)
+          this.openSnackBar("Login failed: " + this.errorMessage)
         }
       });
 
@@ -177,7 +179,7 @@ export class RegisterComponentComponent implements OnInit, AfterViewInit {
         }
       },
       error: error => {
-        this.registerErrorMessage = error.error.message;
+        this.registerErrorMessage = error.error.detail;
         this.isSignUpFailed = true;
         this.openSnackBar("Signup failed! " + this.registerErrorMessage)
       }

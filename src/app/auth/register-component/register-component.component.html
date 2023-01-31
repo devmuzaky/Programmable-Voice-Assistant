@@ -121,7 +121,8 @@
         </ng-container>
       </div>
 
-      <button type="submit">Register</button>
+
+      <button type="submit" [disabled]="!FS.form.valid">Register</button>
 
     </form>
 

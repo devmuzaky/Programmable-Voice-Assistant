@@ -10,7 +10,7 @@ export class SnackbarService {
   openSnackBar(message: string, action: string = 'Dismiss', duration: number = 3000) {
     console.log('openSnackBar: ', message)
     this.snackBar.open(message, action, {
-      duration,
+      duration
     } );
   }
 }
