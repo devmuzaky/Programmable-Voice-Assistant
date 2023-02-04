@@ -6,6 +6,7 @@ import {MicComponent} from './components/mic/mic.component';
 import {SharedModule} from '../shared/shared.module';
 import { AudioVisualizerComponent } from './components/audio-visualizer/audio-visualizer.component';
 import { RecorderComponent } from './components/recorder/recorder.component';
+import {ChatComponent} from "./components/chat/chat.component";
 
 
 @NgModule({
@@ -17,10 +18,11 @@ import { RecorderComponent } from './components/recorder/recorder.component';
   exports: [
     AudioVisualizerComponent
   ],
-  imports: [
-    CommonModule,
-    SharedModule,
-    RecorderRoutingModule
-  ]
+    imports: [
+        CommonModule,
+        SharedModule,
+        RecorderRoutingModule,
+        ChatComponent
+    ]
 })
 export class RecorderModule { }
