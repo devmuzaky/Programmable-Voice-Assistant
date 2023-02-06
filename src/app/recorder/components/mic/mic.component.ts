@@ -10,6 +10,7 @@ export class MicComponent {
   isRecording = false;
   url;
   @Output() recordingState = new EventEmitter<boolean>();
+  @Output() recorderOutput: EventEmitter<Blob> = new EventEmitter<Blob>();
   private record;
   private recording = false;
   private error;
@@ -34,7 +35,9 @@ export class MicComponent {
 
   successCallback(stream) {
     const options = {
-      mimeType: 'audio/wav', numberOfAudioChannels: 1
+      mimeType: 'audio/wav',
+      numberOfAudioChannels: 1,
+      desiredSampRate: 16000,
     };
 
     const StereoAudioRecorder = RecordRTC.StereoAudioRecorder;
@@ -48,7 +51,10 @@ export class MicComponent {
   }
 
   processRecording(blob) {
+    this.recorderOutput.emit(blob);
     this.url = URL.createObjectURL(blob);
+
+    // rerender angular manually (needed in the electron app)
     this.ngZone.run(() => {
     });
   }
