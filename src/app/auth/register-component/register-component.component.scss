@@ -92,12 +92,14 @@
       height: 50px;
 
       span {
+        order: 0;
         font-size: 14px;
         color: #aaa;
         transition: 0.2s;
       }
 
       input {
+        order: 1;
         height: 25px;
         border: none;
         max-height: 0;
@@ -108,7 +110,11 @@
         transition: 0.2s;
       }
 
-
+      input.ng-invalid.ng-touched {
+        & + span {
+          color: red !important;
+        }
+      }
     }
 
     label.focus {
@@ -140,6 +146,7 @@
       }
     }
   }
+
   button:disabled {
     opacity: 0.5;
     cursor: not-allowed;
@@ -273,13 +280,14 @@
 }
 
 .error-message {
-  color: rgb(221,44,0);
+  color: rgb(221, 44, 0);
   font-size: 12px;
 }
 
 .js-item.ng-touched.ng-invalid {
   border: 1px solid red;
 }
+
 ::ng-deep.mat-snack-bar-container {
   position: fixed;
   right: 16px;
@@ -291,12 +299,13 @@
   font-size: 14px;
   font-weight: 400;
 }
+
 ::ng-deep.mat-simple-snackbar-message {
   flex: 1;
   margin-right: 16px;
 }
 
-::ng-deep.mat-simple-snackbar-action button{
+::ng-deep.mat-simple-snackbar-action button {
   background-color: transparent;
   color: #f31253 !important;
   border: none;
@@ -304,7 +313,8 @@
   font-weight: bold;
   cursor: pointer;
   transition: 0.3s;
-  &:hover{
+
+  &:hover {
     opacity: 0.8;
   }
 }

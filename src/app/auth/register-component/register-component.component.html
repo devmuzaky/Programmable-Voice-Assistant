@@ -11,23 +11,28 @@
       #FL="ngForm"
       novalidate
     >
+
       <label class="js-item" for="email-login">
-        <span>email</span>
         <input
+          required
           formControlName="userName"
           id="email-login"
           name="email"
           type="email"
         />
+        <span>email</span>
+
       </label>
 
       <label class="js-item" for="password-login">
-        <span>password</span>
+
         <input
+          required
           formControlName="password"
           id="password-login"
           name="password"
           type="password"/>
+        <span>password</span>
       </label>
 
       <button type="submit">Login</button>

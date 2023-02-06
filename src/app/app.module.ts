@@ -1,24 +1,25 @@
-import { BrowserModule } from '@angular/platform-browser';
-import { NgModule } from '@angular/core';
-import { FormsModule } from '@angular/forms';
-import { HttpClientModule, HttpClient } from '@angular/common/http';
-import { CoreModule } from './core/core.module';
-import { SharedModule } from './shared/shared.module';
+import {BrowserModule} from '@angular/platform-browser';
+import {NgModule} from '@angular/core';
+import {FormsModule, ReactiveFormsModule} from '@angular/forms';
+import {HttpClient, HttpClientModule} from '@angular/common/http';
+import {CoreModule} from './core/core.module';
+import {SharedModule} from './shared/shared.module';
 
-import { AppRoutingModule } from './app-routing.module';
-
-// NG Translate
-import { TranslateModule, TranslateLoader } from '@ngx-translate/core';
-import { TranslateHttpLoader } from '@ngx-translate/http-loader';
-
-import { AppComponent } from './app.component';
+import {AppRoutingModule} from './app-routing.module';
+import {AppComponent} from './app.component';
 import {RecorderModule} from './recorder/recorder.module';
 import {ScriptsTableModule} from './scripts-table/scripts-table.module';
 import {AuthModule} from './auth/auth/auth.module';
 import {httpInterceptorProviders} from "./auth/_helper/http-request-interceptor.service";
 import {MatSnackBarModule} from "@angular/material/snack-bar";
+import {MatInputModule} from "@angular/material/input";
 
-const httpLoaderFactory = (http: HttpClient): TranslateHttpLoader =>  new TranslateHttpLoader(http, './assets/i18n/', '.json');
+// NG Translate
+import {TranslateLoader, TranslateModule} from '@ngx-translate/core';
+import {TranslateHttpLoader} from '@ngx-translate/http-loader';
+
+
+const httpLoaderFactory = (http: HttpClient): TranslateHttpLoader => new TranslateHttpLoader(http, './assets/i18n/', '.json');
 
 @NgModule({
   declarations: [AppComponent],
@@ -33,6 +34,9 @@ const httpLoaderFactory = (http: HttpClient): TranslateHttpLoader =>  new Transl
     ScriptsTableModule,
     AuthModule,
     MatSnackBarModule,
+    MatInputModule,
+    FormsModule,
+    ReactiveFormsModule,
     TranslateModule.forRoot({
       loader: {
         provide: TranslateLoader,
@@ -44,4 +48,5 @@ const httpLoaderFactory = (http: HttpClient): TranslateHttpLoader =>  new Transl
   providers: [httpInterceptorProviders],
   bootstrap: [AppComponent]
 })
-export class AppModule {}
+export class AppModule {
+}
