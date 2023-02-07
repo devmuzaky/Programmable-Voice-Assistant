@@ -1,4 +1,5 @@
 import {Component, OnInit} from '@angular/core';
+import {SttService} from "../../services/stt/stt.service";
 
 @Component({
   selector: 'app-recorder',
@@ -8,7 +9,7 @@ import {Component, OnInit} from '@angular/core';
 export class RecorderComponent implements OnInit {
   isRecording;
 
-  constructor() {
+  constructor(private sttService:SttService) {
   }
 
   ngOnInit(): void {
@@ -18,4 +19,8 @@ export class RecorderComponent implements OnInit {
     this.isRecording = isRecording;
   }
 
+  recorderOutput(audioBlob: Blob) {
+    // TOD: send audioBlob to the service
+    this.sttService.sendAudioBlob(audioBlob);
+  }
 }
