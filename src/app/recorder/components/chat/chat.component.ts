@@ -1,4 +1,4 @@
-import {Component, ElementRef, HostListener, OnInit, ViewEncapsulation} from '@angular/core';
+import {Component, ElementRef, HostListener, OnInit} from '@angular/core';
 import {CommonModule} from '@angular/common';
 
 @Component({
@@ -13,35 +13,19 @@ export class ChatComponent implements OnInit {
   d: any;
   m: any;
   i: number = 0;
-  Fake = [
-    'Hi there, I\'m Zaky and you?',
-    'Nice to meet you',
-    'How are you?',
-    'Not too bad, thanks',
-    'What do you do?',
-    'That\'s awesome',
-    'I think you\'re a nice person',
-    'Why do you think that?',
-    'Can you explain?',
-    'Anyway I\'ve gotta go now',
-    'It was a pleasure chat with you',
-    'Bye',
-    ':)'
-  ]
+  Fake = ['Hi there, I\'m Zaky and you?', 'Nice to meet you', 'How are you?', 'Not too bad, thanks', 'What do you do?', 'That\'s awesome', 'I think you\'re a nice person', 'Why do you think that?', 'Can you explain?', 'Anyway I\'ve gotta go now', 'It was a pleasure chat with you', 'Bye', ':)']
   messages = [];
 
   constructor(private elementRef: ElementRef) {
   }
 
-  @HostListener('click', ['$event'])
-  onClick(event) {
+  @HostListener('click', ['$event']) onClick(event) {
     if (event.target.classList.contains('message-submit')) {
       this.insertMessage();
     }
   }
 
-  @HostListener('document:keydown', ['$event'])
-  handleKeydown(event: KeyboardEvent) {
+  @HostListener('document:keydown', ['$event']) handleKeydown(event: KeyboardEvent) {
 
     if (event.key === 'Enter') {
       this.insertMessage();
@@ -73,13 +57,9 @@ export class ChatComponent implements OnInit {
     if (msg.trim() === '') {
       return false;
     }
-
     this.messages.push({message: msg, personal: true});
-
     this.setDate();
-
     (document.querySelector('.message-input') as HTMLInputElement).value = '';
-
     this.updateScrollbar();
 
     setTimeout(() => {
@@ -94,12 +74,7 @@ export class ChatComponent implements OnInit {
     }
     const message = document.createElement('div');
     message.className = 'message loading new';
-    // const figure = document.createElement('figure');
-    // figure.className = 'avatar';
-    const img = document.createElement('img');
-    // img.src = 'https://s3-us-west-2.amazonaws.com/s.cdpn.io/156381/profile/profile-80.jpg';
-    // figure?.appendChild(img);
-    // message?.appendChild(figure);
+
     const span = document.createElement('span');
     message?.appendChild(span);
     let container = document.querySelector('.message-container');
@@ -109,18 +84,7 @@ export class ChatComponent implements OnInit {
     setTimeout(() => {
       const loadingMessage = document.querySelector('.loading') as HTMLElement;
       loadingMessage?.parentNode?.removeChild(loadingMessage);
-
-
-      // const newFigure = document.createElement('figure');
-      // newFigure.className = 'avatar';
-      const newImg = document.createElement('img');
-      // newImg.src = 'https://s3-us-west-2.amazonaws.com/s.cdpn.io/156381/profile/profile-80.jpg';
-      // newFigure?.appendChild(newImg);
-      // newMessage?.appendChild(newFigure);
-
       this.messages.push({message: this.Fake[this.i], personal: false});
-
-
       this.setDate();
       this.updateScrollbar();
       this.i++;
@@ -133,6 +97,4 @@ export class ChatComponent implements OnInit {
       this.fakeMessage();
     }, 100);
   }
-
-
 }
