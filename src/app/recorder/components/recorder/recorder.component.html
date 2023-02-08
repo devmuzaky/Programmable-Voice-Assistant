@@ -1,20 +1,17 @@
 <div class="container">
 
-  <app-chat></app-chat>
+  <div class="chat">
+    <app-chat></app-chat>
+  </div>
 
-  <div
-    *ngIf="isRecording"
-    class="visualizer"
-  >
+  <div *ngIf="isRecording" class="visualizer">
     <app-audio-visualizer
       [startVisualizer]="isRecording"
     ></app-audio-visualizer>
   </div>
 
   <div class="mic">
-    <app-mic
-      (recordingState)="recordingState($event)"
-    ></app-mic>
+    <app-mic (recordingState)="recordingState($event)"></app-mic>
   </div>
 
 </div>
