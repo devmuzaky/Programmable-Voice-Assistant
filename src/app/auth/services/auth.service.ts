@@ -1,8 +1,10 @@
 import {Injectable} from '@angular/core';
 import {UserLogin} from '../interface/userLogin';
 import {UserSignUp} from '../interface/userSignUp';
-import {HttpClient} from "@angular/common/http";
+import {HttpClient, HttpHeaders} from "@angular/common/http";
 import {APP_CONFIG} from "../../../environments/environment";
+import {Observable} from "rxjs";
+
 
 @Injectable({
   providedIn: 'root'
@@ -16,16 +18,18 @@ export class AuthService {
 
 
   login(user: UserLogin) {
-    return this.http.post(APP_CONFIG.apiBaseUrl + 'login', user);
+    return this.http.post("/api/" + 'token/', user);
   }
 
-  signUp(newUser: UserSignUp) {
-    return this.http.post(APP_CONFIG.apiBaseUrl + 'signup', newUser);
+  signUp(newUser: UserSignUp): Observable<any>  {
+    console.log(newUser);
+    return this.http.post("/api/" + '', newUser);
   }
 
-  logout() {
+  logout(): Observable<any> | any {
     this.isUserLoggedIn = false;
     localStorage.setItem('isUserLoggedIn', 'false');
+    // return this.http.post(APP_CONFIG.apiBaseUrl + 'signout', { });
   }
 
 }
