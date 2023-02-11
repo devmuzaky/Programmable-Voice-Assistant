@@ -11,7 +11,10 @@
   </div>
 
   <div class="mic">
-    <app-mic (recordingState)="recordingState($event)"></app-mic>
+    <app-mic
+      (recordingState)="recordingState($event)"
+      (recorderOutput)="recorderOutput($event)"
+    ></app-mic>
   </div>
 
 </div>

@@ -8,16 +8,26 @@ import {
 import {FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
 import {Router} from '@angular/router';
 import {AuthService} from '../services/auth.service';
+import {StorageService} from "../services/storage.service";
+import {SnackbarService} from "../../shared/snackbar-service/snackbar.service";
 
 @Component({
-  selector: 'app-login-component',
-  templateUrl: './login-component.component.html',
-  styleUrls: ['./login-component.component.scss']
+  selector: 'app-register-component',
+  templateUrl: './register-component.component.html',
+  styleUrls: ['./register-component.component.scss']
 })
-export class LoginComponentComponent implements OnInit, AfterViewInit {
+export class RegisterComponentComponent implements OnInit, AfterViewInit {
   @ViewChild('elRef') comp: ElementRef;
 
-  isLogin = false;
+  isSuccessful = false;
+  isSignUpFailed = false;
+  registerErrorMessage = '';
+
+  isLoggedIn = false;
+  isLoginFailed = false;
+  errorMessage = '';
+  roles: string[] = [];
+
   items;
   questions;
   login;
@@ -30,10 +40,13 @@ export class LoginComponentComponent implements OnInit, AfterViewInit {
   error_messages = {
     'name': [
       {type: 'required', message: 'Name is required.'},
+      {type: 'minlength', message: 'Name length.'},
+      {type: 'maxlength', message: 'Name length.'}
     ],
 
     'email': [
-      {type: 'required', message: 'please enter a valid email address.'}
+      {type: 'required', message: 'please enter a valid email address.'},
+      {type: 'email', message: 'please enter a valid email address.'}
     ],
 
     'password': [
@@ -46,7 +59,12 @@ export class LoginComponentComponent implements OnInit, AfterViewInit {
     ]
   }
 
-  constructor(private authService: AuthService, private router: Router) {
+  constructor(
+    private authService: AuthService,
+    private router: Router,
+    private storageService: StorageService,
+    private snackbarService: SnackbarService
+  ) {
   }
 
   ngAfterViewInit(): void {
@@ -71,6 +89,7 @@ export class LoginComponentComponent implements OnInit, AfterViewInit {
       });
     });
 
+
     this.questions.forEach((i) => {
       i.addEventListener('click', () => {
         if (i.dataset.sign === 'register') {
@@ -80,16 +99,18 @@ export class LoginComponentComponent implements OnInit, AfterViewInit {
           this.register.classList.add('no-invis');
           return;
         }
-        this.register.classList.remove('no-invis');
-        this.register.classList.remove('form-box');
-        this.login.classList.remove('invis');
-        this.login.classList.add('form-box');
+        this.showLogin();
       });
     });
   }
 
-
   ngOnInit(): void {
+
+    if (this.storageService.isLoggedIn()) {
+      this.isLoggedIn = true;
+      this.roles = this.storageService.getUser().roles;
+    }
+
     this.formDataLogin = new FormGroup({
       userName: new FormControl(''),
       password: new FormControl('')
@@ -101,8 +122,7 @@ export class LoginComponentComponent implements OnInit, AfterViewInit {
         email: new FormControl('',
           Validators.compose([
             Validators.required,
-            Validators.minLength(6),
-            Validators.maxLength(30)
+            Validators.email
           ])
         ),
         password: new FormControl('', Validators.compose([
@@ -124,37 +144,62 @@ export class LoginComponentComponent implements OnInit, AfterViewInit {
   }
 
   onLoginSubmit() {
-    const userName = this.formDataLogin.value.userName;
+    const username = this.formDataLogin.value.userName;
     const password = this.formDataLogin.value.password;
-    this.authService.login({userName, password}).subscribe(data => {
-      if (data) {
-        this.isLogin = true;
-        this.router.navigate(['/home']);
-      }
-    });
+    this.authService.login({username, password}).subscribe(
+      {
+        next: data => {
+          this.storageService.saveUser(data);
+          this.isLoginFailed = false;
+          this.isLoggedIn = true;
+          this.roles = this.storageService.getUser().roles;
+          this.openSnackBar("Logged in as " + this.roles)
+        },
+        error: err => {
+          this.errorMessage = err.error.detail;
+          this.isLoginFailed = true;
+          console.log(err)
+          this.openSnackBar("Login failed: " + this.errorMessage)
+        }
+      });
+
   }
 
   onSignUpSubmit() {
-    const userName = this.formDataSignUp.value.userName;
-    const name = this.formDataSignUp.value.name;
+    const userName = this.formDataSignUp.value.name;
     const email = this.formDataSignUp.value.email;
     const password = this.formDataSignUp.value.password;
-    this.authService.signUp({userName, name, email, password}).subscribe({
+    this.authService.signUp({username: userName, email, password}).subscribe({
       next: data => {
+        this.isSuccessful = true;
+        this.isSignUpFailed = false;
         if (data) {
-          this.router.navigate(['/login']);
+          this.showLogin();
+          this.openSnackBar("Your registration is successful!");
         }
       },
       error: error => {
-        console.log(error);
+        this.registerErrorMessage = error.error.detail;
+        this.isSignUpFailed = true;
+        this.openSnackBar("Signup failed! " + this.registerErrorMessage)
       }
     });
   }
-
 
   Password() {
     const password = this.formDataSignUp?.controls.password.value;
     const confirmPassword = this.formDataSignUp?.controls.confirm_password.value;
     this.isMatchPassword = password === confirmPassword ? null : {passwordNotMatch: true};
+  }
+
+  showLogin() {
+    this.register.classList.remove('no-invis');
+    this.register.classList.remove('form-box');
+    this.login.classList.remove('invis');
+    this.login.classList.add('form-box');
+  }
+
+  openSnackBar(message: string) {
+    this.snackbarService.openSnackBar(message);
   }
 }
