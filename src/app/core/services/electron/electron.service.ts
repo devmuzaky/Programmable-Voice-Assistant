@@ -13,6 +13,7 @@ export class ElectronService {
   fs: typeof fs;
 
   private sttTextSubject: Subject<string> = new Subject<string>();
+  private ttsAudioSubject: Subject<string | Uint8Array> = new Subject<string | Uint8Array>();
 
   constructor() {
     // Conditional imports
@@ -21,6 +22,7 @@ export class ElectronService {
       this.fs = window.require('fs');
 
       this.listenForSttReply();
+      this.listenForTtsReply();
     }
   }
 
@@ -31,6 +33,12 @@ export class ElectronService {
   listenForSttReply() {
     this.ipcRenderer.on('stt-reply', (event, arg) => {
       this.sttReply(arg);
+    });
+  }
+
+  listenForTtsReply() {
+    this.ipcRenderer.on('tts-reply', (event, arg) => {
+      this.ttsReply(arg);
     });
   }
 
@@ -48,5 +56,13 @@ export class ElectronService {
 
   getSttTextObservable() {
     return this.sttTextSubject.asObservable();
+  }
+
+  ttsReply(audio: string | Uint8Array) {
+    this.ttsAudioSubject.next(audio);
+  }
+
+  getTtsAudioObservable() {
+    return this.ttsAudioSubject.asObservable();
   }
 }

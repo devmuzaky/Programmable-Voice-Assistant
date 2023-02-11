@@ -4,25 +4,19 @@ import * as fs from 'fs';
 import {createTray} from './tray/tray';
 import {saveFileSelected} from './textToScript/models/utils';
 import {googleStt, sttInit} from "./stt/googleStt";
+import {googleTts, ttsInit} from "./tts/googleTts";
 
 
 let win: BrowserWindow = null;
-const args = process.argv.slice(1),
-  serve = args.some((val) => val === '--serve');
+const args = process.argv.slice(1), serve = args.some((val) => val === '--serve');
 
 
 function createWindow(): BrowserWindow {
   const size = screen.getPrimaryDisplay().workAreaSize;
 
   win = new BrowserWindow({
-    x: 0,
-    y: 0,
-    width: size.width,
-    height: size.height,
-    webPreferences: {
-      nodeIntegration: true,
-      allowRunningInsecureContent: serve,
-      contextIsolation: false,
+    x: 0, y: 0, width: size.width, height: size.height, webPreferences: {
+      nodeIntegration: true, allowRunningInsecureContent: serve, contextIsolation: false,
     },
   });
 
@@ -53,6 +47,7 @@ function createWindow(): BrowserWindow {
   createTray(frontendPath);
 
   sttInit();
+  ttsInit();
 
   return win;
 }
@@ -82,3 +77,5 @@ ipcMain.on('save-file', (event) => {
 
 
 ipcMain.on('stt', googleStt);
+
+ipcMain.on('tts', googleTts);
