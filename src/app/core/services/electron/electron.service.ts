@@ -3,6 +3,7 @@ import {Injectable} from '@angular/core';
 // Electron Types
 import {ipcRenderer} from 'electron';
 import * as fs from 'fs';
+import {Subject} from "rxjs";
 
 @Injectable({
   providedIn: 'root'
@@ -10,6 +11,8 @@ import * as fs from 'fs';
 export class ElectronService {
   ipcRenderer: typeof ipcRenderer;
   fs: typeof fs;
+
+  private sttTextSubject: Subject<string> = new Subject<string>();
 
   constructor() {
     // Conditional imports
@@ -27,8 +30,7 @@ export class ElectronService {
 
   listenForSttReply() {
     this.ipcRenderer.on('stt-reply', (event, arg) => {
-      console.log(arg);
-      // TODO: display result in UI
+      this.sttReply(arg);
     });
   }
 
@@ -38,5 +40,13 @@ export class ElectronService {
 
   processAudio(wavPath: string) {
     this.ipcRenderer.send('stt', wavPath);
+  }
+
+  sttReply(text: string) {
+    this.sttTextSubject.next(text);
+  }
+
+  getSttTextObservable() {
+    return this.sttTextSubject.asObservable();
   }
 }

@@ -1,5 +1,7 @@
-import {Component, ElementRef, HostListener, OnInit} from '@angular/core';
+import {Component, ElementRef, HostListener, OnDestroy, OnInit} from '@angular/core';
 import {CommonModule} from '@angular/common';
+import {SttService} from "../../services/stt/stt.service";
+import {Subscription} from "rxjs";
 
 @Component({
   selector: 'app-chat',
@@ -8,7 +10,7 @@ import {CommonModule} from '@angular/common';
   templateUrl: './chat.component.html',
   styleUrls: ['./chat.component.scss']
 })
-export class ChatComponent implements OnInit {
+export class ChatComponent implements OnInit, OnDestroy {
 
   d: any;
   m: any;
@@ -16,19 +18,37 @@ export class ChatComponent implements OnInit {
   Fake = ['Hi there, I\'m Zaky and you?', 'Nice to meet you', 'How are you?', 'Not too bad, thanks', 'What do you do?', 'That\'s awesome', 'I think you\'re a nice person', 'Why do you think that?', 'Can you explain?', 'Anyway I\'ve gotta go now', 'It was a pleasure chat with you', 'Bye', ':)']
   messages = [];
 
-  constructor(private elementRef: ElementRef) {
+  transcribedSubscription: Subscription;
+
+
+  constructor(private elementRef: ElementRef,
+              private sttService: SttService) {
+  }
+
+  ngOnInit(): void {
+    setTimeout(() => {
+      this.fakeMessage();
+    }, 100);
+
+    this.transcribedSubscription = this.sttService.getTranscriptObservable().subscribe(
+      {
+        next: (msg: string) => {
+          this.addUserMessage(msg);
+        }
+      }
+    );
   }
 
   @HostListener('click', ['$event']) onClick(event) {
     if (event.target.classList.contains('message-submit')) {
-      this.insertMessage();
+      this.addUserMessageFromInput();
     }
   }
 
   @HostListener('document:keydown', ['$event']) handleKeydown(event: KeyboardEvent) {
 
     if (event.key === 'Enter') {
-      this.insertMessage();
+      this.addUserMessageFromInput();
       event.preventDefault();
       return false;
     }
@@ -52,20 +72,19 @@ export class ChatComponent implements OnInit {
     }
   }
 
-  insertMessage() {
+  addUserMessageFromInput() {
     let msg = (document.querySelector('.message-input') as HTMLInputElement).value;
     if (msg.trim() === '') {
       return false;
     }
-    this.messages.push({message: msg, personal: true});
+    this.addUserMessage(msg);
+  }
+
+  addUserMessage(message: string) {
+    this.messages.push({message: message, personal: true});
     this.setDate();
     (document.querySelector('.message-input') as HTMLInputElement).value = '';
     this.updateScrollbar();
-
-    setTimeout(() => {
-      this.fakeMessage();
-    }, 1000 + (Math.random() * 20) * 100);
-
   }
 
   fakeMessage() {
@@ -92,9 +111,7 @@ export class ChatComponent implements OnInit {
 
   }
 
-  ngOnInit(): void {
-    setTimeout(() => {
-      this.fakeMessage();
-    }, 100);
+  ngOnDestroy(): void {
+    this.transcribedSubscription.unsubscribe();
   }
 }

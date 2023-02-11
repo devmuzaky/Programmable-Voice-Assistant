@@ -21,7 +21,15 @@ export class SttService {
     const Blob = new Uint8Array(await audioBlob.arrayBuffer());
 
     this.electronService.saveFile(this.wavPath, Blob, (err) => {
+      if (err) {
+        console.log(err);
+        return;
+      }
       cb();
     });
+  }
+
+  getTranscriptObservable() {
+    return this.electronService.getSttTextObservable();
   }
 }
