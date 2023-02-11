@@ -9,7 +9,7 @@ import {SttService} from "../../services/stt/stt.service";
 export class RecorderComponent implements OnInit {
   isRecording;
 
-  constructor(private sttService:SttService) {
+  constructor(private sttService: SttService) {
   }
 
   ngOnInit(): void {
@@ -20,7 +20,6 @@ export class RecorderComponent implements OnInit {
   }
 
   recorderOutput(audioBlob: Blob) {
-    // TOD: send audioBlob to the service
     this.sttService.sendAudioBlob(audioBlob);
   }
 }
