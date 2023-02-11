@@ -1,8 +1,10 @@
 <div class="container">
-  <div
-    *ngIf="isRecording"
-    class="visualizer"
-  >
+
+  <div class="chat">
+    <app-chat></app-chat>
+  </div>
+
+  <div *ngIf="isRecording" class="visualizer">
     <app-audio-visualizer
       [startVisualizer]="isRecording"
     ></app-audio-visualizer>
