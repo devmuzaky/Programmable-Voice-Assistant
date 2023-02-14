@@ -6,8 +6,8 @@
       <img alt="avatar" src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/156381/profile/profile-80.jpg"/>
     </figure>
   </div>
-  <div class="messages">
-    <div class="message-container messages-content">
+  <div #messagesContent class="messages">
+    <div   class="message-container messages-content">
       <ng-container *ngFor="let message of messages">
         <div class="message new {{message.personal ? 'message-personal' : ''}}">
           {{message.message}}

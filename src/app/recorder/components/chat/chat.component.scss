@@ -108,14 +108,6 @@ Messages
   width: 100%;
   overflow-x: hidden;
 
-  & .messages-content {
-    position: absolute;
-    top: 0;
-    left: 0;
-    height: 101%;
-    width: 100%;
-  }
-
 
   .message {
     clear: both;
@@ -226,43 +218,17 @@ Messages
 /* ----- scrollbar  ----- */
 
 .messages::-webkit-scrollbar {
-  width: 10px;
-  height: 10px;
-  background-color: #F5F5F5;
+  width: 5px;
 }
 
 .messages::-webkit-scrollbar-track {
-  border: 1px solid black;
-  background-color: #0d5e69;
+  border: none;
+  background-color: rgba(0, 0, 0, 0.3);
 }
-
 
 .messages::-webkit-scrollbar-thumb {
-  background-color: #063e46;
+  background-color: #0d5e69;
 }
-
-
-
-/*--------------------
-Custom Scrollbar
---------------------*/
-.mCSB_scrollTools {
-  margin: 1px -3px 1px 0;
-  opacity: 0;
-}
-
-.mCSB_inside > .mCSB_container {
-  margin-right: 0px;
-  padding: 0 10px;
-}
-
-.mCSB_scrollTools .mCSB_dragger .mCSB_dragger_bar {
-  background-color: rgba(0, 0, 0, 0.5) !important;
-
-}
-
-
-
 
 /*--------------------
 Message Box
@@ -287,11 +253,6 @@ Message Box
     width: 265px;
   }
 
-  //
-  //textarea:focus:-webkit-placeholder {
-  //  color: transparent;
-  //}
-
   & .message-submit {
     position: absolute;
     z-index: 1;
@@ -313,9 +274,6 @@ Message Box
     }
   }
 }
-
-
-
 
 
 /*--------------------

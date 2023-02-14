@@ -19,8 +19,17 @@ export class ChatComponent implements OnInit, OnDestroy, AfterViewInit {
   ttsAudioSubscription: Subscription;
 
   @ViewChild('audioElement') audioElement: ElementRef<HTMLAudioElement>;
+  @ViewChild('messagesContent') messagesContent: ElementRef<HTMLElement>;
 
   constructor(private elementRef: ElementRef, private sttService: SttService, private ttsService: TtsService) {
+  }
+
+  updateScrollbar() {
+    setTimeout(() => {
+      let chat = this.messagesContent.nativeElement;
+      chat.scrollTop = chat.scrollHeight + 100;
+    }, 100);
+
   }
 
   ngOnInit(): void {
@@ -56,10 +65,6 @@ export class ChatComponent implements OnInit, OnDestroy, AfterViewInit {
     }
   }
 
-  updateScrollbar() {
-    const messages = this.elementRef.nativeElement.querySelector('.messages-content');
-    messages.scrollTop = messages.scrollHeight;
-  }
 
   addBotMessage(message: string) {
     this.messages.push({message, personal: false});
@@ -73,7 +78,6 @@ export class ChatComponent implements OnInit, OnDestroy, AfterViewInit {
 
     //   TODO: remove when the actual response is implemented
     setTimeout(() => {
-
       this.addBotMessage(message);
     }, 1000);
   }
@@ -107,4 +111,6 @@ export class ChatComponent implements OnInit, OnDestroy, AfterViewInit {
     console.log('speak', text)
     this.ttsService.tts(text);
   }
+
+
 }
