@@ -4,6 +4,7 @@ import {Injectable} from '@angular/core';
 import {ipcRenderer} from 'electron';
 import * as fs from 'fs';
 import {Subject} from "rxjs";
+import * as child_process from "child_process";
 
 @Injectable({
   providedIn: 'root'
@@ -11,6 +12,7 @@ import {Subject} from "rxjs";
 export class ElectronService {
   ipcRenderer: typeof ipcRenderer;
   fs: typeof fs;
+  childProcess: typeof child_process;
 
   private sttTextSubject: Subject<string> = new Subject<string>();
   private ttsAudioSubject: Subject<string | Uint8Array> = new Subject<string | Uint8Array>();
@@ -20,6 +22,9 @@ export class ElectronService {
     if (this.isElectron) {
       this.ipcRenderer = window.require('electron').ipcRenderer;
       this.fs = window.require('fs');
+
+      this.childProcess = window.require('child_process');
+
 
       this.listenForSttReply();
       this.listenForTtsReply();
@@ -51,6 +56,36 @@ export class ElectronService {
   }
 
   sttReply(text: string) {
+    // TODO: Remove this
+    if (text === 'open Chrome') {
+      this.childProcess.exec('start chrome https://github.com/orgs/Programmable-Voice-Assistant/repositories?type=source',
+        (error, stdout, stderr) => {
+          if (error) {
+            console.error(`error: ${error.message}`);
+            return;
+          }
+          if (stderr) {
+            console.error(`stderr: ${stderr}`);
+            return;
+          }
+          console.log(`stdout:\n${stdout}`);
+        });
+    } else if (text === 'open incognito Chrome' || text === 'open incognito') {
+      this.childProcess.exec('start chrome https://github.com/orgs/Programmable-Voice-Assistant/repositories?type=source /incognito',
+        (error, stdout, stderr) => {
+          if (error) {
+            console.error(`error: ${error.message}`);
+            return;
+          }
+          if (stderr) {
+            console.error(`stderr: ${stderr}`);
+            return;
+          }
+          console.log(`stdout:\n${stdout}`);
+        });
+    }
+    // ------------------------------------------------------------
+
     this.sttTextSubject.next(text);
   }
 
