@@ -2,6 +2,7 @@ import {Component} from '@angular/core';
 import {ElectronService} from './core/services';
 import {TranslateService} from '@ngx-translate/core';
 import {APP_CONFIG} from '../environments/environment';
+import {NavigationEnd, Router} from "@angular/router";
 
 interface SideNavToggle {
   screenWidth: number;
@@ -18,10 +19,12 @@ export class AppComponent {
   screenWidth = 0;
 
   toggleModal: boolean;
+  hideMain: boolean;
 
   constructor(
     private electronService: ElectronService,
-    private translate: TranslateService
+    private translate: TranslateService,
+    private router: Router
   ) {
     this.translate.setDefaultLang('en');
     console.log('APP_CONFIG', APP_CONFIG);
@@ -33,6 +36,14 @@ export class AppComponent {
     } else {
       console.log('Run in browser');
     }
+
+    this.router.events.subscribe((val) => {
+      if (val instanceof NavigationEnd) {
+        if (val.url.includes('/tray')) {
+          this.hideMain = true;
+        }
+      }
+    });
   }
 
   getBodyClass(): string {
