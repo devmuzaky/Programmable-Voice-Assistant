@@ -1,7 +1,6 @@
 .container {
   background: transparent;
   margin: 0;
-  display: block;
 }
 
 h1 {
@@ -10,8 +9,8 @@ h1 {
 }
 
 #canvas {
-  width: 37rem;
-  height: 110px;
+  width: 30rem;
+  height: 17px;
 }
 
 .btn-start {
@@ -28,4 +27,5 @@ h1 {
 
 .close-button {
   width: 150px !important;
+  display: none !important;
 }

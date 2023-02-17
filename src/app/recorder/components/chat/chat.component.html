@@ -7,7 +7,7 @@
     </figure>
   </div>
   <div #messagesContent class="messages">
-    <div   class="message-container messages-content">
+    <div class="message-container messages-content">
       <ng-container *ngFor="let message of messages">
         <div class="message new {{message.personal ? 'message-personal' : ''}}">
           {{message.message}}
@@ -15,10 +15,26 @@
       </ng-container>
     </div>
   </div>
+
   <div class="message-box">
-    <textarea class="message-input" placeholder="Type message..."></textarea>
-    <button class="message-submit" type="submit">Send</button>
+
+    <div *ngIf="!isRecording">
+      <textarea class="message-input" placeholder="Type message..."></textarea>
+      <button class="message-submit" type="submit">Send</button>
+    </div>
+
+    <button class="mic-btn">
+      <app-mic (recordingState)="recordingState($event)" (recorderOutput)="recorderOutput($event)"
+      ></app-mic>
+    </button>
+
+    <ng-container *ngIf="isRecording">
+      <app-audio-visualizer [startVisualizer]="isRecording"></app-audio-visualizer>
+    </ng-container>
+
   </div>
+
+
 </div>
 
 <audio #audioElement></audio>

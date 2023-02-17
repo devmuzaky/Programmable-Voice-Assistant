@@ -4,17 +4,4 @@
     <app-chat></app-chat>
   </div>
 
-  <div *ngIf="isRecording" class="visualizer">
-    <app-audio-visualizer
-      [startVisualizer]="isRecording"
-    ></app-audio-visualizer>
-  </div>
-
-  <div class="mic">
-    <app-mic
-      (recordingState)="recordingState($event)"
-      (recorderOutput)="recorderOutput($event)"
-    ></app-mic>
-  </div>
-
 </div>

@@ -1,11 +1,14 @@
-<app-sidebar
-  (onToggleSideNav)="onToggleSideNav($event)"
-  (onToggleModal)="onToggleModal($event)"
-></app-sidebar>
+<ng-container *ngIf="!hideMain">
+  <app-sidebar
+    (onToggleSideNav)="onToggleSideNav($event)"
+    (onToggleModal)="onToggleModal($event)"></app-sidebar>
 
-<div [ngClass]="getBodyClass()" class="main-content" id="body">
-  <router-outlet></router-outlet>
-  <app-modal class="modalApp" *ngIf="toggleModal" (close)="toggleModal = false">
-    <app-register-component></app-register-component>
-  </app-modal>
-</div>
+  <div [ngClass]="getBodyClass()" class="main-content" id="body">
+    <router-outlet></router-outlet>
+    <app-modal class="modalApp" *ngIf="toggleModal" (close)="toggleModal = false">
+      <app-register-component></app-register-component>
+    </app-modal>
+  </div>
+</ng-container>
+
+<app-tray *ngIf="hideMain"></app-tray>

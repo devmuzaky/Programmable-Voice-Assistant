@@ -1,11 +1,5 @@
-<div class="recorder_wrapper">
-  <div class="recorder">
-    <button
-      (click)="handleRecordingClick()"
-      [ngClass]="getRecordingState()"
-      class="record_btn"
-      id="button">
-    </button>
-    <p id="msg_box"></p>
-  </div>
-</div>
+<button
+  class="record_btn"
+  (click)="handleRecordingClick()"
+  [ngClass]="getRecordingState()">
+</button>
