@@ -5,7 +5,15 @@ export const createTray = trayPath => {
   const menubarOptions = {
     preloadWindow: true,
     index: trayPath,
-    icon: 'app/build/iconTemplate.png'
+    icon: 'app/build/iconTemplate.png',
+    browserWindow: {
+      width: 300,
+      height: 400,
+      maxWidth: 300,
+      maxHeight: 400,
+      minWidth: 300,
+      minHeight: 400,
+    }
   };
 
   const mb = menubar(menubarOptions);

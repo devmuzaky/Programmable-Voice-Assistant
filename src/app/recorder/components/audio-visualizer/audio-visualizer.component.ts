@@ -1,12 +1,13 @@
-import {Component, Input} from '@angular/core';
-import * as dat from 'dat.gui';
+import {AfterViewInit, Component, Input} from '@angular/core';
+
+// import * as dat from 'dat.gui';
 
 @Component({
   selector: 'app-audio-visualizer',
   templateUrl: './audio-visualizer.component.html',
   styleUrls: ['./audio-visualizer.component.scss']
 })
-export class AudioVisualizerComponent {
+export class AudioVisualizerComponent implements AfterViewInit {
 
   WIDTH = 1000;
   HEIGHT = 400;
@@ -27,7 +28,7 @@ export class AudioVisualizerComponent {
     width: 60,
     amp: 1
   };
-  gui = new dat.GUI();
+  // gui = new dat.GUI();
   context;
   analyser;
   freqs;
@@ -54,20 +55,20 @@ export class AudioVisualizerComponent {
   }
 
   ngOnInit() {
-    this.gui.close();
-
-    this.gui.addColor(this.opts, "color1");
-    this.gui.addColor(this.opts, "color2");
-    this.gui.addColor(this.opts, "color3");
-    this.gui.add(this.opts, "fillOpacity", 0, 1);
-    this.gui.add(this.opts, "lineWidth", 0, 10).step(1);
-    this.gui.add(this.opts, "glow", 0, 100);
-    this.gui.add(this.opts, "blend", ["normal", "multiply", "screen", "overlay", "lighten", "difference"]);
-    this.gui.add(this.opts, "smoothing", 0, 1);
-    this.gui.add(this.opts, "minDecibels", -100, 0);
-    this.gui.add(this.opts, "amp", 0, 5);
-    this.gui.add(this.opts, "width", 0, 60);
-    this.gui.add(this.opts, "shift", 0, 200);
+    // this.gui.close();
+    //
+    // this.gui.addColor(this.opts, "color1");
+    // this.gui.addColor(this.opts, "color2");
+    // this.gui.addColor(this.opts, "color3");
+    // this.gui.add(this.opts, "fillOpacity", 0, 1);
+    // this.gui.add(this.opts, "lineWidth", 0, 10).step(1);
+    // this.gui.add(this.opts, "glow", 0, 100);
+    // this.gui.add(this.opts, "blend", ["normal", "multiply", "screen", "overlay", "lighten", "difference"]);
+    // this.gui.add(this.opts, "smoothing", 0, 1);
+    // this.gui.add(this.opts, "minDecibels", -100, 0);
+    // this.gui.add(this.opts, "amp", 0, 5);
+    // this.gui.add(this.opts, "width", 0, 60);
+    // this.gui.add(this.opts, "shift", 0, 200);
 
     // navigator.mediaDevices.getUserMedia =
     //   navigator.mediaDevices.getUserMedia ||
@@ -190,7 +191,5 @@ export class AudioVisualizerComponent {
       }).catch(error => {
       this.onStreamError(error);
     });
-
   }
-
 }

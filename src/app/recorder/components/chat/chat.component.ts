@@ -1,13 +1,10 @@
 import {AfterViewInit, Component, ElementRef, HostListener, OnDestroy, OnInit, ViewChild} from '@angular/core';
-import {CommonModule} from '@angular/common';
 import {SttService} from "../../services/stt/stt.service";
 import {Subscription} from "rxjs";
 import {TtsService} from "../../services/tts/tts.service";
 
 @Component({
   selector: 'app-chat',
-  standalone: true,
-  imports: [CommonModule],
   templateUrl: './chat.component.html',
   styleUrls: ['./chat.component.scss']
 })
@@ -20,6 +17,7 @@ export class ChatComponent implements OnInit, OnDestroy, AfterViewInit {
 
   @ViewChild('audioElement') audioElement: ElementRef<HTMLAudioElement>;
   @ViewChild('messagesContent') messagesContent: ElementRef<HTMLElement>;
+  isRecording;
 
   constructor(private elementRef: ElementRef, private sttService: SttService, private ttsService: TtsService) {
   }
@@ -65,7 +63,6 @@ export class ChatComponent implements OnInit, OnDestroy, AfterViewInit {
     }
   }
 
-
   addBotMessage(message: string) {
     this.messages.push({message, personal: false});
     this.updateScrollbar();
@@ -81,7 +78,6 @@ export class ChatComponent implements OnInit, OnDestroy, AfterViewInit {
       this.addBotMessage(message);
     }, 1000);
   }
-
 
   addUserMessageFromInput() {
     let msg = (document.querySelector('.message-input') as HTMLInputElement).value;
@@ -112,5 +108,11 @@ export class ChatComponent implements OnInit, OnDestroy, AfterViewInit {
     this.ttsService.tts(text);
   }
 
+  recordingState(isRecording: boolean) {
+    this.isRecording = isRecording;
+  }
 
+  recorderOutput($event: Blob) {
+    this.sttService.sendAudioBlob($event);
+  }
 }

@@ -13,16 +13,16 @@ import {ChatComponent} from "./components/chat/chat.component";
   declarations: [
     MicComponent,
     AudioVisualizerComponent,
-    RecorderComponent
+    RecorderComponent,
+    ChatComponent
   ],
   exports: [
-    AudioVisualizerComponent
+    AudioVisualizerComponent,
+    ChatComponent
   ],
     imports: [
         CommonModule,
         SharedModule,
-        RecorderRoutingModule,
-        ChatComponent
-    ]
+        RecorderRoutingModule]
 })
 export class RecorderModule { }

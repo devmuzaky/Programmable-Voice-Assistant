@@ -17,6 +17,7 @@ import {MatInputModule} from "@angular/material/input";
 // NG Translate
 import {TranslateLoader, TranslateModule} from '@ngx-translate/core';
 import {TranslateHttpLoader} from '@ngx-translate/http-loader';
+import {TrayModule} from "./tray/tray.module";
 
 
 const httpLoaderFactory = (http: HttpClient): TranslateHttpLoader => new TranslateHttpLoader(http, './assets/i18n/', '.json');
@@ -37,6 +38,8 @@ const httpLoaderFactory = (http: HttpClient): TranslateHttpLoader => new Transla
     MatInputModule,
     FormsModule,
     ReactiveFormsModule,
+    TrayModule,
+
     TranslateModule.forRoot({
       loader: {
         provide: TranslateLoader,
