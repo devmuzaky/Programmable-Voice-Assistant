@@ -1,15 +1,11 @@
-import {
-  AfterViewInit,
-  Component,
-  ElementRef,
-  OnInit,
-  ViewChild,
-} from '@angular/core';
-import {FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
+import {AfterViewInit, Component, ElementRef, OnInit, ViewChild,} from '@angular/core';
+import {FormControl, FormGroup, Validators} from '@angular/forms';
 import {Router} from '@angular/router';
 import {AuthService} from '../services/auth.service';
 import {StorageService} from "../services/storage.service";
 import {SnackbarService} from "../../shared/snackbar-service/snackbar.service";
+import {HttpClient} from "@angular/common/http";
+import {LoginResponse} from "../interface/login.response";
 
 @Component({
   selector: 'app-register-component',
@@ -26,7 +22,7 @@ export class RegisterComponentComponent implements OnInit, AfterViewInit {
   isLoggedIn = false;
   isLoginFailed = false;
   errorMessage = '';
-  roles: string[] = [];
+  emial: string = '';
 
   items;
   questions;
@@ -63,7 +59,8 @@ export class RegisterComponentComponent implements OnInit, AfterViewInit {
     private authService: AuthService,
     private router: Router,
     private storageService: StorageService,
-    private snackbarService: SnackbarService
+    private snackbarService: SnackbarService,
+    private http: HttpClient,
   ) {
   }
 
@@ -108,7 +105,7 @@ export class RegisterComponentComponent implements OnInit, AfterViewInit {
 
     if (this.storageService.isLoggedIn()) {
       this.isLoggedIn = true;
-      this.roles = this.storageService.getUser().roles;
+      this.emial = this.storageService.getUser().roles;
     }
 
     this.formDataLogin = new FormGroup({
@@ -116,21 +113,21 @@ export class RegisterComponentComponent implements OnInit, AfterViewInit {
       password: new FormControl('')
     });
     this.formDataSignUp = new FormGroup({
-        name: new FormControl('', Validators.compose([
+        name: new FormControl('test1', Validators.compose([
           Validators.required
         ])),
-        email: new FormControl('',
+        email: new FormControl('test1@gmail.com',
           Validators.compose([
             Validators.required,
             Validators.email
           ])
         ),
-        password: new FormControl('', Validators.compose([
+        password: new FormControl('test1@123', Validators.compose([
           Validators.required,
           Validators.minLength(6),
           Validators.maxLength(30)
         ])),
-        confirm_password: new FormControl('', Validators.compose([
+        confirm_password: new FormControl('test1@123', Validators.compose([
           Validators.required,
           Validators.minLength(6),
           Validators.maxLength(30)
@@ -148,12 +145,20 @@ export class RegisterComponentComponent implements OnInit, AfterViewInit {
     const password = this.formDataLogin.value.password;
     this.authService.login({username, password}).subscribe(
       {
-        next: data => {
-          this.storageService.saveUser(data);
+        next: (data: LoginResponse) => {
+          this.storageService.saveUser(data.user);
+          this.storageService.saveAccessToken(data.access_token);
+          this.storageService.saveRefreshToken(data.refresh_token);
           this.isLoginFailed = false;
           this.isLoggedIn = true;
-          this.roles = this.storageService.getUser().roles;
-          this.openSnackBar("Logged in as " + this.roles)
+          this.emial = this.storageService.getUser().email;
+          this.openSnackBar("Logged in as " + this.emial);
+          this.http.get('http://localhost:8000/scripts/api/').subscribe(
+            (data) => {
+              console.log(data)
+
+            }
+          )
         },
         error: err => {
           this.errorMessage = err.error.detail;
@@ -168,8 +173,9 @@ export class RegisterComponentComponent implements OnInit, AfterViewInit {
   onSignUpSubmit() {
     const userName = this.formDataSignUp.value.name;
     const email = this.formDataSignUp.value.email;
-    const password = this.formDataSignUp.value.password;
-    this.authService.signUp({username: userName, email, password}).subscribe({
+    const password1 = this.formDataSignUp.value.password;
+    const password2 = this.formDataSignUp.value.confirm_password;
+    this.authService.signUp({username: userName, email, password1, password2}).subscribe({
       next: data => {
         this.isSuccessful = true;
         this.isSignUpFailed = false;
