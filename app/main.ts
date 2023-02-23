@@ -8,7 +8,8 @@ import {googleTts, ttsInit} from "./tts/googleTts";
 
 
 let win: BrowserWindow = null;
-const args = process.argv.slice(1), serve = args.some((val) => val === '--serve');
+const args = process.argv.slice(1),
+  serve = args.some((val) => val === '--serve');
 
 
 function createWindow(): BrowserWindow {
@@ -44,7 +45,9 @@ function createWindow(): BrowserWindow {
   });
 
   win.loadURL(frontendPath);
-  createTray(frontendPath + '/tray');
+  // TODO: in build, this url is not valid
+  //  add an env variable to let the frontend know if it is the tray or the main window
+  createTray(frontendPath + '/tray', serve);
 
   sttInit();
   ttsInit();
