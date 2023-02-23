@@ -1,7 +1,9 @@
 import {Injectable} from '@angular/core';
-import {APP_CONFIG} from "../../../environments/environment";
+import {AuthUser} from "../interface/auth.user";
 
-const USER_KEY = APP_CONFIG.apiBaseUrl;
+const USER = "user";
+const ACCESS_TOKEN = "access_token";
+const REFRESH_TOKEN = "refresh_token";
 
 @Injectable({
   providedIn: 'root'
@@ -11,16 +13,18 @@ export class StorageService {
   }
 
   clean(): void {
-    window.sessionStorage.clear();
+    window.localStorage.removeItem(USER);
+    window.localStorage.removeItem(ACCESS_TOKEN);
+    window.localStorage.removeItem(REFRESH_TOKEN);
   }
 
-  public saveUser(user: any): void {
-    window.sessionStorage.removeItem(USER_KEY);
-    window.sessionStorage.setItem(USER_KEY, JSON.stringify(user));
+  public saveUser(user: AuthUser): void {
+    window.localStorage.removeItem(USER);
+    window.localStorage.setItem(USER, JSON.stringify(user));
   }
 
   public getUser(): any {
-    const user = window.sessionStorage.getItem(USER_KEY);
+    const user = window.localStorage.getItem(USER);
     if (user) {
       return JSON.parse(user);
     }
@@ -28,10 +32,28 @@ export class StorageService {
   }
 
   public isLoggedIn(): boolean {
-    const user = window.sessionStorage.getItem(USER_KEY);
+    const user = window.localStorage.getItem(USER);
     if (user) {
       return true;
     }
     return false;
+  }
+
+  saveAccessToken(access_token: string) {
+    window.localStorage.removeItem(ACCESS_TOKEN);
+    window.localStorage.setItem(ACCESS_TOKEN, access_token);
+  }
+
+  getAccessToken(): string {
+    return window.localStorage.getItem(ACCESS_TOKEN) || '';
+  }
+
+  saveRefreshToken(refresh_token: string) {
+    window.localStorage.removeItem(REFRESH_TOKEN);
+    window.localStorage.setItem(REFRESH_TOKEN, refresh_token);
+  }
+
+  getRefreshToken(): string {
+    return window.localStorage.getItem(REFRESH_TOKEN) || '';
   }
 }
