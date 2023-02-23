@@ -1,7 +1,7 @@
 import {Menu} from "electron";
 import {menubar} from "menubar";
 
-export const createTray = trayPath => {
+export const createTray = (trayPath, serve: boolean) => {
   const menubarOptions = {
     preloadWindow: true,
     index: trayPath,
@@ -13,6 +13,11 @@ export const createTray = trayPath => {
       maxHeight: 400,
       minWidth: 300,
       minHeight: 400,
+      webPreferences: {
+        nodeIntegration: true,
+        allowRunningInsecureContent: serve,
+        contextIsolation: false
+      },
     }
   };
 
