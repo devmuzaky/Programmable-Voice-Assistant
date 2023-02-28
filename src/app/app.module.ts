@@ -14,10 +14,13 @@ import {httpInterceptorProviders} from "./auth/_helper/http-request-interceptor.
 import {MatSnackBarModule} from "@angular/material/snack-bar";
 import {MatInputModule} from "@angular/material/input";
 
+import { AccordionModule } from 'primeng/accordion';
+
 // NG Translate
 import {TranslateLoader, TranslateModule} from '@ngx-translate/core';
 import {TranslateHttpLoader} from '@ngx-translate/http-loader';
 import {TrayModule} from "./tray/tray.module";
+import {ConfirmationService, MessageService} from "primeng/api";
 
 
 const httpLoaderFactory = (http: HttpClient): TranslateHttpLoader => new TranslateHttpLoader(http, './assets/i18n/', '.json');
@@ -39,6 +42,8 @@ const httpLoaderFactory = (http: HttpClient): TranslateHttpLoader => new Transla
     FormsModule,
     ReactiveFormsModule,
     TrayModule,
+    AccordionModule,
+
 
     TranslateModule.forRoot({
       loader: {
@@ -48,7 +53,7 @@ const httpLoaderFactory = (http: HttpClient): TranslateHttpLoader => new Transla
       }
     })
   ],
-  providers: [httpInterceptorProviders],
+  providers: [httpInterceptorProviders, MessageService, ConfirmationService],
   bootstrap: [AppComponent]
 })
 export class AppModule {
