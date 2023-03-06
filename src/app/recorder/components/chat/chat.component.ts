@@ -95,7 +95,6 @@ export class ChatComponent implements OnInit, OnDestroy, AfterViewInit {
       return false;
     }
     this.addUserMessage(msg);
-    this.rasaSocketService.sendMessage(msg);
 
     (document.querySelector('.message-input') as HTMLInputElement).value = '';
   }
