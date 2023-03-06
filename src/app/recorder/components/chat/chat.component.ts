@@ -2,6 +2,8 @@ import {AfterViewInit, Component, ElementRef, HostListener, OnDestroy, OnInit, V
 import {SttService} from "../../services/stt/stt.service";
 import {Subscription} from "rxjs";
 import {TtsService} from "../../services/tts/tts.service";
+import {ElectronService} from "../../../core/services";
+import {RasaSocketService} from "../../services/rasa/rasa.socket/rasa-socket.service";
 
 @Component({
   selector: 'app-chat',
@@ -19,7 +21,12 @@ export class ChatComponent implements OnInit, OnDestroy, AfterViewInit {
   @ViewChild('messagesContent') messagesContent: ElementRef<HTMLElement>;
   isRecording;
 
-  constructor(private elementRef: ElementRef, private sttService: SttService, private ttsService: TtsService) {
+
+  constructor(private elementRef: ElementRef,
+              private sttService: SttService,
+              private ttsService: TtsService,
+              private rasaSocketService: RasaSocketService,
+              private electronService: ElectronService) {
   }
 
   updateScrollbar() {
@@ -41,6 +48,13 @@ export class ChatComponent implements OnInit, OnDestroy, AfterViewInit {
       next: (audio: string | Uint8Array) => {
         this.playAudio(audio);
       }
+    });
+
+    this.rasaSocketService.receiveMessage((data: any) => {
+      this.addBotMessage(data.text);
+      this.electronService.runCommand(data);
+
+      console.log("rasa responded with:  ", data);
     });
   }
 
@@ -71,12 +85,8 @@ export class ChatComponent implements OnInit, OnDestroy, AfterViewInit {
 
   addUserMessage(message: string) {
     this.messages.push({message: message, personal: true});
+    this.rasaSocketService.sendMessage(message);
     this.updateScrollbar();
-
-    //   TODO: remove when the actual response is implemented
-    setTimeout(() => {
-      this.addBotMessage(message);
-    }, 1000);
   }
 
   addUserMessageFromInput() {
@@ -85,6 +95,7 @@ export class ChatComponent implements OnInit, OnDestroy, AfterViewInit {
       return false;
     }
     this.addUserMessage(msg);
+    this.rasaSocketService.sendMessage(msg);
 
     (document.querySelector('.message-input') as HTMLInputElement).value = '';
   }
@@ -95,7 +106,7 @@ export class ChatComponent implements OnInit, OnDestroy, AfterViewInit {
 
   // TODO: update to use the user's name
   greetUser() {
-    this.addBotMessage('Hi there, I\'m Zaky and you?');
+    this.addBotMessage('Hi, I\'m your personal assistant. How can I help you?');
   }
 
   playAudio(audio: string | Uint8Array) {
@@ -104,7 +115,6 @@ export class ChatComponent implements OnInit, OnDestroy, AfterViewInit {
   }
 
   speak(text: string) {
-    console.log('speak', text)
     this.ttsService.tts(text);
   }
 
