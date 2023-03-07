@@ -8,7 +8,7 @@ import {SharedModule} from './shared/shared.module';
 import {AppRoutingModule} from './app-routing.module';
 import {AppComponent} from './app.component';
 import {RecorderModule} from './recorder/recorder.module';
-import {ScriptsTableModule} from './scripts-table/scripts-table.module';
+import {CommandsTableModule} from './scripts-table/commands-table.module';
 import {AuthModule} from './auth/auth/auth.module';
 import {httpInterceptorProviders} from "./auth/_helper/http-request-interceptor.service";
 import {MatSnackBarModule} from "@angular/material/snack-bar";
@@ -35,7 +35,7 @@ const httpLoaderFactory = (http: HttpClient): TranslateHttpLoader => new Transla
     SharedModule,
     RecorderModule,
     AppRoutingModule,
-    ScriptsTableModule,
+    CommandsTableModule,
     AuthModule,
     MatSnackBarModule,
     MatInputModule,

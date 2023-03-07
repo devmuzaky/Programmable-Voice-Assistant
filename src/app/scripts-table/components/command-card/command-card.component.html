@@ -1,17 +1,12 @@
-<div class="container">
-  <div
-        (click)="onSelectCommand(command)"
-       class="card flex">
-    <div>
+  <div (click)="onSelectCommand(command)" class="card flex">
+
       <figure class="avatar">
         <img [src]="command.icon" class="shadow-4">
       </figure>
-    </div>
 
     <div class="flex-1 command-body">
-      <div class="command-name" >{{command.name}}</div>
+      <div class="command-name">{{command.name}}</div>
       <span class="command-owner">{{command.owner}}</span>
     </div>
 
   </div>
-</div>

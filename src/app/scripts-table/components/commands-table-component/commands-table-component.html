@@ -12,9 +12,9 @@
       </ng-template>
 
       <ng-template pTemplate="right">
-
-
-
+        <button (click)="openMarketplaceDialog()" class="p-button-success mr-2" icon="pi pi-plus" label="Marketplace"
+                pButton
+                pRipple></button>
       </ng-template>
 
     </p-toolbar>
@@ -45,22 +45,22 @@
       <ng-template pTemplate="header">
 
         <tr>
-          <th style="width: 4rem">
-            <p-tableHeaderCheckbox></p-tableHeaderCheckbox>
-          </th>
-          <th>Icon</th>
-          <th pSortableColumn="name">Name
-            <p-sortIcon field="name"></p-sortIcon>
-          </th>
-          <th pSortableColumn="commands">Command
-            <p-sortIcon field="commands"></p-sortIcon>
-          </th>
-          <th style="min-width:6rem">Description</th>
-          <th>Parameters</th>
-          <th pSortableColumn="status">Status
-            <p-sortIcon field="status"></p-sortIcon>
+          <th>
+            <p-tableHeaderCheckbox ></p-tableHeaderCheckbox>
           </th>
           <th></th>
+          <th class="td-width" pSortableColumn="name">Name
+            <p-sortIcon field="name"></p-sortIcon>
+          </th>
+          <th class="td-width" pSortableColumn="commands">Command
+            <p-sortIcon field="commands"></p-sortIcon>
+          </th>
+          <th class="td-width" >Description</th>
+          <th class="td-width">Parameters</th>
+          <th class="td-width" pSortableColumn="status">Status
+            <p-sortIcon field="status"></p-sortIcon>
+          </th>
+          <th class="td-width" ></th>
         </tr>
 
       </ng-template>
@@ -74,16 +74,16 @@
               <img [src]="command.icon" class="shadow-4">
             </figure>
           </td>
-          <td>{{command.name}}</td>
-          <td>{{command.commands}}</td>
-          <td>{{command.description}}</td>
-          <td>{{command.parameters}}</td>
-          <td><span
+          <td class="truncateT td-width">{{command.name}}</td>
+          <td class="truncateT td-width" >{{command.commands}}</td>
+          <td class="truncate td-width">{{command.description}}</td>
+          <td class="truncateT td-width" >{{command.parameters}}</td>
+          <td class="truncateT td-width" ><span
             [class]="'product-badge status-' + (command.status ? command.status.toLowerCase() : '')">{{command.status}}</span>
           </td>
           <!--          <td><p-rating [ngModel]="command.rating" [readonly]="true" [cancel]="false"></p-rating></td>-->
 
-          <td>
+          <td class="truncateT td-width" >
             <button (click)="editProduct(command)"
                     class="p-button-rounded p-button-success mr-2"
                     icon="pi pi-pencil"
@@ -252,9 +252,9 @@
                       accept="{{acceptedFiles}}"
                       chooseLabel="Upload Script"
                       class="mr-2 inline-block"
+                      invalidFileTypeMessageSummary="Invalid file type"
                       label="Upload Script"
                       mode="basic"
-                      invalidFileTypeMessageSummary="Invalid file type"
         >
         </p-fileUpload>
 
@@ -279,3 +279,8 @@
   <p-confirmDialog [style]="{width: '450px'}"></p-confirmDialog>
 
 </div>
+
+<app-marketplace
+  (closeMarketplaceEvent)="closeMarketplace()"
+  *ngIf="marketplaceFlag"
+></app-marketplace>

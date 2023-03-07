@@ -9,12 +9,15 @@ import {Command} from "../../interfaces/command.model";
 export class CommandCardComponent {
 
   @Input() command: Command;
-
   @Output() commandSelected = new EventEmitter<any>();
+
+  @Output('commandSelectedFlag') selectedCommand = new EventEmitter<any>();
 
 
   onSelectCommand(command: Command) {
     this.commandSelected.emit(command);
+    this.selectedCommand.emit(true);
+
   }
 
 }

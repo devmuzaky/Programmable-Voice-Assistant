@@ -1,27 +1,27 @@
-import {AfterViewInit, Component, ElementRef, OnInit, ViewChild} from '@angular/core';
+import {AfterViewInit, Component, ElementRef, EventEmitter, Input, OnInit, Output, ViewChild} from '@angular/core';
 import {CommandService} from "../../services/command.service";
 import {debounceTime, distinctUntilChanged, fromEvent, map, switchMap} from "rxjs";
 import {Command} from "../../interfaces/command.model";
 
 @Component({
-  selector: 'app-commands', templateUrl: './marketplace.component.html', styleUrls: ['./marketplace.component.scss']
+  selector: 'app-marketplace', templateUrl: './marketplace.component.html', styleUrls: ['./marketplace.component.scss']
 })
 
 export class MarketplaceComponent implements AfterViewInit, OnInit {
 
-  @ViewChild('input', {static: true}) input: ElementRef;
+  @ViewChild('input') input: ElementRef;
 
-  commandDialog: boolean;
+  @Input('marketplaceFlag') openMarketplace: boolean;
+
+  @Output() closeMarketplaceEvent = new EventEmitter<void>();
+
+  commandSelectedFlag = false;
 
   commandsList: Command[] = [];
-  selectedCommand: any;
+  commandSelected: Command;
 
   constructor(private commandService: CommandService) {
 
-  }
-
-  openMarketplace() {
-    this.commandDialog = true;
   }
 
   ngOnInit() {
@@ -29,6 +29,7 @@ export class MarketplaceComponent implements AfterViewInit, OnInit {
       this.commandsList = data;
       console.log("Commands: ", this.commandsList)
     }, error => console.error(error));
+
   }
 
   ngAfterViewInit() {
@@ -44,4 +45,8 @@ export class MarketplaceComponent implements AfterViewInit, OnInit {
 
   }
 
+  closeMarketplace() {
+    console.log("closeMarketplace");
+    this.closeMarketplaceEvent.emit();
+  }
 }

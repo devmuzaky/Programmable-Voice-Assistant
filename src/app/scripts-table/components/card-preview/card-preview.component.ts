@@ -1,4 +1,5 @@
 import {Component, Input, OnInit} from '@angular/core';
+import {Command} from "../../interfaces/command.model";
 
 @Component({
   selector: 'app-card-preview',
@@ -6,6 +7,9 @@ import {Component, Input, OnInit} from '@angular/core';
   styleUrls: ['./card-preview.component.scss']
 })
 export class CardPreviewComponent implements OnInit {
+
+  @Input() command: Command;
+
   constructor() {
   }
 
@@ -13,5 +17,8 @@ export class CardPreviewComponent implements OnInit {
   }
 
 
+  installCommand(command: Command) {
+    console.log('installCommand', command);
+  }
 }
 

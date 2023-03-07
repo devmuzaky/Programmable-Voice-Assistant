@@ -1,8 +1,7 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
-import { ScriptsTableRoutingModule } from './scripts-table-routing.module';
-import {ScriptsTableComponent} from "./script-table-component/scripts-table.component";
+import {MarketplaceComponent} from "./components/marketplace-component/marketplace.component";
 import {SharedModule} from "../shared/shared.module";
 import {ToastModule} from "primeng/toast";
 import {ToolbarModule} from "primeng/toolbar";
@@ -19,16 +18,25 @@ import {RadioButtonModule} from "primeng/radiobutton";
 import {InputNumberModule} from "primeng/inputnumber";
 import {ConfirmDialogModule} from "primeng/confirmdialog";
 import {MatInputModule} from "@angular/material/input";
+import {ReactiveFormsModule} from "@angular/forms";
+import { CommandsTableComponent } from './components/commands-table-component/commands-table-component';
+import {CheckboxModule} from "primeng/checkbox";
+import {StepsModule} from "primeng/steps";
+import { CommandCardComponent } from './components/command-card/command-card.component';
+import { CardPreviewComponent } from './components/card-preview/card-preview.component';
+import {CardModule} from "primeng/card";
 
 
 
 @NgModule({
   declarations: [
-    ScriptsTableComponent
+    MarketplaceComponent,
+    CommandsTableComponent,
+    CommandCardComponent,
+    CardPreviewComponent,
   ],
   imports: [
     CommonModule,
-    ScriptsTableRoutingModule,
     SharedModule,
     ToastModule,
     ToolbarModule,
@@ -44,7 +52,15 @@ import {MatInputModule} from "@angular/material/input";
     RadioButtonModule,
     InputNumberModule,
     ConfirmDialogModule,
-    MatInputModule
+    MatInputModule,
+    ReactiveFormsModule,
+    CheckboxModule,
+    StepsModule,
+    CardModule
+  ],
+  exports: [
+    MarketplaceComponent,
+    CommandsTableComponent
   ]
 })
-export class ScriptsTableModule { }
+export class CommandsTableModule { }

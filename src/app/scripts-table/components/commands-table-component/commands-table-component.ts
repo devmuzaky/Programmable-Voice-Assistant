@@ -1,4 +1,4 @@
-import {Component, OnInit, ViewChild} from '@angular/core';
+import {Component, EventEmitter, OnInit, Output, ViewChild} from '@angular/core';
 import {Command} from '../../interfaces/command.model';
 import {CommandService} from '../../services/command.service';
 import {ConfirmationService, MessageService} from "primeng/api";
@@ -14,6 +14,7 @@ export class CommandsTableComponent implements OnInit {
   @ViewChild('iconUpload') fileUpload: any;
 
   @ViewChild('paramNum') paramNum: any;
+  marketplaceFlag = false;
 
   commandDialog: boolean;
 
@@ -35,25 +36,17 @@ export class CommandsTableComponent implements OnInit {
   }, {
     label: 'Private', value: 'Private'
   }];
-
   private progress: number;
   private message: string;
   private fileInfos: any;
 
-  constructor(
-    private commandService: CommandService,
-    private messageService: MessageService,
-    private confirmationService: ConfirmationService,
-  ) {
+  constructor(private commandService: CommandService, private messageService: MessageService, private confirmationService: ConfirmationService,) {
   }
 
   ngOnInit() {
-    this.commandService.getCommands().subscribe(
-      data => {
-        this.commands = data;
-      },
-      error => console.error(error)
-    );
+    this.commandService.getCommands().subscribe(data => {
+      this.commands = data;
+    }, error => console.error(error));
   }
 
   openNew() {
@@ -161,6 +154,10 @@ export class CommandsTableComponent implements OnInit {
     this.command.parameters = ['', '', '', '', ''];
   }
 
+  openMarketplaceDialog() {
+    this.marketplaceFlag = true;
+  }
+
   private uploadFile(file: any) {
     const formData = new FormData();
     formData.append('file', file);
@@ -178,7 +175,9 @@ export class CommandsTableComponent implements OnInit {
     });
   }
 
-  openMarketPlace() {
 
+
+  closeMarketplace() {
+    this.marketplaceFlag = false;
   }
 }
