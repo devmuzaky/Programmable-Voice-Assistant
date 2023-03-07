@@ -1,0 +1,134 @@
+:host ::ng-deep {
+
+  .parent {
+    display: grid;
+    //grid-template-columns: 1fr repeat(2, 2fr);
+    grid-template-rows: 1fr;
+    grid-column-gap: 0;
+    grid-row-gap: 0;
+  }
+
+  .box {
+    background-color: #2B2D30FF !important;
+    padding: 20px;
+  }
+
+  .div1 {
+    grid-area: 1 / 1 / 2 / 2;
+  }
+
+  .div2 {
+    grid-area: 1 / 2 / 2 / 3;
+    width: 360px;
+    height: 500px;
+    border: 1px solid rgba(101, 105, 112, 0.56);
+    background-color: #2B2D30FF;
+    overflow: auto;
+    border-right: none;
+
+    &::-webkit-scrollbar {
+      width: 10px;
+    }
+
+    &::-webkit-scrollbar-track {
+      background: #2B2D30FF;
+    }
+
+    &::-webkit-scrollbar-thumb {
+      background: #3C3F41FF;
+      border-radius: 10px;
+    }
+
+    &::-webkit-scrollbar-thumb:hover {
+      background: #555;
+    }
+
+
+  }
+
+  .div3 {
+    grid-area: 1 / 3 / 2 / 4;
+    width: 360px;
+    height: 500px;
+    border: 1px solid rgba(101, 105, 112, 0.56);
+    background-color: #2B2D30FF;
+
+  }
+
+  .btn-marketplace {
+    color: rgba(255, 255, 255, 0.51);
+    border: none;
+    padding: 10px;
+    background: none;
+
+    &:hover {
+      background-color: rgb(49, 51, 53);
+      cursor: pointer;
+    }
+
+
+    &:focus {
+      background: rgba(74, 135, 198, 0.28);
+      cursor: pointer;
+      border-bottom: 4px solid rgba(74, 135, 198, 0.9);
+      margin-bottom: -4px;
+    }
+
+  }
+
+  .search-input {
+    width: 100% !important;
+    height: 40px;
+    border: none;
+    background-color: #2B2D30FF;
+    color: rgba(255, 255, 255, 0.51);
+    border-bottom: 1px solid rgba(101, 105, 112, 0.56);
+    outline: none;
+
+    &::placeholder {
+      color: rgba(255, 255, 255, 0.51);
+    }
+
+    &:focus {
+      border: none;
+      box-shadow: none;
+      border-bottom: 1px solid rgba(101, 105, 112, 0.56);
+    }
+  }
+
+  .market-btn-container{
+    width: 50%;
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    margin-bottom: 10px;
+  }
+
+  .p-dialog{
+    height: 100% !important;
+    border: none !important;
+    border-radius: 0 !important;
+    box-shadow: none !important;
+    overflow: hidden !important;
+    background-color: #3C3F41FF !important;
+    max-height: 80% !important;
+
+    .p-dialog-content {
+      background: #111417 !important;
+      color: rgba(255, 255, 255, 0.87);
+      padding: 0;
+    }
+  }
+
+  .prev-text{
+    margin: auto;
+    color: rgba(255, 255, 255, 0.51);
+    font-size: 14px;
+    font-weight: 500;
+  }
+
+
+
+
+
+}

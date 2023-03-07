@@ -1,0 +1,66 @@
+<div class="container box">
+  <button
+    (click)="openMarketplace()"
+    label="Marketplace"
+    pButton
+    type="button"
+  ></button>
+
+  <p-dialog
+    [(visible)]="commandDialog"
+    [baseZIndex]="10000"
+    [closable]="true"
+    [contentStyle]="{width: '100%'}"
+    [dismissableMask]="true"
+    [draggable]="true"
+    [modal]="true"
+    [resizable]="true"
+    [responsive]="true"
+    [showHeader]="false"
+    header="Marketplace">
+
+
+    <div class="flex mr-auto market-btn-container">
+      <button class="btn-marketplace">Marketplace</button>
+      <button class="btn-marketplace">Installed</button>
+    </div>
+
+    <div class="parent">
+
+      <div class="div2">
+        <span class="p-input-icon-left search-input">
+          <i class="pi pi-search"></i>
+          <input
+            #input
+            class="search-input"
+            pInputText
+            placeholder="Search..."
+            type="text"
+          />
+        </span>
+
+        <div>
+
+          <app-command-card *ngFor="let command of commandsList" [command]="command"
+          ></app-command-card>
+
+        </div>
+
+
+      </div>
+
+      <div class="div3 flex">
+                <span class="prev-text">
+                  Select Command to preview it
+                </span>
+
+        <app-card-preview></app-card-preview>
+
+      </div>
+
+    </div>
+
+  </p-dialog>
+
+
+</div>

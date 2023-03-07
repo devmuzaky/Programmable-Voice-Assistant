@@ -1,18 +1,18 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { ScriptsTableComponent } from './scripts-table.component';
+import { MarketplaceComponent } from './marketplace.component';
 
 describe('ScriptsTableComponent', () => {
-  let component: ScriptsTableComponent;
-  let fixture: ComponentFixture<ScriptsTableComponent>;
+  let component: MarketplaceComponent;
+  let fixture: ComponentFixture<MarketplaceComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ ScriptsTableComponent ]
+      declarations: [ MarketplaceComponent ]
     })
     .compileComponents();
 
-    fixture = TestBed.createComponent(ScriptsTableComponent);
+    fixture = TestBed.createComponent(MarketplaceComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });
