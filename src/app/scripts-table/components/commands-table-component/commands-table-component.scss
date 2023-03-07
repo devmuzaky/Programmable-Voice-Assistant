@@ -1,0 +1,231 @@
+:host ::ng-deep {
+  .card {
+    height: 90%;
+  }
+
+  .p-paginator {
+    .p-paginator-current {
+      margin-left: auto;
+    }
+  }
+
+  .p-progressbar {
+    height: .5rem;
+    background-color: #D8DADC;
+
+    .p-progressbar-value {
+      background-color: #607D8B;
+    }
+  }
+
+  .table-header {
+    display: flex;
+    justify-content: space-between;
+  }
+
+  .p-calendar .p-datepicker {
+    min-width: 25rem;
+
+    td {
+      font-weight: 400;
+
+    }
+  }
+
+  .p-datatable {
+    .p-datatable-header {
+      padding: 1rem;
+      text-align: left;
+      font-size: 1.5rem;
+    }
+
+    .p-paginator {
+      padding: 1rem;
+    }
+
+    .p-datatable-thead > tr > th {
+      text-align: left;
+    }
+
+    .p-datatable-tbody > tr > td {
+      cursor: auto;
+      padding: 10px 10px;
+    }
+
+    .p-dropdown-label:not(.p-placeholder) {
+      text-transform: uppercase;
+    }
+  }
+
+  p-fluid .p-dropdown {
+    width: 50%;
+  }
+
+  /* Responsive */
+  .p-datatable-customers .p-datatable-tbody > tr > td .p-column-title {
+    display: none;
+  }
+
+  .avatar {
+    z-index: 1;
+    border-radius: 30px;
+    width: 30px;
+    height: 30px;
+    overflow: hidden;
+    margin: 0;
+    padding: 0;
+    border: 2px solid rgba(255, 255, 255, 0.23);
+
+    img {
+      width: 100%;
+      height: auto;
+    }
+  }
+
+  .status-public {
+    color: rgb(28, 141, 3);
+    font-weight: bold;
+  }
+
+  .status-private {
+    color: rgba(250, 168, 168, 0.85);
+    font-weight: bold;
+  }
+
+
+  .p-fileupload .p-button-label {
+    width: 100px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  .p-fileupload .p-ripple {
+    border: none;
+  }
+
+
+  .p-fluid p-inputnumber {
+    width: 20%;
+  }
+
+  //.p-fluid .p-inputnumber .p-inputnumber-input {
+  //  width: 36px;
+  //}
+
+  .p-datatable .p-datatable-thead > tr > th {
+    padding: 10px 10px;
+  }
+
+  .p-dialog {
+    max-height: 100%;
+  }
+
+  .p-dialog .p-dialog-header {
+    padding: 10px !important;
+  }
+
+  .p-dialog .p-dialog-footer {
+    padding: 10px !important;
+  }
+
+  .p-dialog .p-dialog-content {
+    padding: 10px !important;
+  }
+
+  .p-message .p-message-wrapper {
+    padding: 6px 18px;
+  }
+
+  .p-message .p-message-icon {
+    display: none;
+    font-size: 19.5px;
+    margin-right: 0.5rem;
+  }
+
+  .p-message .p-message-summary {
+    font-size: 14px;
+    font-weight: 600;
+  }
+
+}
+
+@media screen and (max-width: 960px) {
+  :host ::ng-deep {
+    .p-datatable {
+      &.p-datatable-customers {
+        .p-datatable-thead > tr > th,
+        .p-datatable-tfoot > tr > td {
+          display: none !important;
+        }
+
+        .p-datatable-tbody > tr {
+          border-bottom: 1px solid var(--layer-2);
+
+          > td {
+            text-align: left;
+            display: block;
+            border: 0 none !important;
+            width: 100% !important;
+            float: left;
+            clear: left;
+            padding: 10px 10px;
+
+            .p-column-title {
+              padding: .4rem;
+              min-width: 30%;
+              display: inline-block;
+              margin: -.4rem 1rem -.4rem -.4rem;
+              font-weight: bold;
+            }
+
+            .p-progressbar {
+              margin-top: .5rem;
+            }
+          }
+        }
+      }
+    }
+  }
+
+}
+
+// make the table responsive for screens smaller than 960px
+@media screen and (max-width: 960px) {
+  :host ::ng-deep {
+    .p-datatable {
+      &.p-datatable-customers {
+        .p-datatable-thead > tr > th,
+        .p-datatable-tfoot > tr > td {
+          display: none !important;
+        }
+
+        .p-datatable-tbody > tr {
+          border-bottom: 1px solid var(--layer-2);
+
+          > td {
+            text-align: left;
+            display: block;
+            border: 0 none !important;
+            width: 100% !important;
+            float: left;
+            clear: left;
+            padding: 10px 10px;
+
+            .p-column-title {
+              padding: .4rem;
+              min-width: 20%;
+              display: inline-block;
+              margin: -.4rem 1rem -.4rem -.4rem;
+              font-weight: bold;
+            }
+
+            .p-progressbar {
+              margin-top: .5rem;
+            }
+          }
+        }
+      }
+    }
+  }
+}
