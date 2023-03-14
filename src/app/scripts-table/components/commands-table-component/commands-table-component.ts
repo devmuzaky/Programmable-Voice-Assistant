@@ -103,7 +103,7 @@ export class CommandsTableComponent implements OnInit {
     const commandCreateRequest: CommandCreateRequest = {
       name: this.command.name,
       description: this.command.description,
-      status: this.command.status,
+      visibility: this.command.visibility,
       scriptType: this.command.scriptType,
       parameters: this.command.parameters,
       icon: this.command.icon,
@@ -119,6 +119,8 @@ export class CommandsTableComponent implements OnInit {
       this.messageService.add({severity: 'error', summary: 'Error', detail: 'Command Not Created', life: 3000});
 
     });
+
+    console.log(commandCreateRequest)
 
     this.commandDialog = false;
     this.command = {};
