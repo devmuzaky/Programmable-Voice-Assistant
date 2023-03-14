@@ -51,7 +51,8 @@
       cursor: auto;
       padding: 10px 10px;
     }
-    .td-width{
+
+    .td-width {
       min-width: 3.5rem;
       max-width: 3.5rem;
     }
@@ -106,7 +107,7 @@
 
 
   .p-fluid p-inputnumber {
-    width: 20%;
+    width: 22%;
   }
 
 
@@ -148,10 +149,10 @@
   }
 
   .truncate {
-      max-width: 14rem;
-      white-space: nowrap;
-      overflow: hidden;
-      text-overflow: ellipsis;
+    max-width: 14rem;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
   }
 
   .truncateT {
@@ -159,6 +160,13 @@
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
+  }
+
+  .scriptUpload {
+    div.p-fileupload{
+      padding: 5px;
+      width: 44px !important;
+    }
   }
 
 }
@@ -199,7 +207,10 @@
         }
       }
     }
+
+
   }
+
 
 }
 

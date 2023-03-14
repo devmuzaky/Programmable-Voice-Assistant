@@ -1,6 +1,7 @@
 import {Injectable} from '@angular/core';
 import {HttpClient} from '@angular/common/http';
 import {map} from "rxjs";
+import {Command} from "../interfaces/command.model";
 
 @Injectable({
   providedIn: 'root'
@@ -11,6 +12,10 @@ export class CommandService {
     console.log('CommandService constructor')
   }
 
+
+
+
+
   getCommands() {
     return this.http.get<any>('assets/commands.json')
       .pipe(
@@ -19,10 +24,6 @@ export class CommandService {
         })
       );
 
-  }
-
-  uploadIcon(formData: FormData) {
-    return this.http.post('assets/commands.json', formData);
   }
 
   getFiles() {
@@ -46,6 +47,23 @@ export class CommandService {
       );
   }
 
+
+  createCommand(command: Command) {
+    return this.http.post('/api/commands', command);
+  }
+
+
+  uploadIcon(file: any) {
+
+  }
+
+  updateCommand(command: Command) {
+
+  }
+
+  deleteCommand(id: number) {
+
+  }
 
 
 }

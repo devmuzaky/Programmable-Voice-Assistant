@@ -12,6 +12,8 @@ import {HttpEvent, HttpEventType, HttpResponse} from "@angular/common/http";
 export class CommandsTableComponent implements OnInit {
 
   @ViewChild('iconUpload') fileUpload: any;
+  @ViewChild('scriptUpload') scriptUpload: any;
+  @ViewChild('requirementsFile') requirementsFile: any;
 
   @ViewChild('paramNum') paramNum: any;
   marketplaceFlag = false;
@@ -23,7 +25,7 @@ export class CommandsTableComponent implements OnInit {
   command: Command;
 
   selectedCommands: Command[];
-  acceptedFiles: string = ".js, .py";
+  acceptedScripts: string = ".js, .py";
 
   submitted: boolean;
   scriptType = [{
@@ -61,33 +63,33 @@ export class CommandsTableComponent implements OnInit {
     }, 1000);
   }
 
-  deleteSelectedProducts() {
+  deleteSelectedCommands() {
     this.confirmationService.confirm({
-      message: 'Are you sure you want to delete the selected products?',
+      message: 'Are you sure you want to delete the selected commands?',
       header: 'Confirm',
       icon: 'pi pi-exclamation-triangle',
       accept: () => {
         this.commands = this.commands.filter(val => !this.selectedCommands.includes(val));
         this.selectedCommands = null;
-        this.messageService.add({severity: 'success', summary: 'Successful', detail: 'Products Deleted', life: 3000});
+        this.messageService.add({severity: 'success', summary: 'Successful', detail: 'Commands Deleted', life: 3000});
       }
     });
   }
 
-  editProduct(command: Command) {
+  editCommand(command: Command) {
     this.command = {...command};
     this.commandDialog = true;
   }
 
-  deleteProduct(product: Command) {
+  deleteCommand(command: Command) {
     this.confirmationService.confirm({
-      message: 'Are you sure you want to delete ' + product.name + '?',
+      message: 'Are you sure you want to delete ' + command.name + '?',
       header: 'Confirm',
       icon: 'pi pi-exclamation-triangle',
       accept: () => {
-        this.commands = this.commands.filter(val => val.id !== product.id);
+        this.commands = this.commands.filter(val => val.id !== command.id);
         this.command = {};
-        this.messageService.add({severity: 'success', summary: 'Successful', detail: 'Product Deleted', life: 3000});
+        this.messageService.add({severity: 'success', summary: 'Successful', detail: 'Command Deleted', life: 3000});
       }
     });
   }
@@ -97,57 +99,51 @@ export class CommandsTableComponent implements OnInit {
     this.submitted = false;
   }
 
-  saveProduct() {
+  onCreateCommand() {
     this.submitted = true;
 
-    if (this.command.name.trim()) {
-      if (this.command.id) {
-        this.commands[this.findIndexById(this.command.id)] = this.command;
-        this.messageService.add({severity: 'success', summary: 'Successful', detail: 'Product Updated', life: 3000});
-      } else {
-        this.command.id = this.createId();
-        this.command.icon = 'product-placeholder.svg';
-        this.commands.push(this.command);
-        this.messageService.add({severity: 'success', summary: 'Successful', detail: 'Product Created', life: 3000});
-      }
+    this.commandService.createCommand(this.command).subscribe(data => {
+      this.messageService.add({severity: 'success', summary: 'Successful', detail: 'Command Created', life: 3000});
+      console.log(data);
+    }, error => {
+      console.error(error)
+      this.messageService.add({severity: 'error', summary: 'Error', detail: 'Command Not Created', life: 3000});
 
-      this.commands = [...this.commands];
-      this.commandDialog = false;
-      this.command = {};
-    }
-  }
+    });
 
-  findIndexById(id: string): number {
-    let index = -1;
-    for (let i = 0; i < this.commands.length; i++) {
-      if (this.commands[i].id === id) {
-        index = i;
-        break;
-      }
-    }
+    this.commandDialog = false;
+    this.command = {};
 
-    return index;
-  }
-
-  createId(): string {
-    let id = '';
-    const chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
-    for (let i = 0; i < 5; i++) {
-      id += chars.charAt(Math.floor(Math.random() * chars.length));
-    }
-    return id;
   }
 
   onUploadIcon($event: any) {
-    for (const file of $event.files) {
-      this.uploadFile(file);
-    }
-    this.messageService.add({severity: 'info', summary: 'File Uploaded', detail: ''});
+    this.command.icon = $event.files[0];
+    this.messageService.add({severity: 'info', summary: 'Icon Uploaded', detail: ''});
+  }
 
+  onUploadScript($event: any) {
+    this.command.script = $event.files[0];
+    this.messageService.add({severity: 'info', summary: 'Script Uploaded', detail: ''});
   }
 
   onClearIconSelection() {
     this.fileUpload.clear();
+    this.messageService.add({severity: 'info', summary: 'Icon Cleared', detail: ''});
+  }
+
+  onClearScriptSelection() {
+    this.scriptUpload.clear();
+    this.messageService.add({severity: 'info', summary: 'Script Cleared', detail: ''});
+  }
+
+  onUploadRequirementsFile($event: any) {
+    this.command.requirements = $event.files[0];
+    this.messageService.add({severity: 'info', summary: 'Requirements Uploaded', detail: ''});
+  }
+
+  onClearRequirementsSelection() {
+    this.requirementsFile.clear();
+    this.messageService.add({severity: 'info', summary: 'Requirements Cleared', detail: ''});
   }
 
   onStateChange() {
@@ -158,26 +154,10 @@ export class CommandsTableComponent implements OnInit {
     this.marketplaceFlag = true;
   }
 
-  private uploadFile(file: any) {
-    const formData = new FormData();
-    formData.append('file', file);
-    this.commandService.uploadIcon(formData).subscribe((event: HttpEvent<any>) => {
-      if (event.type === HttpEventType.UploadProgress) {
-        this.progress = Math.round(100 * event.loaded / event.total);
-      } else if (event instanceof HttpResponse) {
-        this.message = 'Upload success.';
-        this.fileInfos = this.commandService.getFiles();
-      }
-    }, err => {
-      this.progress = 0;
-      this.message = 'Could not upload the file!';
-      this.fileInfos = this.commandService.getFiles();
-    });
-  }
-
-
 
   closeMarketplace() {
     this.marketplaceFlag = false;
   }
+
+
 }
