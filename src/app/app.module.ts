@@ -8,16 +8,19 @@ import {SharedModule} from './shared/shared.module';
 import {AppRoutingModule} from './app-routing.module';
 import {AppComponent} from './app.component';
 import {RecorderModule} from './recorder/recorder.module';
-import {ScriptsTableModule} from './scripts-table/scripts-table.module';
+import {CommandsTableModule} from './scripts-table/commands-table.module';
 import {AuthModule} from './auth/auth/auth.module';
 import {httpInterceptorProviders} from "./auth/_helper/http-request-interceptor.service";
 import {MatSnackBarModule} from "@angular/material/snack-bar";
 import {MatInputModule} from "@angular/material/input";
 
+import { AccordionModule } from 'primeng/accordion';
+
 // NG Translate
 import {TranslateLoader, TranslateModule} from '@ngx-translate/core';
 import {TranslateHttpLoader} from '@ngx-translate/http-loader';
 import {TrayModule} from "./tray/tray.module";
+import {ConfirmationService, MessageService} from "primeng/api";
 
 
 const httpLoaderFactory = (http: HttpClient): TranslateHttpLoader => new TranslateHttpLoader(http, './assets/i18n/', '.json');
@@ -32,13 +35,15 @@ const httpLoaderFactory = (http: HttpClient): TranslateHttpLoader => new Transla
     SharedModule,
     RecorderModule,
     AppRoutingModule,
-    ScriptsTableModule,
+    CommandsTableModule,
     AuthModule,
     MatSnackBarModule,
     MatInputModule,
     FormsModule,
     ReactiveFormsModule,
     TrayModule,
+    AccordionModule,
+
 
     TranslateModule.forRoot({
       loader: {
@@ -48,7 +53,7 @@ const httpLoaderFactory = (http: HttpClient): TranslateHttpLoader => new Transla
       }
     })
   ],
-  providers: [httpInterceptorProviders],
+  providers: [httpInterceptorProviders, MessageService, ConfirmationService],
   bootstrap: [AppComponent]
 })
 export class AppModule {

@@ -239,6 +239,7 @@ Message Box
   background: rgba(0, 0, 0, 0.3);
   padding: 10px;
   position: relative;
+  overflow: hidden;
 
   & .message-input {
     background: none;
@@ -249,8 +250,10 @@ Message Box
     font-size: 11px;
     height: 17px;
     margin: 0;
-    padding-right: 20px;
-    width: 265px;
+    padding-right: 145px;
+    width: 80%;
+    overflow-y: scroll;
+    box-sizing: content-box;
   }
 
   & .message-submit {

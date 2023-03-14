@@ -1,0 +1,94 @@
+<div class="container box">
+
+
+  <p-dialog
+    [baseZIndex]="10000"
+    [contentStyle]="{width: '100%'}"
+    [dismissableMask]="true"
+    [draggable]="true"
+    [modal]="true"
+    [resizable]="true"
+    [responsive]="true"
+    [showHeader]="false"
+    visible="true">
+
+    <p-toolbar styleClass="gap-2">
+
+      <ng-template pTemplate="left">
+
+
+        <div class="flex align-items-center justify-content-between">
+                  <span class="p-input-icon-left w-362 search-input">
+                    <i class="pi pi-search"></i>
+                    <input
+                      #input
+                      class="search-input"
+                      pInputText
+                      placeholder="Search..."
+                      type="text"
+                    />
+                  </span>
+        </div>
+
+
+      </ng-template>
+
+      <ng-template pTemplate="right">
+        <button
+          (click)="closeMarketplace()"
+          class="btn-close"
+          pButton
+          type="button"
+        >
+          <i class="pi pi-times"></i>
+        </button>
+      </ng-template>
+    </p-toolbar>
+
+
+    <div class="parent">
+
+      <div class="div2">
+        <!--        <span class="p-input-icon-left search-input">-->
+        <!--          <i class="pi pi-search"></i>-->
+        <!--          <input-->
+        <!--            #input-->
+        <!--            class="search-input"-->
+        <!--            pInputText-->
+        <!--            placeholder="Search..."-->
+        <!--            type="text"-->
+        <!--          />-->
+        <!--        </span>-->
+
+        <div>
+
+          <app-command-card
+            (commandSelected)="commandSelected = $event"
+            (commandSelectedFlag)="commandSelectedFlag = $event"
+            *ngFor="let command of commandsList"
+            [command]="command"
+          ></app-command-card>
+
+        </div>
+
+
+      </div>
+
+      <div class="div3 flex">
+                <span *ngIf="!commandSelectedFlag" class="prev-text">
+                  Select Command to preview it
+                </span>
+
+        <app-card-preview
+          *ngIf="commandSelectedFlag"
+          [command]="commandSelected"
+        ></app-card-preview>
+
+      </div>
+
+    </div>
+
+  </p-dialog>
+
+
+</div>

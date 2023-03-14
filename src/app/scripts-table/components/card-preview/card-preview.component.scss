@@ -1,0 +1,13 @@
+:host ::ng-deep {
+
+  .p-card {
+    background-color: transparent;
+    box-shadow: none;
+  }
+
+  .p-card .p-component {
+    width: 100%;
+    height: 100%;
+  }
+
+}
