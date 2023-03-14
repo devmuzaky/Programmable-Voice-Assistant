@@ -1,7 +1,7 @@
 export interface CommandCreateRequest {
   name: string;
   description: string;
-  status: string;
+  visibility: string;
   scriptType: string;
   parameters: string[];
   icon: File;

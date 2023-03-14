@@ -3,12 +3,12 @@ export interface Command {
   id?: string;
   name?: string;
   commands?: string;
-  status?: string;
+  visibility?: string;
   icon?: File;
   script?: File;
   scriptType?: string;
   parametersNumber?: number;
-  parameters?: any[];
+  parameters?: string[];
   description?: string;
   owner?: string;
 }
