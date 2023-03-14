@@ -1,8 +1,9 @@
-import {Component, EventEmitter, OnInit, Output, ViewChild} from '@angular/core';
+import {Component, OnInit, Output, ViewChild} from '@angular/core';
 import {Command} from '../../interfaces/command.model';
 import {CommandService} from '../../services/command.service';
 import {ConfirmationService, MessageService} from "primeng/api";
-import {HttpEvent, HttpEventType, HttpResponse} from "@angular/common/http";
+import {CommandCreateRequest} from "../../interfaces/commandCreateRequest.model";
+
 
 @Component({
   selector: 'app-commands-table-component',
@@ -38,9 +39,6 @@ export class CommandsTableComponent implements OnInit {
   }, {
     label: 'Private', value: 'Private'
   }];
-  private progress: number;
-  private message: string;
-  private fileInfos: any;
 
   constructor(private commandService: CommandService, private messageService: MessageService, private confirmationService: ConfirmationService,) {
   }
@@ -97,12 +95,23 @@ export class CommandsTableComponent implements OnInit {
   hideDialog() {
     this.commandDialog = false;
     this.submitted = false;
+    this.command = {};
   }
 
   onCreateCommand() {
     this.submitted = true;
+    const commandCreateRequest: CommandCreateRequest = {
+      name: this.command.name,
+      description: this.command.description,
+      status: this.command.status,
+      scriptType: this.command.scriptType,
+      parameters: this.command.parameters,
+      icon: this.command.icon,
+      script: this.command.script,
+      requirements: this.command.requirements
 
-    this.commandService.createCommand(this.command).subscribe(data => {
+    }
+    this.commandService.createCommand(commandCreateRequest).subscribe(data => {
       this.messageService.add({severity: 'success', summary: 'Successful', detail: 'Command Created', life: 3000});
       console.log(data);
     }, error => {

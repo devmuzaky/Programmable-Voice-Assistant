@@ -11,6 +11,4 @@ export interface Command {
   parameters?: any[];
   description?: string;
   owner?: string;
-  rate?: number;
-
 }
