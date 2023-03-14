@@ -16,6 +16,7 @@ export class ChatComponent implements OnInit, OnDestroy, AfterViewInit {
   transcribedSubscription: Subscription;
 
   ttsAudioSubscription: Subscription;
+  scriptResponseSubscription: Subscription;
 
   @ViewChild('audioElement') audioElement: ElementRef<HTMLAudioElement>;
   @ViewChild('messagesContent') messagesContent: ElementRef<HTMLElement>;
@@ -50,11 +51,19 @@ export class ChatComponent implements OnInit, OnDestroy, AfterViewInit {
       }
     });
 
-    this.rasaSocketService.receiveMessage((data: any) => {
-      this.addBotMessage(data.text);
-      this.electronService.runCommand(data);
+    this.scriptResponseSubscription = this.electronService.getScriptResponseObservable().subscribe({
+      next: (response: string) => {
+        this.addBotMessage(response);
+      }
+    })
 
-      console.log("rasa responded with:  ", data);
+    this.rasaSocketService.receiveMessage((data: any) => {
+      this.addBotMessage(`running ${data.scriptName}...`);
+      // TODO: handle errors and different types of resonses
+      const scriptName = data.scriptName;
+      const args = Object.values<string>(data.args);
+
+      this.electronService.runScript(scriptName, args);
     });
   }
 
@@ -99,9 +108,6 @@ export class ChatComponent implements OnInit, OnDestroy, AfterViewInit {
     (document.querySelector('.message-input') as HTMLInputElement).value = '';
   }
 
-  ngOnDestroy(): void {
-    this.transcribedSubscription.unsubscribe();
-  }
 
   // TODO: update to use the user's name
   greetUser() {
@@ -123,5 +129,11 @@ export class ChatComponent implements OnInit, OnDestroy, AfterViewInit {
 
   recorderOutput($event: Blob) {
     this.sttService.sendAudioBlob($event);
+  }
+
+  ngOnDestroy(): void {
+    this.transcribedSubscription.unsubscribe();
+    this.ttsAudioSubscription.unsubscribe();
+    this.scriptResponseSubscription.unsubscribe();
   }
 }

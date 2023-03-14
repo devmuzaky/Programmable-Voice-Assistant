@@ -1,7 +1,9 @@
 const {exec} = require("child_process");
 
-const runScript = (scriptName: string) => {
-  exec(`${scriptName}`, (error, stdout, stderr) => {
+export const runScript = (scriptName: string, args: string[] = [], event) => {
+  const argsString = args.join(" ");
+
+  exec(`test-exe\\${scriptName}.exe ${argsString}`, (error, stdout, stderr) => {
     if (error) {
       console.log(`error: ${error.message}`);
       return;
@@ -11,5 +13,8 @@ const runScript = (scriptName: string) => {
       return;
     }
     console.log(`stdout: ${stdout}`);
+
+
+    event.reply('run-script-reply', stdout);
   })
 }

@@ -5,6 +5,7 @@ import {createTray} from './tray/tray';
 import {saveFileSelected} from './textToScript/models/utils';
 import {googleStt, sttInit} from "./stt/googleStt";
 import {googleTts, ttsInit} from "./tts/googleTts";
+import {runScript} from "./scriptRunner/scriptRunner";
 
 
 let win: BrowserWindow = null;
@@ -82,3 +83,7 @@ ipcMain.on('save-file', (event) => {
 ipcMain.on('stt', googleStt);
 
 ipcMain.on('tts', googleTts);
+
+ipcMain.on('run-script', (event, scriptName, args) => {
+  runScript(scriptName, args, event);
+});
