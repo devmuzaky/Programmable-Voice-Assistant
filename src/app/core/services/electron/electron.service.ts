@@ -56,37 +56,39 @@ export class ElectronService {
   }
 
   sttReply(text: string) {
-    // TODO: Remove this
-    if (text === 'open Chrome') {
-      this.childProcess.exec('start chrome https://github.com/orgs/Programmable-Voice-Assistant/repositories?type=source',
-        (error, stdout, stderr) => {
-          if (error) {
-            console.error(`error: ${error.message}`);
-            return;
-          }
-          if (stderr) {
-            console.error(`stderr: ${stderr}`);
-            return;
-          }
-          console.log(`stdout:\n${stdout}`);
-        });
-    } else if (text === 'open incognito Chrome' || text === 'open incognito') {
-      this.childProcess.exec('start chrome https://github.com/orgs/Programmable-Voice-Assistant/repositories?type=source /incognito',
-        (error, stdout, stderr) => {
-          if (error) {
-            console.error(`error: ${error.message}`);
-            return;
-          }
-          if (stderr) {
-            console.error(`stderr: ${stderr}`);
-            return;
-          }
-          console.log(`stdout:\n${stdout}`);
-        });
-    }
-    // ------------------------------------------------------------
-
     this.sttTextSubject.next(text);
+  }
+
+  runCommand(rasaResponse: any) {
+    if (rasaResponse.text.toLowerCase().includes('opening chrome')) {
+      if (rasaResponse.type === 'normal') {
+        this.childProcess.exec('start chrome https://github.com/orgs/Programmable-Voice-Assistant/repositories?type=source',
+          (error, stdout, stderr) => {
+            if (error) {
+              console.error(`error: ${error.message}`);
+              return;
+            }
+            if (stderr) {
+              console.error(`stderr: ${stderr}`);
+              return;
+            }
+            console.log(`stdout:\n${stdout}`);
+          });
+      } else if (rasaResponse.type === 'incognito') {
+        this.childProcess.exec('start chrome https://github.com/orgs/Programmable-Voice-Assistant/repositories?type=source /incognito',
+          (error, stdout, stderr) => {
+            if (error) {
+              console.error(`error: ${error.message}`);
+              return;
+            }
+            if (stderr) {
+              console.error(`stderr: ${stderr}`);
+              return;
+            }
+            console.log(`stdout:\n${stdout}`);
+          });
+      }
+    }
   }
 
   getSttTextObservable() {
