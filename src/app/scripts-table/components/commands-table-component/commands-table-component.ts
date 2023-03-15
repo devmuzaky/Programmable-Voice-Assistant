@@ -1,8 +1,10 @@
-import {Component, EventEmitter, OnInit, Output, ViewChild} from '@angular/core';
+import {Component, OnInit, Output, TemplateRef, ViewChild} from '@angular/core';
 import {Command} from '../../interfaces/command.model';
 import {CommandService} from '../../services/command.service';
 import {ConfirmationService, MessageService} from "primeng/api";
-import {HttpEvent, HttpEventType, HttpResponse} from "@angular/common/http";
+import {CommandCreateRequest} from "../../interfaces/commandCreateRequest.model";
+import {FileUpload} from "primeng/fileupload";
+
 
 @Component({
   selector: 'app-commands-table-component',
@@ -15,7 +17,6 @@ export class CommandsTableComponent implements OnInit {
   @ViewChild('scriptUpload') scriptUpload: any;
   @ViewChild('requirementsFile') requirementsFile: any;
 
-  @ViewChild('paramNum') paramNum: any;
   marketplaceFlag = false;
 
   commandDialog: boolean;
@@ -38,9 +39,6 @@ export class CommandsTableComponent implements OnInit {
   }, {
     label: 'Private', value: 'Private'
   }];
-  private progress: number;
-  private message: string;
-  private fileInfos: any;
 
   constructor(private commandService: CommandService, private messageService: MessageService, private confirmationService: ConfirmationService,) {
   }
@@ -53,7 +51,9 @@ export class CommandsTableComponent implements OnInit {
 
   openNew() {
     this.command = {
-      parameters: ['', '', '', '', '']
+      parameters: ['', '', '', ''],
+      patterns: ['', '', '', ''],
+      patternsNumber: 1,
     };
     this.submitted = false;
     this.commandDialog = true;
@@ -97,22 +97,32 @@ export class CommandsTableComponent implements OnInit {
   hideDialog() {
     this.commandDialog = false;
     this.submitted = false;
+    this.command = {};
   }
 
   onCreateCommand() {
     this.submitted = true;
+    const commandCreateRequest: CommandCreateRequest = {
+      name: this.command.name,
+      description: this.command.description,
+      visibility: this.command.visibility,
+      scriptType: this.command.scriptType,
+      parameters: this.command.parameters,
+      icon: this.command.icon,
+      script: this.command.script,
+      requirements: this.command.requirements,
+      patterns: this.command.patterns,
+      patternsNumber: this.command.patternsNumber
+    }
 
-    this.commandService.createCommand(this.command).subscribe(data => {
+    this.commandService.createCommand(commandCreateRequest).subscribe(data => {
       this.messageService.add({severity: 'success', summary: 'Successful', detail: 'Command Created', life: 3000});
-      console.log(data);
+      this.commandDialog = false;
+      this.command = {};
     }, error => {
-      console.error(error)
       this.messageService.add({severity: 'error', summary: 'Error', detail: 'Command Not Created', life: 3000});
-
     });
 
-    this.commandDialog = false;
-    this.command = {};
 
   }
 
@@ -125,30 +135,17 @@ export class CommandsTableComponent implements OnInit {
     this.command.script = $event.files[0];
     this.messageService.add({severity: 'info', summary: 'Script Uploaded', detail: ''});
   }
-
-  onClearIconSelection() {
-    this.fileUpload.clear();
-    this.messageService.add({severity: 'info', summary: 'Icon Cleared', detail: ''});
-  }
-
-  onClearScriptSelection() {
-    this.scriptUpload.clear();
-    this.messageService.add({severity: 'info', summary: 'Script Cleared', detail: ''});
-  }
-
   onUploadRequirementsFile($event: any) {
     this.command.requirements = $event.files[0];
     this.messageService.add({severity: 'info', summary: 'Requirements Uploaded', detail: ''});
   }
 
-  onClearRequirementsSelection() {
-    this.requirementsFile.clear();
-    this.messageService.add({severity: 'info', summary: 'Requirements Cleared', detail: ''});
+
+  onClearSelectedFile(fileUpload: FileUpload, fileName: string) {
+    fileUpload.clear();
+    this.messageService.add({severity: 'info', summary: fileName + ' Cleared', detail: ''});
   }
 
-  onStateChange() {
-    this.command.parameters = ['', '', '', '', ''];
-  }
 
   openMarketplaceDialog() {
     this.marketplaceFlag = true;
@@ -160,4 +157,15 @@ export class CommandsTableComponent implements OnInit {
   }
 
 
+  onParametersStateChange(value: number) {
+    for (let i = value; i < 4; i++) {
+      this.command.parameters[i] = '';
+    }
+  }
+
+  onPatternsStateChange(value: number) {
+    for (let i = value; i < 4; i++) {
+      this.command.patterns[i] = '';
+    }
+  }
 }

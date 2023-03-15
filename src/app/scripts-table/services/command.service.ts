@@ -2,18 +2,21 @@ import {Injectable} from '@angular/core';
 import {HttpClient} from '@angular/common/http';
 import {map} from "rxjs";
 import {Command} from "../interfaces/command.model";
+import {CommandCreateRequest} from "../interfaces/commandCreateRequest.model";
+import {APP_CONFIG} from "../../../environments/environment";
+
 
 @Injectable({
   providedIn: 'root'
 })
 export class CommandService {
 
+  baseUrl = APP_CONFIG.apiBaseUrl + '/users';
+
+
   constructor(private http: HttpClient) {
     console.log('CommandService constructor')
   }
-
-
-
 
 
   getCommands() {
@@ -48,21 +51,8 @@ export class CommandService {
   }
 
 
-  createCommand(command: Command) {
-    return this.http.post('/api/commands', command);
-  }
-
-
-  uploadIcon(file: any) {
-
-  }
-
-  updateCommand(command: Command) {
-
-  }
-
-  deleteCommand(id: number) {
-
+  createCommand(command: CommandCreateRequest) {
+    return this.http.post(`${this.baseUrl}/api/commands/`, command);
   }
 
 

@@ -49,18 +49,6 @@
     <div class="parent">
 
       <div class="div2">
-        <!--        <span class="p-input-icon-left search-input">-->
-        <!--          <i class="pi pi-search"></i>-->
-        <!--          <input-->
-        <!--            #input-->
-        <!--            class="search-input"-->
-        <!--            pInputText-->
-        <!--            placeholder="Search..."-->
-        <!--            type="text"-->
-        <!--          />-->
-        <!--        </span>-->
-
-        <div>
 
           <app-command-card
             (commandSelected)="commandSelected = $event"
@@ -69,6 +57,9 @@
             [command]="command"
           ></app-command-card>
 
+
+        <div *ngIf="!commandsList.length" class="no-commands-found">
+          <span>No commands found</span>
         </div>
 
 
