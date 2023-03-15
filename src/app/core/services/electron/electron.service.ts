@@ -16,6 +16,7 @@ export class ElectronService {
 
   private sttTextSubject: Subject<string> = new Subject<string>();
   private ttsAudioSubject: Subject<string | Uint8Array> = new Subject<string | Uint8Array>();
+  private ScriptResponseSubject: Subject<string> = new Subject<string>();
 
   constructor() {
     // Conditional imports
@@ -25,9 +26,9 @@ export class ElectronService {
 
       this.childProcess = window.require('child_process');
 
-
       this.listenForSttReply();
       this.listenForTtsReply();
+      this.listenForScriptRunReplay();
     }
   }
 
@@ -59,38 +60,6 @@ export class ElectronService {
     this.sttTextSubject.next(text);
   }
 
-  runCommand(rasaResponse: any) {
-    if (rasaResponse.text.toLowerCase().includes('opening chrome')) {
-      if (rasaResponse.type === 'normal') {
-        this.childProcess.exec('start chrome https://github.com/orgs/Programmable-Voice-Assistant/repositories?type=source',
-          (error, stdout, stderr) => {
-            if (error) {
-              console.error(`error: ${error.message}`);
-              return;
-            }
-            if (stderr) {
-              console.error(`stderr: ${stderr}`);
-              return;
-            }
-            console.log(`stdout:\n${stdout}`);
-          });
-      } else if (rasaResponse.type === 'incognito') {
-        this.childProcess.exec('start chrome https://github.com/orgs/Programmable-Voice-Assistant/repositories?type=source /incognito',
-          (error, stdout, stderr) => {
-            if (error) {
-              console.error(`error: ${error.message}`);
-              return;
-            }
-            if (stderr) {
-              console.error(`stderr: ${stderr}`);
-              return;
-            }
-            console.log(`stdout:\n${stdout}`);
-          });
-      }
-    }
-  }
-
   getSttTextObservable() {
     return this.sttTextSubject.asObservable();
   }
@@ -101,5 +70,20 @@ export class ElectronService {
 
   getTtsAudioObservable() {
     return this.ttsAudioSubject.asObservable();
+  }
+
+  runScript(scriptName: string, args: string[] = []) {
+    console.log("running script: ", scriptName);
+    this.ipcRenderer.send('run-script', scriptName, args);
+  }
+
+  listenForScriptRunReplay() {
+    this.ipcRenderer.on('run-script-reply', (event, response) => {
+      this.ScriptResponseSubject.next(response);
+    });
+  }
+
+  getScriptResponseObservable() {
+    return this.ScriptResponseSubject.asObservable();
   }
 }
