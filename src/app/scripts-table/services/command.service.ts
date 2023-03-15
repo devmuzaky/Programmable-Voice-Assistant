@@ -6,7 +6,6 @@ import {CommandCreateRequest} from "../interfaces/commandCreateRequest.model";
 import {APP_CONFIG} from "../../../environments/environment";
 
 
-
 @Injectable({
   providedIn: 'root'
 })
@@ -18,9 +17,6 @@ export class CommandService {
   constructor(private http: HttpClient) {
     console.log('CommandService constructor')
   }
-
-
-
 
 
   getCommands() {

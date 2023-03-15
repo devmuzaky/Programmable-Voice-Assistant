@@ -21,7 +21,7 @@
   .div2 {
 
     grid-area: 1 / 2 / 2 / 3;
-width: 360px;
+    width: 360px;
     border: 1px solid rgba(101, 105, 112, 0.56);
     background-color: #2B2D30FF;
     overflow: auto;
@@ -146,10 +146,22 @@ width: 360px;
   }
 
   .p-toolbar {
-background: none !important;
+    background: none !important;
     border-radius: 4px !important;
     border: none !important;
 
+  }
+
+  .no-commands-found {
+    color: rgba(255, 255, 255, 0.51);
+    font-size: 14px;
+    font-weight: 500;
+    margin: 0 auto;
+    display: flex;
+    align-items: center;
+    width: 100%;
+    height: 100%;
+    justify-content: center;
   }
 
 

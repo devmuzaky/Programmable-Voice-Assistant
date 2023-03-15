@@ -108,7 +108,8 @@ export class CommandsTableComponent implements OnInit {
       parameters: this.command.parameters,
       icon: this.command.icon,
       script: this.command.script,
-      requirements: this.command.requirements
+      requirements: this.command.requirements,
+      patterns: this.command.patterns
 
     }
     this.commandService.createCommand(commandCreateRequest).subscribe(data => {

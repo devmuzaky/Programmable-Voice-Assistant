@@ -2,7 +2,7 @@ export interface Command {
   requirements?: File;
   id?: string;
   name?: string;
-  commands?: string;
+  patterns?: string;
   visibility?: string;
   icon?: File;
   script?: File;
