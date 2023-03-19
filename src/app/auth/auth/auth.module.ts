@@ -7,24 +7,39 @@ import {RegisterComponentComponent} from '../register-component/register-compone
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {SharedModule} from "../../shared/shared.module";
 import {MatInputModule} from "@angular/material/input";
+import {MatCardModule} from "@angular/material/card";
+import {MatTabsModule} from "@angular/material/tabs";
+import {MatIconModule} from "@angular/material/icon";
+import {MatCheckboxModule} from "@angular/material/checkbox";
+import {MatButtonModule} from "@angular/material/button";
+import {OnlyOneErrorPipe} from "../only-one-error.pipe";
 
 
 @NgModule({
   declarations: [
     LogoutComponent,
-    RegisterComponentComponent
+    RegisterComponentComponent,
+    OnlyOneErrorPipe
   ],
-    exports: [
-        RegisterComponentComponent,
-        LogoutComponent
-    ],
-    imports: [
-        CommonModule,
-        AuthRoutingModule,
-        ReactiveFormsModule,
-        FormsModule,
-        SharedModule,
-        MatInputModule
-    ]
+  exports: [
+    RegisterComponentComponent,
+    LogoutComponent,
+    OnlyOneErrorPipe
+
+  ],
+  imports: [
+    CommonModule,
+    AuthRoutingModule,
+    ReactiveFormsModule,
+    FormsModule,
+    SharedModule,
+    MatInputModule,
+    MatCardModule,
+    MatTabsModule,
+    MatIconModule,
+    MatCheckboxModule,
+    MatButtonModule
+  ]
 })
-export class AuthModule { }
+export class AuthModule {
+}
