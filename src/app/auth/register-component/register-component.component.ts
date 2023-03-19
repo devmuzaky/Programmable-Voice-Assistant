@@ -1,12 +1,13 @@
 import {Component, ElementRef, Input, OnInit, ViewChild,} from '@angular/core';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {Router} from '@angular/router';
-import {AuthService} from '../services/auth.service';
+import {AuthService} from '../services/auth-service/auth.service';
 import {StorageService} from "../services/storage.service";
 import {SnackbarService} from "../../shared/snackbar-service/snackbar.service";
 import {HttpClient} from "@angular/common/http";
 import {LoginResponse} from "../interface/login.response";
 import {createPasswordStrengthValidator} from "../password-strength.validator";
+import {ValidationService} from "../services/not-match-validation/validation.service";
 
 @Component({
   selector: 'app-register-component',
@@ -18,6 +19,8 @@ export class RegisterComponentComponent implements OnInit {
 
   @Input('mat-stretch-tabs')
   stretchTabs: boolean
+
+
   loginForm = this.fb.group({
     email: ['', {
       validators: [Validators.required, Validators.email],
@@ -47,7 +50,7 @@ export class RegisterComponentComponent implements OnInit {
         Validators.required,
       ])],
     }, {
-      validator: this.confirmPasswordValidator('password', 'confirmPassword')
+      validator: this.validationService.passwordMatch('password', 'confirmPassword')
     }
   );
   private isLoginFailed: boolean = false;
@@ -64,7 +67,8 @@ export class RegisterComponentComponent implements OnInit {
     private fb: FormBuilder,
     private router: Router,
     private authService: AuthService,
-    private storageService: StorageService
+    private storageService: StorageService,
+    private validationService: ValidationService
   ) {
   }
 
@@ -92,6 +96,7 @@ export class RegisterComponentComponent implements OnInit {
   get confirmPassword() {
     return this.signUpForm.controls['confirmPassword'];
   }
+
   ngOnInit(): void {
 
     if (this.storageService.isLoggedIn()) {
@@ -162,7 +167,7 @@ export class RegisterComponentComponent implements OnInit {
 
   }
 
-  private confirmPasswordValidator(password1: string, confirmPassword1: string) {
+  confirmPasswordValidator(password1: string, confirmPassword1: string) {
     return (group: FormGroup) => {
       let password = group.controls[password1];
       let confirmPassword = group.controls[confirmPassword1];
@@ -173,7 +178,6 @@ export class RegisterComponentComponent implements OnInit {
       }
     }
   }
-
 
 
   private showLogin() {

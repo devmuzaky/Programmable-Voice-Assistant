@@ -154,6 +154,7 @@
             >
               <mat-form-field>
                 <input
+                  #emailLogin
                   formControlName="email"
                   matInput
                   name="email"
@@ -229,24 +230,28 @@
                   name="password"
                   placeholder="Password"
                   type="password">
+
                 <mat-icon matSuffix>lock</mat-icon>
               </mat-form-field>
 
-              <ng-container
-                *ngIf="createPassword.errors | onlyOneError:['required', 'minlength', 'passwordStrength'] as error">
+              <div class="">
+                <ng-container
+                  *ngIf="createPassword.errors | onlyOneError:['required', 'minlength', 'maxlength','passwordStrength'] as error">
 
-                <mat-error *ngIf="error?.minlength" class="field-message">your password must have at
-                  least {{error.minlength.requiredLength}} characters.
-                  but you have only {{error.minlength.actualLength}}.
-                </mat-error>
+                  <mat-error *ngIf="error?.minlength" class="field-message ">your password must have at
+                    least {{error.minlength.requiredLength}} characters.
+                  </mat-error>
 
-                <mat-error *ngIf="error?.passwordStrength" class="field-message">Your password must have at least one
-                  uppercase
-                  letter, one lowercase letter, one number and one special
-                  character.
-                </mat-error>
-              </ng-container>
+                  <mat-error *ngIf="error?.maxlength" class="field-message ">your password must have at
+                    most {{error.maxlength.requiredLength}} characters.
+                  </mat-error>
 
+                  <mat-error *ngIf="error?.passwordStrength" class="field-message">
+                    Please use a password with an uppercase letter, a lowercase letter, a number, and a special
+                    character.
+                  </mat-error>
+                </ng-container>
+              </div>
 
               <mat-form-field>
                 <input
@@ -255,9 +260,9 @@
                   name="confirmPassword"
                   placeholder="Password"
                   type="password">
-
-                <mat-error *ngIf="confirmPassword.errors?.required">Password doesn't match</mat-error>
-
+                <mat-error *ngIf="confirmPassword.invalid"
+                >Passwords do not match
+                </mat-error>
                 <mat-icon matSuffix>lock</mat-icon>
               </mat-form-field>
               <button
