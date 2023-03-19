@@ -12,7 +12,7 @@ import {MatTabsModule} from "@angular/material/tabs";
 import {MatIconModule} from "@angular/material/icon";
 import {MatCheckboxModule} from "@angular/material/checkbox";
 import {MatButtonModule} from "@angular/material/button";
-import {OnlyOneErrorPipe} from "../only-one-error.pipe";
+import {OnlyOneErrorPipe} from "../pipes/only-one-error/only-one-error.pipe";
 
 
 @NgModule({

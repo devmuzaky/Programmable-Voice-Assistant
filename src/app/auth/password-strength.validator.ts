@@ -10,8 +10,9 @@ import {AbstractControl, ValidationErrors, ValidatorFn} from "@angular/forms";
     const hasUpperCase = /[A-Z]/.test(password);
     const hasLowerCase = /[a-z]/.test(password);
     const hasNumeric = /[0-9]/.test(password);
+    const specialChars = /[!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?]/.test(password);
 
-    const passwordValid = hasUpperCase && hasLowerCase && hasNumeric;
+    const passwordValid = hasUpperCase && hasLowerCase && hasNumeric && specialChars;
 
     return !passwordValid ? {passwordStrength: true} : null;
   }
