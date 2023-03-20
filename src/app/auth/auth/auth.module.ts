@@ -13,6 +13,7 @@ import {MatIconModule} from "@angular/material/icon";
 import {MatCheckboxModule} from "@angular/material/checkbox";
 import {MatButtonModule} from "@angular/material/button";
 import {OnlyOneErrorPipe} from "../pipes/only-one-error/only-one-error.pipe";
+import {CheckboxModule} from "primeng/checkbox";
 
 
 @NgModule({
@@ -27,19 +28,20 @@ import {OnlyOneErrorPipe} from "../pipes/only-one-error/only-one-error.pipe";
     OnlyOneErrorPipe
 
   ],
-  imports: [
-    CommonModule,
-    AuthRoutingModule,
-    ReactiveFormsModule,
-    FormsModule,
-    SharedModule,
-    MatInputModule,
-    MatCardModule,
-    MatTabsModule,
-    MatIconModule,
-    MatCheckboxModule,
-    MatButtonModule
-  ]
+    imports: [
+        CommonModule,
+        AuthRoutingModule,
+        ReactiveFormsModule,
+        FormsModule,
+        SharedModule,
+        MatInputModule,
+        MatCardModule,
+        MatTabsModule,
+        MatIconModule,
+        MatCheckboxModule,
+        MatButtonModule,
+        CheckboxModule
+    ]
 })
 export class AuthModule {
 }

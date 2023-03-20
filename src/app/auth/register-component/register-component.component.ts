@@ -167,20 +167,14 @@ export class RegisterComponentComponent implements OnInit {
 
   }
 
-  confirmPasswordValidator(password1: string, confirmPassword1: string) {
-    return (group: FormGroup) => {
-      let password = group.controls[password1];
-      let confirmPassword = group.controls[confirmPassword1];
-      if (password.value !== confirmPassword.value) {
-        return confirmPassword.setErrors({notEquivalent: true})
-      } else {
-        return confirmPassword.setErrors(null);
-      }
-    }
-  }
-
 
   private showLogin() {
     this.router.navigate(['/recorder']);
+  }
+
+
+  // TODO: Implement this method
+  onForgotPasswordClick() {
+    this.router.navigate(['/forgot-password']);
   }
 }
