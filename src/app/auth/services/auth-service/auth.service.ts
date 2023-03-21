@@ -18,11 +18,7 @@ export class AuthService {
   constructor(private http: HttpClient) {
   }
 
-
-  // login(user: UserLogin) {
-  //   return this.http.post(`${this.baseUrl}/login/`, user);
-  // }
-  login(user: { password: string | (((control: AbstractControl) => (ValidationErrors | null)) | ValidatorFn)[]; email: string | { validators: ((control: AbstractControl) => (ValidationErrors | null))[]; updateOn: string } }) {
+  login(user: UserLogin) {
     return this.http.post(`${this.baseUrl}/login/`, user);
   }
 

@@ -55,7 +55,6 @@ export class RegisterComponentComponent implements OnInit {
   );
   private isLoginFailed: boolean = false;
   private isLoggedIn: boolean = false;
-  private emailS: string;
   private errorMessage: string = '';
   private isSuccessful: boolean = false;
   private isSignUpFailed: boolean = false;
@@ -101,9 +100,7 @@ export class RegisterComponentComponent implements OnInit {
 
     if (this.storageService.isLoggedIn()) {
       this.isLoggedIn = true;
-      this.emailS = this.storageService.getUser().roles;
     }
-
   }
 
   onSignUpSubmit() {
@@ -148,18 +145,12 @@ export class RegisterComponentComponent implements OnInit {
           this.storageService.saveRefreshToken(data.refresh_token);
           this.isLoginFailed = false;
           this.isLoggedIn = true;
-          this.emailS = this.storageService.getUser().email;
-          this.openSnackBar("Logged in as " + this.emailS);
-          this.http.get('http://localhost:8000/scripts/api/').subscribe(
-            (data) => {
-              console.log(data)
-
-            }
-          )
+          this.openSnackBar("Logged in as " + this.storageService.getUser().email);
         },
         err => {
           this.errorMessage = err.error.detail;
           this.isLoginFailed = true;
+          this.isLoggedIn = false;
           console.log(err)
           this.openSnackBar("Login failed: " + this.errorMessage)
         }

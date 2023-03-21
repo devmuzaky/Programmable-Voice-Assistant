@@ -26,7 +26,6 @@ export class CommandService {
           return res.data;
         })
       );
-
   }
 
   getFiles() {
