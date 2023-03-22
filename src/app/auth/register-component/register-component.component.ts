@@ -1,211 +1,171 @@
-import {AfterViewInit, Component, ElementRef, OnInit, ViewChild,} from '@angular/core';
-import {FormControl, FormGroup, Validators} from '@angular/forms';
+import {Component, ElementRef, Input, OnInit, ViewChild,} from '@angular/core';
+import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {Router} from '@angular/router';
-import {AuthService} from '../services/auth.service';
+import {AuthService} from '../services/auth-service/auth.service';
 import {StorageService} from "../services/storage.service";
 import {SnackbarService} from "../../shared/snackbar-service/snackbar.service";
 import {HttpClient} from "@angular/common/http";
 import {LoginResponse} from "../interface/login.response";
+import {createPasswordStrengthValidator} from "../password-strength.validator";
+import {ValidationService} from "../services/not-match-validation/validation.service";
 
 @Component({
   selector: 'app-register-component',
   templateUrl: './register-component.component.html',
   styleUrls: ['./register-component.component.scss']
 })
-export class RegisterComponentComponent implements OnInit, AfterViewInit {
+export class RegisterComponentComponent implements OnInit {
   @ViewChild('elRef') comp: ElementRef;
 
-  isSuccessful = false;
-  isSignUpFailed = false;
-  registerErrorMessage = '';
+  @Input('mat-stretch-tabs')
+  stretchTabs: boolean
 
-  isLoggedIn = false;
-  isLoginFailed = false;
-  errorMessage = '';
-  emial: string = '';
 
-  items;
-  questions;
-  login;
-  register;
-
-  isMatchPassword;
-  formDataLogin: FormGroup;
-  formDataSignUp: FormGroup;
-
-  error_messages = {
-    'name': [
-      {type: 'required', message: 'Name is required.'},
-      {type: 'minlength', message: 'Name length.'},
-      {type: 'maxlength', message: 'Name length.'}
-    ],
-
-    'email': [
-      {type: 'required', message: 'please enter a valid email address.'},
-      {type: 'email', message: 'please enter a valid email address.'}
-    ],
-
-    'password': [
-      {type: 'required', message: 'password is required.'},
-      {type: 'minlength', message: 'password length.'},
-      {type: 'maxlength', message: 'password length.'}
-    ],
-    'passwordNotMatch': [
-      {type: 'passwordNotMatch', message: 'password not match.'}
-    ]
-  }
+  loginForm = this.fb.group({
+    email: ['', {
+      validators: [Validators.required, Validators.email],
+      updateOn: 'blur'
+    }],
+    password: ['', [
+      Validators.required,
+      Validators.minLength(8),
+      Validators.maxLength(20)
+    ]]
+  });
+  signUpForm = this.fb.group({
+      username: ['', Validators.compose([
+        Validators.required
+      ])],
+      email: ['', Validators.compose([
+        Validators.required,
+        Validators.email
+      ])],
+      password: ['', Validators.compose([
+        Validators.required,
+        Validators.minLength(8),
+        Validators.maxLength(20),
+        createPasswordStrengthValidator()
+      ])],
+      confirmPassword: ['', Validators.compose([
+        Validators.required,
+      ])],
+    }, {
+      validator: this.validationService.passwordMatch('password', 'confirmPassword')
+    }
+  );
+  private isLoginFailed: boolean = false;
+  private isLoggedIn: boolean = false;
+  private errorMessage: string = '';
+  private isSuccessful: boolean = false;
+  private isSignUpFailed: boolean = false;
+  private registerErrorMessage: string = '';
 
   constructor(
-    private authService: AuthService,
-    private router: Router,
-    private storageService: StorageService,
     private snackbarService: SnackbarService,
     private http: HttpClient,
+    private fb: FormBuilder,
+    private router: Router,
+    private authService: AuthService,
+    private storageService: StorageService,
+    private validationService: ValidationService
   ) {
   }
 
-  ngAfterViewInit(): void {
-    this.items = this.comp.nativeElement.querySelectorAll('.js-item');
-    this.questions = this.comp.nativeElement.querySelectorAll('.question');
-    this.login = this.comp.nativeElement.querySelector('#js-login');
-    this.register = this.comp.nativeElement.querySelector('#js-register');
+  get emailLoginValue() {
+    return this.loginForm.controls['email'];
+  }
+
+  get passwordValue() {
+    return this.loginForm.controls['password'];
+  }
+
+  get emailSignUpValue() {
+    return this.signUpForm.controls['email'];
+  }
+
+  get usernameValue() {
+    return this.signUpForm.controls['username'];
+  }
 
 
-    this.items.forEach((i) => {
-      const myInput = i.children[1];
+  get createPassword() {
+    return this.signUpForm.controls['password'];
+  }
 
-      i.addEventListener('click', () => {
-        myInput.focus();
-        i.classList.add('focus');
-      });
-
-      i.addEventListener('focusout', () => {
-        if (myInput.value.length === 0) {
-          i.classList.remove('focus');
-        }
-      });
-    });
-
-
-    this.questions.forEach((i) => {
-      i.addEventListener('click', () => {
-        if (i.dataset.sign === 'register') {
-          this.login.classList.remove('form-box');
-          this.login.classList.add('invis');
-          this.register.classList.add('form-box');
-          this.register.classList.add('no-invis');
-          return;
-        }
-        this.showLogin();
-      });
-    });
+  get confirmPassword() {
+    return this.signUpForm.controls['confirmPassword'];
   }
 
   ngOnInit(): void {
 
     if (this.storageService.isLoggedIn()) {
       this.isLoggedIn = true;
-      this.emial = this.storageService.getUser().roles;
     }
+  }
 
-    this.formDataLogin = new FormGroup({
-      userName: new FormControl(''),
-      password: new FormControl('')
-    });
-    this.formDataSignUp = new FormGroup({
-        name: new FormControl('test1', Validators.compose([
-          Validators.required
-        ])),
-        email: new FormControl('test1@gmail.com',
-          Validators.compose([
-            Validators.required,
-            Validators.email
-          ])
-        ),
-        password: new FormControl('test1@123', Validators.compose([
-          Validators.required,
-          Validators.minLength(6),
-          Validators.maxLength(30)
-        ])),
-        confirm_password: new FormControl('test1@123', Validators.compose([
-          Validators.required,
-          Validators.minLength(6),
-          Validators.maxLength(30)
-        ]))
+  onSignUpSubmit() {
+    const value = this.signUpForm.value;
 
-      },
-      {
-        validators: this.Password.bind(this)
-      });
+    this.authService.signUp({
+      username: value.username,
+      email: value.email,
+      password1: value.password,
+      password2: value.confirmPassword
+    })
+      .subscribe(
+        {
+          next: data => {
+            this.isSuccessful = true;
+            this.isSignUpFailed = false;
+            if (data) {
+              this.showLogin();
+              this.openSnackBar("Your registration is successful!");
+            }
+          },
+          error: error => {
+            this.registerErrorMessage = error.error.detail;
+            this.isSignUpFailed = true;
+            this.openSnackBar("Signup failed! " + this.registerErrorMessage)
+          }
+        }
+      )
+  }
 
+  openSnackBar(message: string) {
+    this.snackbarService.openSnackBar(message);
   }
 
   onLoginSubmit() {
-    const username = this.formDataLogin.value.userName;
-    const password = this.formDataLogin.value.password;
-    this.authService.login({username, password}).subscribe(
-      {
-        next: (data: LoginResponse) => {
+    const value = this.loginForm.value;
+    this.authService.login({email: value.email, password: value.password})
+      .subscribe(
+        (data: LoginResponse) => {
           this.storageService.saveUser(data.user);
           this.storageService.saveAccessToken(data.access_token);
           this.storageService.saveRefreshToken(data.refresh_token);
           this.isLoginFailed = false;
           this.isLoggedIn = true;
-          this.emial = this.storageService.getUser().email;
-          this.openSnackBar("Logged in as " + this.emial);
-          this.http.get('http://localhost:8000/scripts/api/').subscribe(
-            (data) => {
-              console.log(data)
-
-            }
-          )
+          this.openSnackBar("Logged in as " + this.storageService.getUser().email);
         },
-        error: err => {
+        err => {
           this.errorMessage = err.error.detail;
           this.isLoginFailed = true;
+          this.isLoggedIn = false;
           console.log(err)
           this.openSnackBar("Login failed: " + this.errorMessage)
         }
-      });
+      );
 
   }
 
-  onSignUpSubmit() {
-    const userName = this.formDataSignUp.value.name;
-    const email = this.formDataSignUp.value.email;
-    const password1 = this.formDataSignUp.value.password;
-    const password2 = this.formDataSignUp.value.confirm_password;
-    this.authService.signUp({username: userName, email, password1, password2}).subscribe({
-      next: data => {
-        this.isSuccessful = true;
-        this.isSignUpFailed = false;
-        if (data) {
-          this.showLogin();
-          this.openSnackBar("Your registration is successful!");
-        }
-      },
-      error: error => {
-        this.registerErrorMessage = error.error.detail;
-        this.isSignUpFailed = true;
-        this.openSnackBar("Signup failed! " + this.registerErrorMessage)
-      }
-    });
+
+  private showLogin() {
+    this.router.navigate(['/recorder']);
   }
 
-  Password() {
-    const password = this.formDataSignUp?.controls.password.value;
-    const confirmPassword = this.formDataSignUp?.controls.confirm_password.value;
-    this.isMatchPassword = password === confirmPassword ? null : {passwordNotMatch: true};
-  }
 
-  showLogin() {
-    this.register.classList.remove('no-invis');
-    this.register.classList.remove('form-box');
-    this.login.classList.remove('invis');
-    this.login.classList.add('form-box');
-  }
-
-  openSnackBar(message: string) {
-    this.snackbarService.openSnackBar(message);
+  // TODO: Implement this method
+  onForgotPasswordClick() {
+    this.router.navigate(['/forgot-password']);
   }
 }

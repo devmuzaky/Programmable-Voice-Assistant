@@ -100,20 +100,22 @@ export class CommandsTableComponent implements OnInit {
     this.command = {};
   }
 
-  onCreateCommand() {
-    this.submitted = true;
-    const commandCreateRequest: CommandCreateRequest = {
-      name: this.command.name,
-      description: this.command.description,
-      visibility: this.command.visibility,
-      scriptType: this.command.scriptType,
-      parameters: this.command.parameters,
-      icon: this.command.icon,
-      script: this.command.script,
-      requirements: this.command.requirements,
-      patterns: this.command.patterns,
-      patternsNumber: this.command.patternsNumber
-    }
+    onCreateCommand() {
+      this.submitted = true;
+      const commandCreateRequest: CommandCreateRequest = {
+        name: this.command.name,
+        description: this.command.description,
+        parameters: this.command.parameters,
+        patterns: this.command.patterns,
+        script_data: {
+          script: this.command.script,
+          requirements: this.command.requirements,
+          scriptType: this.command.scriptType
+        },
+        icon: this.command.icon,
+        patternsNumber: this.command.patternsNumber
+      };
+
 
     this.commandService.createCommand(commandCreateRequest).subscribe(data => {
       this.messageService.add({severity: 'success', summary: 'Successful', detail: 'Command Created', life: 3000});

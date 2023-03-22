@@ -1,9 +1,10 @@
 import {Injectable} from '@angular/core';
-import {UserLogin} from '../interface/userLogin';
-import {UserSignUp} from '../interface/userSignUp';
+import {UserLogin} from '../../interface/userLogin';
+import {UserSignUp} from '../../interface/userSignUp';
 import {HttpClient} from "@angular/common/http";
 import {Observable} from "rxjs";
-import {APP_CONFIG} from "../../../environments/environment";
+import {APP_CONFIG} from "../../../../environments/environment";
+import {AbstractControl, ValidationErrors, ValidatorFn} from "@angular/forms";
 
 
 @Injectable({
@@ -16,7 +17,6 @@ export class AuthService {
 
   constructor(private http: HttpClient) {
   }
-
 
   login(user: UserLogin) {
     return this.http.post(`${this.baseUrl}/login/`, user);
