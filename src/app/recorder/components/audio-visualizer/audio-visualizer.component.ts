@@ -94,7 +94,7 @@ export class AudioVisualizerComponent implements AfterViewInit {
 
   onStreamError(e) {
     document.body.innerHTML = "<h1>This pen only works with https://</h1>";
-    // console.error(e);
+    console.error(e);
   }
 
   range(i) {
@@ -189,7 +189,7 @@ export class AudioVisualizerComponent implements AfterViewInit {
       .then(MediaStream => {
         this.onStream(MediaStream);
       }).catch(error => {
-      // this.onStreamError(error);
+      this.onStreamError(error);
     });
   }
 }
