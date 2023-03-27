@@ -91,7 +91,7 @@
   position: relative;
   width: 100%;
   overflow-x: hidden;
-
+  max-height: 84%;
 
   .message {
     clear: both;
@@ -222,130 +222,181 @@
   position: relative;
   overflow: hidden;
 
-& .message-input {
-  background: none;
-  border: none;
-  outline: none !important;
-  resize: none;
-  color: rgba(255, 255, 255, 0.7);
-  font-size: 34px;
-  height: 50px;
-  margin: 0;
-  padding-right: 341px;
-  width: 91%;
-  overflow-y: scroll;
-  box-sizing: content-box;
-}
+  & .message-input {
+    background: none;
+    border: none;
+    outline: none !important;
+    resize: none;
+    color: rgba(255, 255, 255, 0.7);
+    font-size: 34px;
+    height: 50px;
+    margin: 0;
+    padding-right: 341px;
+    width: 91%;
+    overflow-y: scroll;
+    box-sizing: content-box;
+  }
 
-& .message-submit {
-  position: absolute;
-  z-index: 1;
-  top: 13px;
-  right: 75px;
-  color: #fff;
-  border: none;
-  background: #174653;
-  font-size: 20px;
-  text-transform: uppercase;
-  line-height: 1;
-  padding: 13px 15px;
-  border-radius: 20px;
-  outline: none !important;
-  transition: background 0.2s ease;
+  & .message-submit {
+    position: absolute;
+    z-index: 1;
+    top: 13px;
+    right: 75px;
+    color: #fff;
+    border: none;
+    background: #174653;
+    font-size: 20px;
+    text-transform: uppercase;
+    line-height: 1;
+    padding: 13px 15px;
+    border-radius: 20px;
+    outline: none !important;
+    transition: background 0.2s ease;
 
-&:hover {
-  background: #0d5e69;
+    &:hover {
+      background: #0d5e69;
 
-}
+    }
 
-&:active {
-  background: rgba(129, 255, 0, 0.49);
-}
+    &:active {
+      background: rgba(129, 255, 0, 0.49);
+    }
 
-}
+  }
 
-& .mic-btn {
-  position: absolute;
-  z-index: 1;
-  top: 7px;
-  right: 3px;
-  border: none;
-  background: transparent;
-}
+  & .mic-btn {
+    position: absolute;
+    z-index: 1;
+    top: 7px;
+    right: 3px;
+    border: none;
+    background: transparent;
+  }
 }
 
 
 @keyframes bounce {
-0% {
-transform: matrix3d(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1);
-}
-4.7% {
-transform: matrix3d(0.45, 0, 0, 0, 0, 0.45, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1);
-}
-9.41% {
-transform: matrix3d(0.883, 0, 0, 0, 0, 0.883, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1);
-}
-14.11% {
-transform: matrix3d(1.141, 0, 0, 0, 0, 1.141, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1);
-}
-18.72% {
-transform: matrix3d(1.212, 0, 0, 0, 0, 1.212, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1);
-}
-24.32% {
-transform: matrix3d(1.151, 0, 0, 0, 0, 1.151, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1);
-}
-29.93% {
-transform: matrix3d(1.048, 0, 0, 0, 0, 1.048, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1);
-}
-35.54% {
-transform: matrix3d(0.979, 0, 0, 0, 0, 0.979, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1);
-}
-41.04% {
-transform: matrix3d(0.961, 0, 0, 0, 0, 0.961, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1);
-}
-52.15% {
-transform: matrix3d(0.991, 0, 0, 0, 0, 0.991, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1);
-}
-63.26% {
-transform: matrix3d(1.007, 0, 0, 0, 0, 1.007, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1);
-}
-85.49% {
-transform: matrix3d(0.999, 0, 0, 0, 0, 0.999, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1);
-}
-100% {
-transform: matrix3d(1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1);
-}
+  0% {
+    transform: matrix3d(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1);
+  }
+  4.7% {
+    transform: matrix3d(0.45, 0, 0, 0, 0, 0.45, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1);
+  }
+  9.41% {
+    transform: matrix3d(0.883, 0, 0, 0, 0, 0.883, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1);
+  }
+  14.11% {
+    transform: matrix3d(1.141, 0, 0, 0, 0, 1.141, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1);
+  }
+  18.72% {
+    transform: matrix3d(1.212, 0, 0, 0, 0, 1.212, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1);
+  }
+  24.32% {
+    transform: matrix3d(1.151, 0, 0, 0, 0, 1.151, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1);
+  }
+  29.93% {
+    transform: matrix3d(1.048, 0, 0, 0, 0, 1.048, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1);
+  }
+  35.54% {
+    transform: matrix3d(0.979, 0, 0, 0, 0, 0.979, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1);
+  }
+  41.04% {
+    transform: matrix3d(0.961, 0, 0, 0, 0, 0.961, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1);
+  }
+  52.15% {
+    transform: matrix3d(0.991, 0, 0, 0, 0, 0.991, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1);
+  }
+  63.26% {
+    transform: matrix3d(1.007, 0, 0, 0, 0, 1.007, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1);
+  }
+  85.49% {
+    transform: matrix3d(0.999, 0, 0, 0, 0, 0.999, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1);
+  }
+  100% {
+    transform: matrix3d(1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1);
+  }
 }
 
 
 @keyframes ball {
-from {
-transform: translateY(0) scaleY(.8);
-}
-to {
-transform: translateY(-10px);
-}
-}
-
-@media screen and (max-width: 300px) {
-.chat {
-flex-direction: column;
-height: 400px;
-width: 300px;
-max-width: 100%;
-border-radius: 0;
-
-& .messages {
-  height: 100%;
-  width: 100%;
-  max-width: 100%;
-  border-radius: 0;
+  from {
+    transform: translateY(0) scaleY(.8);
+  }
+  to {
+    transform: translateY(-10px);
+  }
 }
 
-& .message-box {
-  width: 100%;
-  max-width: 100%;
-  border-radius: 0;
-}
-}
+@media screen and (max-width: 450px) {
+  .chat {
+    flex-direction: column;
+    height: 400px;
+    width: 300px;
+    max-width: 100%;
+    border-radius: 0;
+
+    & .chat-title {
+      h1 {
+        font-size: 16px;
+      }
+
+      h2 {
+        font-size: 9px;
+      }
+
+      .avatar {
+        left: 14px;
+      }
+    }
+
+    & .messages {
+      height: 100%;
+      width: 100%;
+      max-width: 100%;
+      border-radius: 0;
+      color: rgb(255 255 255 / 88%);
+
+
+      & .message {
+        font-size: 14px;
+        padding: 5px 5px 5px;
+        margin: 5px 0 4px 5px;
+
+        &:last-child {
+          margin-bottom: 5px;
+        }
+
+      }
+    }
+
+    & .message-box {
+      flex: 0 1 54px;
+      padding: 15px;
+      width: 100%;
+      max-width: 100%;
+      border-radius: 0;
+
+      & .message-input {
+        font-size: 12px;
+        height: 10px;
+        width: 60%;
+      }
+
+      & .message-submit {
+        top: 8px;
+        right: 50px;
+        background: #163c46;
+        font-size: 12px;
+        padding: 10px 10px;
+        border-radius: 12px;
+
+      }
+
+      & .mic-btn {
+        top: 3px;
+        right: -5px;
+      }
+
+    }
+  }
 }

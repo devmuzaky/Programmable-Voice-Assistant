@@ -11,6 +11,11 @@ h1 {
 #canvas {
   width: 74rem;
   height: 7rem;
+
+  @media (max-width: 500px) {
+    width: 11rem;
+    height: 5rem;
+  }
 }
 
 .btn-start {
