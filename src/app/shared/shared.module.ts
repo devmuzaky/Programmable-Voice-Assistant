@@ -10,9 +10,10 @@ import { SidebarComponent } from './components/sidebar/sidebar.component';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {RouterModule} from '@angular/router';
 import {ModalComponent} from './components/modal/modal-component/modal.component';
+import { HomeComponent } from './components/home/home.component';
 
 @NgModule({
-  declarations: [PageNotFoundComponent, WebviewDirective, SidebarComponent, ModalComponent],
+  declarations: [PageNotFoundComponent, WebviewDirective, SidebarComponent, ModalComponent, HomeComponent],
   imports: [CommonModule, TranslateModule, FormsModule, BrowserAnimationsModule, RouterModule],
   exports: [TranslateModule, WebviewDirective, FormsModule, SidebarComponent, ModalComponent]
 })

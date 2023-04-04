@@ -9,7 +9,7 @@ import {AppRoutingModule} from './app-routing.module';
 import {AppComponent} from './app.component';
 import {RecorderModule} from './recorder/recorder.module';
 import {CommandsTableModule} from './scripts-table/commands-table.module';
-import {AuthModule} from './auth/auth/auth.module';
+import {AuthModule} from './auth/auth.module';
 import {httpInterceptorProviders} from "./auth/_helper/http-request-interceptor.service";
 import {MatSnackBarModule} from "@angular/material/snack-bar";
 import {MatInputModule} from "@angular/material/input";

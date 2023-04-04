@@ -3,7 +3,7 @@ import {Routes, RouterModule} from '@angular/router';
 import {PageNotFoundComponent} from './shared/components';
 
 import {CommandsTableModule} from './scripts-table/commands-table.module';
-import {AuthRoutingModule} from './auth/auth/auth-routing.module';
+import {AuthRoutingModule} from './auth/auth-routing.module';
 import {RecorderRoutingModule} from "./recorder/recorder-routing.module";
 import {CommandsTableComponent} from "./scripts-table/components/commands-table-component/commands-table-component";
 import {MarketplaceComponent} from "./scripts-table/components/marketplace-component/marketplace.component";
@@ -11,8 +11,12 @@ import {MarketplaceComponent} from "./scripts-table/components/marketplace-compo
 const routes: Routes = [
   {
     path: '',
-    redirectTo: 'recorder',
+    redirectTo: 'home',
     pathMatch: 'full'
+  },
+  {
+    path: 'recorder',
+    
   },
   {
     path: 'my-scripts',
