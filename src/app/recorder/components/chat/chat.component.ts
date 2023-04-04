@@ -59,9 +59,13 @@ export class ChatComponent implements OnInit, OnDestroy, AfterViewInit {
     })
 
     this.rasaSocketService.receiveMessage((data: any) => {
-      this.addBotMessage(`running ${data.scriptName}...`);
+      if (!data?.executable_name) {
+        this.addBotMessage(data.text);
+        return;
+      }
+      this.addBotMessage(`running ${data.executable_name}...`);
       // TODO: handle errors and different types of resonses
-      const scriptName = data.scriptName;
+      const scriptName = data.executable_name;
       const args = Object.values<string>(data.args);
 
       this.electronService.runScript(scriptName, args);
@@ -90,7 +94,7 @@ export class ChatComponent implements OnInit, OnDestroy, AfterViewInit {
   addBotMessage(message: string) {
     this.messages.push({message, personal: false});
     this.zone.run(() => {
-    //   fix for delay re-rendering in electron
+      //   fix for delay re-rendering in electron
     });
     this.updateScrollbar();
     this.speak(message);
