@@ -16,9 +16,11 @@ export const createTray = (trayPath, serve: boolean) => {
       webPreferences: {
         nodeIntegration: true,
         allowRunningInsecureContent: serve,
-        contextIsolation: false
+        contextIsolation: false,
+        devTools: false
       },
-    }
+    },
+    showDockIcon: false,
   };
 
   const mb = menubar(menubarOptions);
