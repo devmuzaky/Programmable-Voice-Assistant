@@ -1,7 +1,10 @@
 <div class="login-page">
 
+
+
   <mat-card class="mat-elevation-z12">
-    <mat-tab-group
+
+    <mat-tab-group *ngIf="!isLoggedIn"
       class="example-stretched-tabs">
       <mat-tab label="Sign In">
         <mat-card-content>
@@ -142,5 +145,13 @@
         </mat-card-content>
       </mat-tab>
     </mat-tab-group>
+
+
+<ng-container *ngIf="isLoggedIn">
+  <app-user-card (logout)="onLogout()"></app-user-card>
+</ng-container>
+
+
+
   </mat-card>
 </div>

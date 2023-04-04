@@ -21,6 +21,7 @@ export class RegisterComponentComponent implements OnInit {
   stretchTabs: boolean
 
 
+
   loginForm = this.fb.group({
     email: ['', {
       validators: [Validators.required, Validators.email],
@@ -54,7 +55,7 @@ export class RegisterComponentComponent implements OnInit {
     }
   );
   private isLoginFailed: boolean = false;
-  private isLoggedIn: boolean = false;
+  isLoggedIn: boolean = true;
   private errorMessage: string = '';
   private isSuccessful: boolean = false;
   private isSignUpFailed: boolean = false;
@@ -167,5 +168,11 @@ export class RegisterComponentComponent implements OnInit {
   // TODO: Implement this method
   onForgotPasswordClick() {
     this.router.navigate(['/forgot-password']);
+  }
+
+  onLogout() {
+    this.authService.logout();
+    this.isLoggedIn = false;
+    this.openSnackBar("Logged out");
   }
 }
