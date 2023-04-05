@@ -56,6 +56,8 @@ function createWindow(): BrowserWindow {
   //  add an env variable to let the frontend know if it is the tray or the main window
   createTray(frontendPath + '/tray', serve);
 
+  win.setMenuBarVisibility(false);
+
   sttInit();
   ttsInit();
 
