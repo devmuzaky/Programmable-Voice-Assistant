@@ -2,9 +2,10 @@ import {Injectable} from '@angular/core';
 import {UserLogin} from '../../interface/userLogin';
 import {UserSignUp} from '../../interface/userSignUp';
 import {HttpClient} from "@angular/common/http";
-import {Observable} from "rxjs";
+import {BehaviorSubject, Observable} from "rxjs";
 import {APP_CONFIG} from "../../../../environments/environment";
-import {AbstractControl, ValidationErrors, ValidatorFn} from "@angular/forms";
+import {StorageService} from "../storage.service";
+import {Router} from "@angular/router";
 
 
 @Injectable({
@@ -13,9 +14,14 @@ import {AbstractControl, ValidationErrors, ValidatorFn} from "@angular/forms";
 export class AuthService {
   baseUrl = APP_CONFIG.apiBaseUrl + '/users';
 
-  isUserLoggedIn = false;
+  private isUserLoggedIn$: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
 
-  constructor(private http: HttpClient) {
+  constructor(private http: HttpClient, private storageService: StorageService, private router: Router) {
+    this.isUserLoggedIn$.next(this.storageService.isLoggedIn());
+  }
+
+  get isUserLoggedIn(): Observable<boolean> {
+    return this.isUserLoggedIn$.asObservable();
   }
 
   login(user: UserLogin) {
@@ -27,8 +33,12 @@ export class AuthService {
   }
 
   logout(): Observable<any> | any {
-    this.isUserLoggedIn = false;
-    localStorage.setItem('isUserLoggedIn', 'false');
+    this.isUserLoggedIn$.next(false);
+    this.storageService.clean();
+    this.router.navigate(['/recorder']);
   }
 
+  setLoggedIn(loggedIn: boolean) {
+    this.isUserLoggedIn$.next(loggedIn);
+  }
 }

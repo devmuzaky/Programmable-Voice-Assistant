@@ -9,7 +9,8 @@
 
   <ul class="sidenav-nav">
     <li *ngFor="let data of navData" class="sidenav-nav-item">
-      <a [routerLinkActiveOptions]="{exact: true}" [routerLink]="[data.routeLink]"
+      <a *ngIf="(data.label === 'My Scripts' && (isLogin$ | async)) || data.label !== 'My Scripts'"
+        [routerLinkActiveOptions]="{exact: true}" [routerLink]="[data.routeLink]"
          class="sidenav-nav-link"
          routerLinkActive="active"
       >

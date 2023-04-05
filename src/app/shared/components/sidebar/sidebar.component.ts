@@ -1,6 +1,8 @@
 import {animate, keyframes, style, transition, trigger} from '@angular/animations';
 import {Component, Output, EventEmitter, OnInit, HostListener, Input} from '@angular/core';
 import {navbarData} from './nav-data';
+import {AuthService} from "../../../auth/services/auth-service/auth.service";
+import {Observable} from "rxjs";
 
 interface SideNavToggle {
   screenWidth: number;
@@ -48,8 +50,11 @@ export class SidebarComponent implements OnInit {
   screenWidth = 0;
   navData = navbarData;
   toggleModal: boolean;
+  isLogin$: Observable<boolean>;
 
-  constructor() {
+  constructor(private authService: AuthService) {
+    this.isLogin$ = this.authService.isUserLoggedIn;
+    console.log(this.isLogin$)
   }
 
   @HostListener('window:resize', ['$event'])

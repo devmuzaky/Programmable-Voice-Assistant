@@ -20,7 +20,7 @@ export class HttpRequestInterceptor implements HttpInterceptor {
   intercept(request: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
     console.log("jwt", this.jwt_token)
     if (this.jwt_token != null && request.url.indexOf('login') === -1  && request.url.indexOf('register') === -1) {
-      console.log("ddnk")
+      console.log(this.jwt_token)
       request = request.clone({
         headers: request.headers.set("Authorization",
           "Bearer " + this.jwt_token)

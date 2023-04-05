@@ -7,16 +7,17 @@ import {AuthRoutingModule} from './auth/auth-routing.module';
 import {RecorderRoutingModule} from "./recorder/recorder-routing.module";
 import {CommandsTableComponent} from "./scripts-table/components/commands-table-component/commands-table-component";
 import {MarketplaceComponent} from "./scripts-table/components/marketplace-component/marketplace.component";
+import {RecorderComponent} from "./recorder/components/recorder/recorder.component";
 
 const routes: Routes = [
   {
     path: '',
-    redirectTo: 'home',
+    redirectTo: 'recorder',
     pathMatch: 'full'
   },
   {
     path: 'recorder',
-    
+    component: RecorderComponent
   },
   {
     path: 'my-scripts',

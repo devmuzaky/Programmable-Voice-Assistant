@@ -1,9 +1,28 @@
+import * as fs from "fs";
+
 const {exec} = require("child_process");
 
 export const runScript = (scriptName: string, args: string[] = [], event) => {
-  const argsString = args.join(" ");
+  let argString = '';
+  for (let arg of args) {
+    argString += `"${arg}" `;
+  }
 
-  exec(`test-exe\\${scriptName}.exe ${argsString}`, (error, stdout, stderr) => {
+  const filePath = `test-exe\\${scriptName}.exe`;
+
+  // Check if a file exists
+  fs.access(filePath, fs.constants.F_OK, (err) => {
+    if (err) {
+      event.reply(`run-script-reply`, `no script found with the name ${scriptName}`);
+
+      return;
+    }
+    console.log(`${filePath} exists`);
+  });
+
+  console.log("argString", argString);
+
+  exec(`test-exe\\${scriptName}.exe ${argString}`, (error, stdout, stderr) => {
     if (error) {
       console.log(`error: ${error.message}`);
       return;

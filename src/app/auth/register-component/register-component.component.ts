@@ -55,7 +55,7 @@ export class RegisterComponentComponent implements OnInit {
     }
   );
   private isLoginFailed: boolean = false;
-  isLoggedIn: boolean = true;
+  isLoggedIn: boolean = false;
   private errorMessage: string = '';
   private isSuccessful: boolean = false;
   private isSignUpFailed: boolean = false;
@@ -147,6 +147,7 @@ export class RegisterComponentComponent implements OnInit {
           this.isLoginFailed = false;
           this.isLoggedIn = true;
           this.openSnackBar("Logged in as " + this.storageService.getUser().email);
+          this.authService.setLoggedIn(true);
         },
         err => {
           this.errorMessage = err.error.detail;
