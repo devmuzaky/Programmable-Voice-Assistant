@@ -1,5 +1,7 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import {MatTabsModule} from "@angular/material/tabs";
+import {TabViewModule} from "primeng/tabview";
 
 import {MarketplaceComponent} from "./components/marketplace-component/marketplace.component";
 import {SharedModule} from "../shared/shared.module";
@@ -25,6 +27,7 @@ import {StepsModule} from "primeng/steps";
 import { CommandCardComponent } from './components/command-card/command-card.component';
 import { CardPreviewComponent } from './components/card-preview/card-preview.component';
 import {CardModule} from "primeng/card";
+import { MyCommandsComponent } from './components/my-commands/my-commands.component';
 
 
 
@@ -34,6 +37,7 @@ import {CardModule} from "primeng/card";
     CommandsTableComponent,
     CommandCardComponent,
     CardPreviewComponent,
+    MyCommandsComponent,
   ],
   imports: [
     CommonModule,
@@ -56,7 +60,9 @@ import {CardModule} from "primeng/card";
     ReactiveFormsModule,
     CheckboxModule,
     StepsModule,
-    CardModule
+    CardModule,
+    MatTabsModule,
+    TabViewModule
   ],
   exports: [
     MarketplaceComponent,

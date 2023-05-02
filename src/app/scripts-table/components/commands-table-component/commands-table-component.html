@@ -1,4 +1,6 @@
 <div class="container">
+
+
   <p-toast></p-toast>
 
   <div class="card">
@@ -19,90 +21,186 @@
 
     </p-toolbar>
 
-    <p-table #dt [(selection)]="selectedCommands"
-             [globalFilterFields]="['name','command','status', 'description']"
-             [paginator]="true"
-             [rowHover]="true"
-             [rows]="5" [showCurrentPageReport]="true" [tableStyle]="{'min-width': '75rem'}"
-             [value]="commands"
-             currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries"
-             dataKey="id"
-    >
+    <div>
+      <mat-tab-group>
 
-      <ng-template pTemplate="caption">
+        <mat-tab label="Public Commands">
+          <p-table #dt [(selection)]="selectedCommands"
+                   [globalFilterFields]="['name','command','status', 'description']"
+                   [paginator]="true"
+                   [rowHover]="true"
+                   [rows]="5" [showCurrentPageReport]="true" [tableStyle]="{'min-width': '75rem'}"
+                   [value]="commands"
+                   currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries"
+                   dataKey="id">
 
-        <div class="flex align-items-center justify-content-between">
-          <h5 class="m-0">Manage Commands</h5>
-          <span class="p-input-icon-left">
+            <ng-template pTemplate="caption">
+
+              <div class="flex align-items-center justify-content-between">
+                <h5 class="m-0">Manage Commands</h5>
+                <span class="p-input-icon-left">
                     <i class="pi pi-search"></i>
                     <input (input)="dt.filterGlobal($event.target.value, 'contains')" pInputText placeholder="Search..."
                            type="text"/>
                 </span>
-        </div>
+              </div>
+            </ng-template>
 
-      </ng-template>
 
-      <ng-template pTemplate="header">
+            <ng-template pTemplate="header">
 
-        <tr>
-          <th>
-            <p-tableHeaderCheckbox></p-tableHeaderCheckbox>
-          </th>
-          <th></th>
-          <th class="td-width" pSortableColumn="name">Name
-            <p-sortIcon field="name"></p-sortIcon>
-          </th>
-          <th class="td-width" pSortableColumn="commands">Command
-            <p-sortIcon field="commands"></p-sortIcon>
-          </th>
-          <th class="td-width">Description</th>
-          <th class="td-width">Parameters</th>
-          <th class="td-width" pSortableColumn="status">Status
-            <p-sortIcon field="status"></p-sortIcon>
-          </th>
-          <th class="td-width"></th>
-        </tr>
+              <tr>
+                <th>
+                  <p-tableHeaderCheckbox></p-tableHeaderCheckbox>
+                </th>
+                <th></th>
+                <th class="td-width" pSortableColumn="name">Name
+                  <p-sortIcon field="name"></p-sortIcon>
+                </th>
+                <th class="td-width" pSortableColumn="commands">Command
+                  <p-sortIcon field="commands"></p-sortIcon>
+                </th>
+                <th class="td-width">Description</th>
+                <th class="td-width">Parameters</th>
+                <th class="td-width" pSortableColumn="status">Status
+                  <p-sortIcon field="status"></p-sortIcon>
+                </th>
+                <th class="td-width"></th>
+              </tr>
 
-      </ng-template>
-      <ng-template let-command pTemplate="body">
-        <tr>
-          <td>
-            <p-tableCheckbox [value]="command"></p-tableCheckbox>
-          </td>
-          <td>
-            <figure class="avatar">
-              <img [src]="command.icon" class="shadow-4">
-            </figure>
-          </td>
-          <td class="truncateT td-width">{{command.name}}</td>
-          <td class="truncateT td-width">{{command.commands}}</td>
-          <td class="truncate td-width">{{command.description}}</td>
-          <td class="truncateT td-width">{{command.parameters}}</td>
-          <td class="truncateT td-width"><span
-            [class]="'status-' + (command.status ? command.status.toLowerCase() : '')">{{command.status}}</span>
-          </td>
-          <!--          <td><p-rating [ngModel]="command.rating" [readonly]="true" [cancel]="false"></p-rating></td>-->
+            </ng-template>
+            <ng-template let-command pTemplate="body">
+              <tr>
+                <td>
+                  <p-tableCheckbox [value]="command"></p-tableCheckbox>
+                </td>
+                <td>
+                  <figure class="avatar">
+                    <img [src]="command.icon" class="shadow-4">
+                  </figure>
+                </td>
+                <td class="truncateT td-width">{{command.name}}</td>
+                <td class="truncateT td-width">{{command.commands}}</td>
+                <td class="truncate td-width">{{command.description}}</td>
+                <td class="truncateT td-width">{{command.parameters}}</td>
+                <td class="truncateT td-width"><span
+                  [class]="'status-' + (command.status ? command.status.toLowerCase() : '')">{{command.status}}</span>
+                </td>
+                <!--          <td><p-rating [ngModel]="command.rating" [readonly]="true" [cancel]="false"></p-rating></td>-->
 
-          <td class="truncateT td-width">
-            <button (click)="editCommand(command)"
-                    class="p-button-rounded p-button-success mr-2"
-                    icon="pi pi-pencil"
-                    pButton
-                    pRipple></button>
-            <button (click)="deleteCommand(command)"
-                    class="p-button-rounded p-button-warning"
-                    icon="pi pi-trash"
-                    pButton
-                    pRipple></button>
-          </td>
-        </tr>
-      </ng-template>
-      <ng-template pTemplate="summary">
-        <div class="flex align-items-center justify-content-between">
-          In total there are {{commands ? commands.length : 0 }} Commands.
-        </div>
-      </ng-template>
-    </p-table>
+                <td class="truncateT td-width">
+                  <button (click)="editCommand(command)"
+                          class="p-button-rounded p-button-success mr-2"
+                          icon="pi pi-pencil"
+                          pButton
+                          pRipple></button>
+                  <button (click)="deleteCommand(command)"
+                          class="p-button-rounded p-button-warning"
+                          icon="pi pi-trash"
+                          pButton
+                          pRipple></button>
+                </td>
+              </tr>
+            </ng-template>
+            <ng-template pTemplate="summary">
+              <div class="flex align-items-center justify-content-between">
+                In total there are {{commands ? commands.length : 0 }} Commands.
+              </div>
+            </ng-template>
+          </p-table>
+        </mat-tab>
+        <mat-tab label="My Commands">
+          <p-table #dt [(selection)]="selectedCommands"
+                   [globalFilterFields]="['name','command','status', 'description']"
+                   [paginator]="true"
+                   [rowHover]="true"
+                   [rows]="5" [showCurrentPageReport]="true" [tableStyle]="{'min-width': '75rem'}"
+                   [value]="commands"
+                   currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries"
+                   dataKey="id">
+
+            <ng-template pTemplate="caption">
+
+              <div class="flex align-items-center justify-content-between">
+                <h5 class="m-0">Manage Commands</h5>
+                <span class="p-input-icon-left">
+                    <i class="pi pi-search"></i>
+                    <input (input)="dt.filterGlobal($event.target.value, 'contains')" pInputText placeholder="Search..."
+                           type="text"/>
+                </span>
+              </div>
+            </ng-template>
+
+
+            <ng-template pTemplate="header">
+
+              <tr>
+                <th>
+                  <p-tableHeaderCheckbox></p-tableHeaderCheckbox>
+                </th>
+                <th></th>
+                <th class="td-width" pSortableColumn="name">Name
+                  <p-sortIcon field="name"></p-sortIcon>
+                </th>
+                <th class="td-width" pSortableColumn="commands">Command
+                  <p-sortIcon field="commands"></p-sortIcon>
+                </th>
+                <th class="td-width">Description</th>
+                <th class="td-width">Parameters</th>
+                <th class="td-width" pSortableColumn="status">Status
+                  <p-sortIcon field="status"></p-sortIcon>
+                </th>
+                <th class="td-width"></th>
+              </tr>
+
+            </ng-template>
+            <ng-template let-command pTemplate="body">
+              <tr>
+                <td>
+                  <p-tableCheckbox [value]="command"></p-tableCheckbox>
+                </td>
+                <td>
+                  <figure class="avatar">
+                    <img [src]="command.icon" class="shadow-4">
+                  </figure>
+                </td>
+                <td class="truncateT td-width">{{command.name}}</td>
+                <td class="truncateT td-width">{{command.commands}}</td>
+                <td class="truncate td-width">{{command.description}}</td>
+                <td class="truncateT td-width">{{command.parameters}}</td>
+                <td class="truncateT td-width"><span
+                  [class]="'status-' + (command.status ? command.status.toLowerCase() : '')">{{command.status}}</span>
+                </td>
+                <!--          <td><p-rating [ngModel]="command.rating" [readonly]="true" [cancel]="false"></p-rating></td>-->
+
+                <td class="truncateT td-width">
+                  <button (click)="editCommand(command)"
+                          class="p-button-rounded p-button-success mr-2"
+                          icon="pi pi-pencil"
+                          pButton
+                          pRipple></button>
+                  <button (click)="deleteCommand(command)"
+                          class="p-button-rounded p-button-warning"
+                          icon="pi pi-trash"
+                          pButton
+                          pRipple></button>
+                </td>
+              </tr>
+            </ng-template>
+            <ng-template pTemplate="summary">
+              <div class="flex align-items-center justify-content-between">
+                In total there are {{commands ? commands.length : 0 }} Commands.
+              </div>
+            </ng-template>
+          </p-table>
+        </mat-tab>
+
+
+      </mat-tab-group>
+
+    </div>
+
+
   </div>
 
   <p-dialog [(visible)]="commandDialog"
@@ -145,7 +243,7 @@
                          placeholder="0"
           >
           </p-inputNumber>
-          <div class="flex" >
+          <div class="flex">
             <input
               *ngIf="command.parametersNumber >= 1"
               [(ngModel)]="command.parameters[0]"
@@ -208,43 +306,43 @@
 
           >
           </p-inputNumber>
-          <div class="flex flex-column mr-2 " >
-          <input
-            *ngIf="command?.patternsNumber >= 1"
-            [(ngModel)]="command?.patterns[0]"
-            autofocus
-            class=" m-1"
-            pInputText
-            required
-            type="text"
-          >
-          <input
-            *ngIf="command.patternsNumber >= 2"
-            [(ngModel)]="command.patterns[1]"
-            autofocus
-            class=" m-1"
-            pInputText
-            required
-            type="text"
-          >
-          <input
-            *ngIf="command.patternsNumber >= 3"
-            [(ngModel)]="command.patterns[2]"
-            autofocus
-            class=" m-1"
-            pInputText
-            required
-            type="text"
-          >
-          <input
-            *ngIf="command.patternsNumber >= 4"
-            [(ngModel)]="command.patterns[3]"
-            autofocus
-            class=" m-1"
-            pInputText
-            required
-            type="text"
-          >
+          <div class="flex flex-column mr-2 ">
+            <input
+              *ngIf="command?.patternsNumber >= 1"
+              [(ngModel)]="command?.patterns[0]"
+              autofocus
+              class=" m-1"
+              pInputText
+              required
+              type="text"
+            >
+            <input
+              *ngIf="command.patternsNumber >= 2"
+              [(ngModel)]="command.patterns[1]"
+              autofocus
+              class=" m-1"
+              pInputText
+              required
+              type="text"
+            >
+            <input
+              *ngIf="command.patternsNumber >= 3"
+              [(ngModel)]="command.patterns[2]"
+              autofocus
+              class=" m-1"
+              pInputText
+              required
+              type="text"
+            >
+            <input
+              *ngIf="command.patternsNumber >= 4"
+              [(ngModel)]="command.patterns[3]"
+              autofocus
+              class=" m-1"
+              pInputText
+              required
+              type="text"
+            >
           </div>
         </div>
         <small *ngIf="submitted && !command.patterns[0]" class="p-error">Patterns Number is required.</small>
@@ -255,19 +353,19 @@
 
           <label for="script" style="display: block">Script</label>
           <p-fileUpload #scriptUpload
+                        (onSelect)="onUploadScript($event)"
                         [maxFileSize]="1000000"
-                        accept="{{acceptedScripts}}"
-                        class="mr-2 inline-block scriptUpload"
-                        invalidFileTypeMessageSummary="Invalid file type"
-                        mode="basic"
-                        name="script"
-                        id="script"
-                        chooseIcon="pi pi-upload"
-                        cancelLabel="Cancel"
-                        chooseLabel="Upload Script"
                         [showUploadButton]="false"
                         [style]="{width: '100%'}"
-                        (onSelect)="onUploadScript($event)">
+                        accept="{{acceptedScripts}}"
+                        cancelLabel="Cancel"
+                        chooseIcon="pi pi-upload"
+                        chooseLabel="Upload Script"
+                        class="mr-2 inline-block scriptUpload"
+                        id="script"
+                        invalidFileTypeMessageSummary="Invalid file type"
+                        mode="basic"
+                        name="script">
           </p-fileUpload>
           <button
             (click)="onClearSelectedFile(scriptUpload, 'Script')"
@@ -313,16 +411,16 @@
         <div class="field p-1">
           <label for="requirementsFile" style="display: block">Requirements File</label>
           <p-fileUpload #requirementsFile
+                        (onSelect)="onUploadRequirementsFile($event)"
                         [maxFileSize]="1000000"
                         accept=".txt"
                         chooseLabel="Upload File"
                         class="mr-2 inline-block"
+                        id="requirementsFile"
                         invalidFileTypeMessageSummary="Invalid file type"
                         label="Upload Requirements File"
                         mode="basic"
-                        name="requirementsFile"
-                        id="requirementsFile"
-                        (onSelect)="onUploadRequirementsFile($event)">
+                        name="requirementsFile">
           </p-fileUpload>
           <button
             (click)="onClearSelectedFile(requirementsFile, 'Requirements File')"
@@ -346,18 +444,18 @@
                           [style]="{backgroundColor:'#5783db'}"
                           accept="image/*"
                           cancelLabel="Choose Another Icon"
-                          chooseLabel="Icon"
-                          mode="basic"
-                          id="icon"
-                          name="icon"
                           chooseIcon="pi pi-upload"
+                          chooseLabel="Icon"
+                          id="icon"
+                          mode="basic"
+                          name="icon"
             >
             </p-fileUpload>
           </div>
           <button (click)="onClearSelectedFile(iconUpload, 'Icon')"
                   *ngIf="iconUpload.files && iconUpload.files.length > 0"
-                  class="p-button-rounded p-button-warning ml-3"
                   [style]="{margin: 'auto'}"
+                  class="p-button-rounded p-button-warning ml-3"
                   icon="pi pi-trash"
                   pButton
                   pRipple>
@@ -378,7 +476,4 @@
 
 </div>
 
-<app-marketplace
-  (closeMarketplaceEvent)="closeMarketplace()"
-  *ngIf="marketplaceFlag"
-></app-marketplace>
+<app-marketplace (closeMarketplaceEvent)="closeMarketplace()" *ngIf="marketplaceFlag"></app-marketplace>
