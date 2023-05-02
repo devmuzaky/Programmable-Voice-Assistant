@@ -26,6 +26,17 @@ export class CommandService {
       );
   }
 
+  getUserCommands() {
+    return this.http.get<any>('assets/my-commands.json')
+      .pipe(
+        map((res: any) => {
+          return res.data;
+        })
+      );
+  }
+
+
+
   getFiles() {
     return this.http.get('assets/commands.json');
   }

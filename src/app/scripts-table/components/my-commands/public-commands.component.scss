@@ -1,0 +1,16 @@
+.truncateP {
+  max-width: 16rem;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.td-widthDP{
+  min-width: 40%;
+  max-width: 40%;
+}
+
+td-widthName{
+  min-width: 15%;
+  max-width: 15%;
+}

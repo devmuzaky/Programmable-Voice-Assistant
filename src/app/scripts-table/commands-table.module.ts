@@ -27,7 +27,7 @@ import {StepsModule} from "primeng/steps";
 import { CommandCardComponent } from './components/command-card/command-card.component';
 import { CardPreviewComponent } from './components/card-preview/card-preview.component';
 import {CardModule} from "primeng/card";
-import { MyCommandsComponent } from './components/my-commands/my-commands.component';
+import { PublicCommandsComponent } from './components/my-commands/public-commands.component';
 
 
 
@@ -37,7 +37,7 @@ import { MyCommandsComponent } from './components/my-commands/my-commands.compon
     CommandsTableComponent,
     CommandCardComponent,
     CardPreviewComponent,
-    MyCommandsComponent,
+    PublicCommandsComponent,
   ],
   imports: [
     CommonModule,

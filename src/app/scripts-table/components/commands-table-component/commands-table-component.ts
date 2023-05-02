@@ -44,7 +44,7 @@ export class CommandsTableComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.commandService.getCommands().subscribe(data => {
+    this.commandService.getUserCommands().subscribe(data => {
       this.commands = data;
     }, error => console.error(error));
   }
