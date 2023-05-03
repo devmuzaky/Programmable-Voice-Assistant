@@ -1,4 +1,4 @@
-:host ::ng-deep {
+::ng-deep {
   .card {
     height: 90%;
   }
@@ -28,7 +28,6 @@
 
     td {
       font-weight: 400;
-
     }
   }
 
@@ -65,7 +64,8 @@
   p-fluid .p-dropdown {
     width: 50%;
   }
-  .p-fluid .p-inputtext{
+
+  .p-fluid .p-inputtext {
     width: 100%;
   }
 
@@ -96,7 +96,7 @@
     font-weight: bold;
   }
 
-  .p-button{
+  .p-button {
     margin: 0;
     display: inline-flex;
     cursor: pointer;
@@ -181,9 +181,10 @@
     margin-bottom: 0;
   }
 
-  .p-1{
+  .p-1 {
     padding: 0 !important;
   }
+
 }
 
 @media screen and (max-width: 960px) {

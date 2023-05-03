@@ -1,0 +1,69 @@
+{
+  "data": [
+    {
+      "id": 1,
+      "name": "Open Google Chrome",
+      "commands": "Chrome",
+      "status": "Public",
+      "icon": "https://cdn-icons-png.flaticon.com/512/924/924915.png",
+      "script": "chrome.py",
+      "scriptType": ".py",
+      "parameters": "No need",
+      "description": "This script will open Google Chrome.",
+      "rating": 5,
+      "owner": "John Doe"
+    },
+    {
+      "id": 2,
+      "name": "Open Firefox",
+      "commands": "Firefox",
+      "status": "Public",
+      "icon": "https://cdn-icons-png.flaticon.com/512/444/444856.png",
+      "script": "firefox.js",
+      "scriptType": ".js",
+      "parameters": "No need",
+      "description": "This script will open Mozilla Firefox.",
+      "rating": 4.5,
+      "owner": "Jane Smith"
+    },
+    {
+      "id": 3,
+      "name": "Open Edge",
+      "commands": "Edge",
+      "status": "Private",
+      "icon": "https://cdn-icons-png.flaticon.com/512/888/888885.png",
+      "script": "edge.py",
+      "scriptType": ".py",
+      "parameters": "No need",
+      "description": "This script will open Microsoft Edge.",
+      "rating": 4.7,
+      "owner": "Bob Johnson"
+    },
+    {
+      "id": 4,
+      "name": "Open Safari",
+      "commands": "Safari",
+      "status": "Private",
+      "icon": "https://cdn-icons-png.flaticon.com/512/888/888891.png",
+      "script": "safari.js",
+      "scriptType": ".js",
+      "parameters": "No need",
+      "description": "This script will open Apple Safari.",
+      "rating": 4.2,
+      "owner": "Alice Lee"
+    },
+    {
+      "id": 5,
+      "name": "Open Notepad",
+      "commands": "Notepad",
+      "status": "Public",
+      "icon": "https://cdn-icons-png.flaticon.com/512/3332/3332172.png",
+      "script": "notepad.py",
+      "scriptType": ".py",
+      "parameters": "param1",
+      "description": "This script will open Microsoft Notepad.",
+      "rating": 4.0,
+      "owner": "Tom Anderson"
+    }
+  ]
+}

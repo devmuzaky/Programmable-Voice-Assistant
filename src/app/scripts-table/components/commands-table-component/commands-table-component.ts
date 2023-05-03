@@ -44,7 +44,7 @@ export class CommandsTableComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.commandService.getCommands().subscribe(data => {
+    this.commandService.getUserCommands().subscribe(data => {
       this.commands = data;
     }, error => console.error(error));
   }
@@ -102,6 +102,7 @@ export class CommandsTableComponent implements OnInit {
 
     onCreateCommand() {
       this.submitted = true;
+
       const commandCreateRequest: CommandCreateRequest = {
         name: this.command.name,
         description: this.command.description,
@@ -117,16 +118,17 @@ export class CommandsTableComponent implements OnInit {
       };
 
 
-    this.commandService.createCommand(commandCreateRequest).subscribe(data => {
-      this.messageService.add({severity: 'success', summary: 'Successful', detail: 'Command Created', life: 3000});
-      this.commandDialog = false;
-      this.command = {};
-    }, error => {
-      this.messageService.add({severity: 'error', summary: 'Error', detail: 'Command Not Created', life: 3000});
-    });
+      this.commandService.createCommand(commandCreateRequest).subscribe(data => {
+        this.messageService.add({severity: 'success', summary: 'Successful', detail: 'Command Created', life: 3000});
+        this.commandDialog = false;
+        this.command = {};
+      }, error => {
+        this.messageService.add({severity: 'error', summary: 'Error', detail: 'Command Not Created', life: 3000});
+      });
 
 
-  }
+
+    }
 
   onUploadIcon($event: any) {
     this.command.icon = $event.files[0];
