@@ -1,4 +1,4 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, NgZone, OnInit} from '@angular/core';
 import {NotificationService} from "../../../../core/services/notification/notification.service";
 import {StorageService} from "../../../../auth/services/storage.service";
 import {SnackbarService} from "../../../snackbar-service/snackbar.service";
@@ -32,6 +32,7 @@ export class NotificationListComponent implements OnInit {
     private notificationService: NotificationService,
     private storageService: StorageService,
     private snackbarService: SnackbarService,
+    private zone: NgZone
   ) {
     if (this.storageService.isLoggedIn()) {
       console.log(this.storageService.getUser())
@@ -40,6 +41,20 @@ export class NotificationListComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    this.notificationService.getNotificationObservable().subscribe(
+      (notification) => {
+        console.log('Notification received:', notification);
+
+        // TODO: modify this to new style
+        this.snackbarService.openSnackBar('New notification received');
+
+        this.notificationList = [...this.notificationList, notification];
+
+        this.zone.run(() => {
+          //   fix for delay re-rendering in electron
+        });
+      }
+    );
   }
 
 }

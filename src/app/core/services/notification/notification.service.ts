@@ -1,10 +1,13 @@
 import {Injectable} from '@angular/core';
+import {CommandNotification} from "../../../shared/components/notifications/interfaces/notification";
+import {BehaviorSubject, Observable, Subject} from "rxjs";
 
 @Injectable({
   providedIn: 'root'
 })
 export class NotificationService {
 
+  private notificationSubject: Subject<CommandNotification> = new Subject<CommandNotification>();
   private socket: WebSocket;
 
   constructor() {
@@ -21,8 +24,9 @@ export class NotificationService {
     this.socket.onmessage = (event) => {
       console.log('Received message:', event.data)
       const notification = JSON.parse(event.data).notification;
-      console.log('Received notification:', notification);
-      // TODO: Handle the received notification here
+
+      this.notificationSubject.next(notification);
+
     };
 
     this.socket.onclose = (event) => {
@@ -35,5 +39,9 @@ export class NotificationService {
       this.socket.close();
       this.socket = null;
     }
+  }
+
+  getNotificationObservable(): Observable<CommandNotification> {
+    return this.notificationSubject.asObservable();
   }
 }
