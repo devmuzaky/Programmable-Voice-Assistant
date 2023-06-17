@@ -52,3 +52,7 @@ testem.log
 Thumbs.db
 
 **/**/package-lock.json
+
+# css files
+*.css
+

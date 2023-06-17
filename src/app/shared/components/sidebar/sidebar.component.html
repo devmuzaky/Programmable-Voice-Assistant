@@ -20,7 +20,23 @@
         </span>
       </a>
     </li>
-    <li class="sidenav-nav-item acc">
+
+
+    <li (click)="op.show($event)"
+        class="sidenav-nav-item notification"
+    >
+      <a class="sidenav-nav-link">
+        <img alt="icon" class="sidenav-link-icon" src="./assets/icons/notification.svg"/>
+        <span *ngIf="collapsed" @fadeInOut class="sidenav-link-text">Notifications</span>
+      </a>
+
+      <p-overlayPanel #op>
+        <app-notification-list></app-notification-list>
+      </p-overlayPanel>
+    </li>
+
+
+    <li class="sidenav-nav-item">
       <a (click)="setToggleModal($event)" [routerLinkActiveOptions]="{exact: true}" class="sidenav-nav-link"
          routerLinkActive="active"
       >

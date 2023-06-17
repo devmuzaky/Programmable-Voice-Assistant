@@ -99,23 +99,27 @@
       background-color: #fff;
       color: #000;
     }
-    img.sidenav-link-icon{
+
+    img.sidenav-link-icon {
       filter: none !important;
     }
   }
 }
 
 .active {
-  img.sidenav-link-icon{
+  img.sidenav-link-icon {
     filter: none !important;
   }
+
   background-color: #fff;
+
   .sidenav-link-icon,
   .sidenav-link-text {
     color: #000;
   }
 }
-.acc{
-  position: absolute;
-  bottom: 2rem;
+
+.notification {
+  margin-top: auto;
+  padding-bottom: 10px;
 }
