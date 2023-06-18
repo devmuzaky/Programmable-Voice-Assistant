@@ -8,11 +8,25 @@
   </div>
 
   <ul class="sidenav-nav">
+    <!--    <li *ngFor="let data of navData" class="sidenav-nav-item">-->
+    <!--      <a *ngIf="(data.label === 'My Scripts' && (isLogin$ | async)) || data.label !== 'My Scripts'"-->
+    <!--         [routerLinkActiveOptions]="{exact: true}" [routerLink]="[data.routeLink]"-->
+    <!--         class="sidenav-nav-link"-->
+    <!--         routerLinkActive="active"-->
+    <!--      >-->
+    <!--        <img alt="icon" class="sidenav-link-icon" src="{{data.icon}}"/>-->
+    <!--        <span *ngIf="collapsed" @fadeInOut class="sidenav-link-text">-->
+    <!--                            {{data.label}}-->
+    <!--        </span>-->
+    <!--      </a>-->
+    <!--    </li>-->
+
+
     <li *ngFor="let data of navData" class="sidenav-nav-item">
-      <a *ngIf="(data.label === 'My Scripts' && (isLogin$ | async)) || data.label !== 'My Scripts'"
-         [routerLinkActiveOptions]="{exact: true}" [routerLink]="[data.routeLink]"
-         class="sidenav-nav-link"
-         routerLinkActive="active"
+      <a
+        [routerLinkActiveOptions]="{exact: true}" [routerLink]="[data.routeLink]"
+        class="sidenav-nav-link"
+        routerLinkActive="active"
       >
         <img alt="icon" class="sidenav-link-icon" src="{{data.icon}}"/>
         <span *ngIf="collapsed" @fadeInOut class="sidenav-link-text">
@@ -22,9 +36,8 @@
     </li>
 
 
-    <li (click)="op.show($event)"
-        class="sidenav-nav-item notification"
-    >
+    <li (click)="op.toggle($event)"
+        class="sidenav-nav-item notification">
       <a class="sidenav-nav-link">
         <img alt="icon" class="sidenav-link-icon" src="./assets/icons/notification.svg"/>
         <span *ngIf="collapsed" @fadeInOut class="sidenav-link-text">Notifications</span>

@@ -13,17 +13,17 @@ export class NotificationListComponent implements OnInit {
     {
       id: 1,
       message: 'New order has been received',
-      time: '3 min ago',
+      status: 'success',
     },
     {
       id: 2,
       message: 'New order has been received',
-      time: '3 min ago',
+      status: 'fail',
     },
     {
       id: 3,
       message: 'New order has been received',
-      time: '3 min ago',
+      status: 'pending',
     },
 
   ];
