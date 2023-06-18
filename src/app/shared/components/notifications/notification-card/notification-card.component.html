@@ -1,1 +1,12 @@
-<div>{{ notification.message }} - {{notification.time}}</div>
+<div class="w-full h-full flex align-items-center flex-row ">
+
+  <div class="flex mr-3 figure flex-column">
+    <img [src]="notification.commandIcon ? notification.commandIcon : './assets/icons/Default_Notification.gif'"
+         alt="icon" class="w-full text-white h-auto">
+  </div>
+
+  <div class="flex align-items-center flex-row h-2rem p-2 border-round-sm alert-{{notification.status}} ">
+    <div>{{ notification.message }}</div>
+  </div>
+
+</div>
