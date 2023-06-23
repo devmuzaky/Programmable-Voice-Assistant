@@ -90,7 +90,7 @@ export class CommandService {
     formData.append('script_data.script', command.script_data.script);
     formData.append('script_data.requirements', command.script_data.requirements);
 
-    formData.append('patternsNumber', command.patternsNumber.toString());
+    // formData.append('patternsNumber', command.patternsNumber.toString());
 
 
     return this.http.post(`${this.baseUrl}/api/commands/`, formData);
