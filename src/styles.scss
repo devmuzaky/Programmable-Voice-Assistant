@@ -54,3 +54,24 @@ html, body {
     }
   }
 }
+
+.snackbar-success {
+  background-color: #29D49F;
+  color: #fff;
+}
+
+.snackbar-fail {
+  background-color: #EF4470;
+  color: #fff;
+  font-weight: bold;
+}
+
+.snackbar-pending {
+  background-color: #F8C23F;
+  color: #fff;
+}
+
+general-snakbar {
+  background-color: #262626;
+  color: #0F9B48;
+}

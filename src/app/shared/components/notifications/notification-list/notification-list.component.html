@@ -1,4 +1,4 @@
-<p-listbox [listStyle]="{ 'max-height': '350px' }" [options]="notificationList">
+<p-listbox class="text-red-700" [listStyle]="{ 'max-height': '350px' }" [options]="notificationList">
   <ng-template let-notification pTemplate="item">
     <app-notification-card [notification]="notification"></app-notification-card>
   </ng-template>

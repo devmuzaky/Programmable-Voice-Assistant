@@ -13,17 +13,17 @@ export class NotificationListComponent implements OnInit {
     {
       id: 1,
       message: 'New order has been received',
-      time: '3 min ago',
+      status: 'success',
     },
     {
       id: 2,
       message: 'New order has been received',
-      time: '3 min ago',
+      status: 'fail',
     },
     {
       id: 3,
       message: 'New order has been received',
-      time: '3 min ago',
+      status: 'pending',
     },
 
   ];
@@ -46,7 +46,7 @@ export class NotificationListComponent implements OnInit {
         console.log('Notification received:', notification);
 
         // TODO: modify this to new style
-        this.snackbarService.openSnackBar('New notification received');
+        this.snackbarService.openNotificationSnackBar(notification);
 
         this.notificationList = [...this.notificationList, notification];
 
