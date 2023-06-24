@@ -45,7 +45,6 @@ export class NotificationListComponent implements OnInit {
       (notification) => {
         console.log('Notification received:', notification);
 
-        // TODO: modify this to new style
         this.snackbarService.openNotificationSnackBar(notification);
 
         this.notificationList = [...this.notificationList, notification];

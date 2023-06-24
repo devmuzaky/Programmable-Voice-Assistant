@@ -25,6 +25,10 @@ export class NotificationService {
       console.log('Received message:', event.data)
       const notification = JSON.parse(event.data).notification;
 
+      if(notification.status === 'success') {
+        //TODO: download the executable file
+      }
+
       this.notificationSubject.next(notification);
 
     };
@@ -32,6 +36,7 @@ export class NotificationService {
     this.socket.onclose = (event) => {
       console.log('Notification connection closed.');
     };
+
   }
 
   disconnect(): void {

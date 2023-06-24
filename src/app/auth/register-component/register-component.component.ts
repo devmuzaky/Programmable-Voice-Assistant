@@ -23,11 +23,11 @@ export class RegisterComponentComponent implements OnInit {
 
 
   loginForm = this.fb.group({
-    email: ['', {
+    email: ['moe_zaky@gmail.com', {
       validators: [Validators.required, Validators.email],
       updateOn: 'blur'
     }],
-    password: ['', [
+    password: ['Mm123456#', [
       Validators.required,
       Validators.minLength(8),
       Validators.maxLength(20)

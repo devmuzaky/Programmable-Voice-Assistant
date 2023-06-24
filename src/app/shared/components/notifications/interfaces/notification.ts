@@ -3,7 +3,7 @@ export interface CommandNotification {
   message: string;
   status: string;
 
-  commandIcon?: string;
+  executableLink?: string;
 }
 
 export const EmptyCommandNotification: CommandNotification = {
