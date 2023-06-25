@@ -1,6 +1,7 @@
 import {Injectable} from '@angular/core';
 import {CommandNotification} from "../../../shared/components/notifications/interfaces/notification";
-import {BehaviorSubject, Observable, Subject} from "rxjs";
+import {Observable, Subject} from "rxjs";
+import {ElectronService} from "../electron/electron.service";
 
 @Injectable({
   providedIn: 'root'
@@ -10,7 +11,7 @@ export class NotificationService {
   private notificationSubject: Subject<CommandNotification> = new Subject<CommandNotification>();
   private socket: WebSocket;
 
-  constructor() {
+  constructor(private electronService: ElectronService) {
   }
 
   connect(user_id: number): void {
@@ -25,8 +26,8 @@ export class NotificationService {
       console.log('Received message:', event.data)
       const notification = JSON.parse(event.data).notification;
 
-      if(notification.status === 'success') {
-        //TODO: download the executable file
+      if (notification.status === 'success') {
+        this.storeExecutableURl(notification.id, notification.name, notification.executable_url)
       }
 
       this.notificationSubject.next(notification);
@@ -39,14 +40,11 @@ export class NotificationService {
 
   }
 
-  disconnect(): void {
-    if (this.socket) {
-      this.socket.close();
-      this.socket = null;
-    }
-  }
-
   getNotificationObservable(): Observable<CommandNotification> {
     return this.notificationSubject.asObservable();
+  }
+
+  private storeExecutableURl(id: number, name: string, executable_url: string) {
+    this.electronService.ipcRenderer.send('save_executable', id, name, executable_url);
   }
 }

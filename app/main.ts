@@ -6,6 +6,8 @@ import {saveFileSelected} from './textToScript/models/utils';
 import {googleStt, sttInit} from "./stt/googleStt";
 import {googleTts, ttsInit} from "./tts/googleTts";
 import {runScript} from "./scriptRunner/scriptRunner";
+import {saveCommandExecutable} from "./CommandManger";
+import sequelize from "./DB/config";
 
 
 let win: BrowserWindow = null;
@@ -58,6 +60,10 @@ function createWindow(): BrowserWindow {
 
   win.setMenuBarVisibility(false);
 
+
+  // TODO: remove this line: it drop and recreate the tables
+  sequelize.sync({ force: true }); // Drops and recreates the tables
+
   sttInit();
   ttsInit();
 
@@ -94,4 +100,8 @@ ipcMain.on('tts', googleTts);
 
 ipcMain.on('run-script', (event, scriptName, args) => {
   runScript(scriptName, args, event);
+});
+
+ipcMain.on('save_executable', (event, command_id, command_name, executable_url) => {
+  saveCommandExecutable(command_id, command_name, executable_url);
 });
