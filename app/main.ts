@@ -6,6 +6,7 @@ import {saveFileSelected} from './textToScript/models/utils';
 import {googleStt, sttInit} from "./stt/googleStt";
 import {googleTts, ttsInit} from "./tts/googleTts";
 import {runScript} from "./scriptRunner/scriptRunner";
+import {saveCommandExecutable} from "./CommandManger";
 
 
 let win: BrowserWindow = null;
@@ -94,4 +95,8 @@ ipcMain.on('tts', googleTts);
 
 ipcMain.on('run-script', (event, scriptName, args) => {
   runScript(scriptName, args, event);
+});
+
+ipcMain.on('save_executable', (event, command_id, command_name, executable_url) => {
+  saveCommandExecutable(command_id, command_name, executable_url);
 });
