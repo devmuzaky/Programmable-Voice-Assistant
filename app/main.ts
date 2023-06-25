@@ -7,6 +7,7 @@ import {googleStt, sttInit} from "./stt/googleStt";
 import {googleTts, ttsInit} from "./tts/googleTts";
 import {runScript} from "./scriptRunner/scriptRunner";
 import {saveCommandExecutable} from "./CommandManger";
+import sequelize from "./DB/config";
 
 
 let win: BrowserWindow = null;
@@ -58,6 +59,10 @@ function createWindow(): BrowserWindow {
   createTray(frontendPath + '/tray', serve);
 
   win.setMenuBarVisibility(false);
+
+
+  // TODO: remove this line: it drop and recreate the tables
+  sequelize.sync({ force: true }); // Drops and recreates the tables
 
   sttInit();
   ttsInit();

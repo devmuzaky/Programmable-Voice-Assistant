@@ -12,6 +12,9 @@
     "@google-cloud/speech": "^5.3.1",
     "@google-cloud/text-to-speech": "^4.2.1",
     "menubar": "^9.2.3",
-    "sqlite3": "^5.1.4"
+    "sqlite3": "^5.1.6",
+    "@types/sequelize": "^4.28.15",
+    "@types/sqlite3": "^3.1.8",
+    "sequelize": "^6.32.1"
   }
 }
