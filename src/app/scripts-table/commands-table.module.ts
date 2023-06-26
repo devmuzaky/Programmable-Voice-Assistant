@@ -29,6 +29,7 @@ import { CardPreviewComponent } from './components/card-preview/card-preview.com
 import {CardModule} from "primeng/card";
 import { InstalledCommandsComponent } from './components/command-management/public-command/installed-commands.component';
 import { MyCommandsComponent } from './components/command-management/my-commands/my-commands.component';
+import { CreateCommandFormComponent } from './components/command-management/create-command-form/create-command-form.component';
 
 
 
@@ -40,6 +41,7 @@ import { MyCommandsComponent } from './components/command-management/my-commands
     CardPreviewComponent,
     InstalledCommandsComponent,
     MyCommandsComponent,
+    CreateCommandFormComponent,
   ],
   imports: [
     CommonModule,
