@@ -1,4 +1,4 @@
-import {Component, OnInit, ViewChild} from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {Command} from '../../interfaces/command.model';
 import {CommandService} from '../../services/command.service';
 import {ConfirmationService, MessageService} from "primeng/api";
@@ -19,7 +19,28 @@ export class CommandManagement implements OnInit {
     script: null,
     requirements: null,
     scriptType: '',
-    parameters: ['', '', '', ''],
+    parameters: [
+      {
+        name: '',
+        type: '',
+        order: 0
+      },
+      {
+        name: '',
+        type: '',
+        order: 1
+      },
+      {
+        name: '',
+        type: '',
+        order: 2
+      },
+      {
+        name: '',
+        type: '',
+        order: 3
+      }
+    ],
     patterns: ['', '', '', ''],
     patternsNumber: 1,
   };
@@ -47,13 +68,12 @@ export class CommandManagement implements OnInit {
     this.marketplaceFlag = false;
   }
 
-  // handle Command Creation
   openCreateCommandForm() {
     this.showCreateCommandForm = true;
-    // TODO: what does this do ??
     setTimeout(() => {
-      document.querySelector<HTMLInputElement>('.parametersNumber .p-inputnumber-input').disabled = true;
-    }, 1000);
+      document.querySelectorAll<HTMLInputElement>('.disable-select-input-number .p-inputnumber-input').forEach(
+        (element) => element.disabled = true)
+    }, 200);
   }
 
   CloseCreateCommandForm() {

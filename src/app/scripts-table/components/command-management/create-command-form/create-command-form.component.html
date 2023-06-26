@@ -1,8 +1,8 @@
 <p-dialog
-  [visible]="true"
   (visibleChange)="closeForm.emit()"
   [modal]="true"
   [style]="{width: '40%'}"
+  [visible]="true"
   header="Create New Command"
   styleClass="p-fluid">
   <ng-template pTemplate="content">
@@ -10,28 +10,28 @@
     <div class="field flex flex-column">
       <label for="name">Name</label>
       <input
-             [(ngModel)]="command.name" autofocus id="name"
-             pInputText required type="text">
+        [(ngModel)]="command.name" autofocus id="name"
+        pInputText required type="text">
       <small *ngIf="submitted && !command.name" class="p-error">Name is required.</small>
     </div>
 
     <div class="field flex flex-column">
       <label for="description">Description</label>
       <textarea
-                [(ngModel)]="command.description"
-                cols="10" id="description" pInputTextarea
-                rows="1"></textarea>
+        [(ngModel)]="command.description"
+        cols="10" id="description" pInputTextarea
+        rows="1"></textarea>
     </div>
 
-    <div class="field flex flex-column">
+    <div class="field flex disable-select-input-number flex-column">
       <label for="parametersNo">Parameters Number </label>
-      <div class="flex flex-row">
+      <div class="parameter flex flex-row">
         <p-inputNumber #paramNum (click)="onParametersStateChange(paramNum.value)"
                        [(ngModel)]="command.parametersNumber"
                        [showButtons]="true"
                        [style]="{width: '110px', height: '30'}"
                        buttonLayout="horizontal"
-                       class="ml-1"
+                       class="ml-1 mr-1"
                        decrementButtonClass="p-button-secondary"
                        decrementButtonIcon="pi pi-minus"
                        id="parametersNo"
@@ -42,52 +42,39 @@
                        placeholder="0"
         >
         </p-inputNumber>
-        <div class="flex">
-          <input
-            *ngIf="command.parametersNumber >= 1"
-            [(ngModel)]="command.parameters[0]"
-            autofocus
-            class="ml-1"
-            pInputText
-            required
-            type="text"
-          >
-          <input
-            *ngIf="command.parametersNumber >= 2"
-            [(ngModel)]="command.parameters[1]"
-            autofocus
-            class="ml-1"
-            pInputText
-            required
-            type="text"
-          >
-          <input
-            *ngIf="command.parametersNumber >= 3"
-            [(ngModel)]="command.parameters[2]"
-            autofocus
-            class="ml-1"
-            pInputText
-            required
-            type="text"
-          >
-          <input
-            *ngIf="command.parametersNumber >= 4"
-            [(ngModel)]="command.parameters[3]"
-            autofocus
-            class="ml-1"
-            pInputText
-            required
-            type="text"
-          >
-        </div>
+        <div class="flex-column w-full">
 
+          <app-parameter-field *ngIf="command.parametersNumber >= 1"
+                               [command]="command"
+                               [order]="0"
+                               [submitted]="submitted">
+          </app-parameter-field>
+
+          <app-parameter-field *ngIf="command.parametersNumber >= 2"
+                               [command]="command"
+                               [order]="1"
+                               [submitted]="submitted">
+          </app-parameter-field>
+
+          <app-parameter-field *ngIf="command.parametersNumber >= 3"
+                               [command]="command"
+                               [order]="2"
+                               [submitted]="submitted">
+          </app-parameter-field>
+
+          <app-parameter-field *ngIf="command.parametersNumber >= 4"
+                               [command]="command"
+                               [order]="3"
+                               [submitted]="submitted">
+          </app-parameter-field>
+
+        </div>
       </div>
     </div>
 
-
-    <div class="field parametersNumber">
+    <div class="field disable-select-input-number">
       <label for="patternsNum" style="display: block">Patterns Number </label>
-      <div class="flex flex-column ">
+      <div class="flex flex-row ">
         <p-inputNumber #patternsNum (click)="onPatternsStateChange(patternsNum.value)"
                        [(ngModel)]="command.patternsNumber"
                        [showButtons]="true"
@@ -101,11 +88,10 @@
                        incrementButtonIcon="pi pi-plus"
                        max="4"
                        min="1"
-                       placeholder="1"
-
-        >
+                       placeholder="1">
         </p-inputNumber>
-        <div class="flex flex-column mr-2 ">
+
+        <div class="flex flex-column w-full ">
           <input
             *ngIf="command?.patternsNumber >= 1"
             [(ngModel)]="command?.patterns[0]"
@@ -169,7 +155,7 @@
         <button
           (click)="onClearSelectedFile(scriptUpload, 'Script')"
           *ngIf="scriptUpload.files && scriptUpload.files.length > 0"
-          class="p-button-rounded p-button-warning ml-1"
+          class="p-button-rounded p-button-danger ml-1"
           icon="pi pi-trash"
           pButton
           pRipple>
@@ -212,7 +198,7 @@
 
     <div class="field justify-content-between p-1 flex">
       <div class="field p-1">
-        <label for="requirementsFile" style="display: block">Requirements File</label>
+        <label for="requirementsFile" style="display: block">Script dependencies</label>
         <p-fileUpload #requirementsFile
                       (onSelect)="onUploadRequirementsFile($event)"
                       [maxFileSize]="1000000"
@@ -228,7 +214,7 @@
         <button
           (click)="onClearSelectedFile(requirementsFile, 'Requirements File')"
           *ngIf="requirementsFile.files && requirementsFile.files.length > 0"
-          class="p-button-rounded p-button-warning ml-1"
+          class="p-button-rounded p-button-danger ml-1"
           icon="pi pi-trash"
           pButton
           pRipple>
@@ -244,7 +230,6 @@
           <p-fileUpload #iconUpload
                         (onSelect)="onUploadIcon($event)"
                         [maxFileSize]="1000000"
-                        [style]="{backgroundColor:'#5783db'}"
                         accept="image/*"
                         cancelLabel="Choose Another Icon"
                         chooseIcon="pi pi-upload"
@@ -258,7 +243,7 @@
         <button (click)="onClearSelectedFile(iconUpload, 'Icon')"
                 *ngIf="iconUpload.files && iconUpload.files.length > 0"
                 [style]="{margin: 'auto'}"
-                class="p-button-rounded p-button-warning ml-3"
+                class="p-button-rounded p-button-danger ml-3"
                 icon="pi pi-trash"
                 pButton
                 pRipple>

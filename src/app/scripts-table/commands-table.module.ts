@@ -30,6 +30,7 @@ import {CardModule} from "primeng/card";
 import { InstalledCommandsComponent } from './components/command-management/public-command/installed-commands.component';
 import { MyCommandsComponent } from './components/command-management/my-commands/my-commands.component';
 import { CreateCommandFormComponent } from './components/command-management/create-command-form/create-command-form.component';
+import { ParameterFieldComponent } from './components/command-management/create-command-form/parameter-field/parameter-field.component';
 
 
 
@@ -42,6 +43,7 @@ import { CreateCommandFormComponent } from './components/command-management/crea
     InstalledCommandsComponent,
     MyCommandsComponent,
     CreateCommandFormComponent,
+    ParameterFieldComponent,
   ],
   imports: [
     CommonModule,

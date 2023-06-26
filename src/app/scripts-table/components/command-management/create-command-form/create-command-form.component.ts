@@ -1,4 +1,4 @@
-import {Component, EventEmitter, Input, OnInit, Output, ViewChild} from '@angular/core';
+import {Component, EventEmitter, OnInit, Output} from '@angular/core';
 import {Command} from "../../../interfaces/command.model";
 import {FileUpload} from "primeng/fileupload";
 import {CommandCreateRequest} from "../../../interfaces/commandCreateRequest.model";
@@ -10,7 +10,7 @@ import {CommandService} from "../../../services/command.service";
   templateUrl: './create-command-form.component.html',
   styleUrls: ['./create-command-form.component.scss']
 })
-export class CreateCommandFormComponent implements OnInit {
+export class CreateCommandFormComponent {
   @Output() closeForm = new EventEmitter<void>();
 
   command: Command = {
@@ -21,7 +21,28 @@ export class CreateCommandFormComponent implements OnInit {
     script: null,
     requirements: null,
     scriptType: '',
-    parameters: ['', '', '', ''],
+    parameters: [
+      {
+        name: '',
+        type: '',
+        order: 0
+      },
+      {
+        name: '',
+        type: '',
+        order: 1
+      },
+      {
+        name: '',
+        type: '',
+        order: 2
+      },
+      {
+        name: '',
+        type: '',
+        order: 3
+      }
+    ],
     patterns: ['', '', '', ''],
     patternsNumber: 1,
   };
@@ -45,16 +66,13 @@ export class CreateCommandFormComponent implements OnInit {
   constructor(private messageService: MessageService, private commandService: CommandService) {
   }
 
-  ngOnInit(): void {
-  }
-
   onCreateCommand() {
     this.submitted = true;
 
     const commandCreateRequest: CommandCreateRequest = {
       name: this.command.name,
       description: this.command.description,
-      parameters: this.command.parameters,
+      parameters: this.command.parameters['name'],
       patterns: this.command.patterns,
       script_data: {
         script: this.command.script, requirements: this.command.requirements, scriptType: this.command.scriptType
@@ -73,7 +91,6 @@ export class CreateCommandFormComponent implements OnInit {
     });
   }
 
-
   // file management
   onClearSelectedFile(fileUpload: FileUpload, fileName: string) {
     fileUpload.clear();
@@ -83,7 +100,7 @@ export class CreateCommandFormComponent implements OnInit {
   // parameters and patterns
   onParametersStateChange(value: number) {
     for (let i = value; i < 4; i++) {
-      this.command.parameters[i] = '';
+      this.command.parameters[i]['name'] = '';
     }
   }
 
