@@ -1,125 +1,63 @@
 <div class="container">
-
-
+  <!--used to show notification -->
   <p-toast></p-toast>
 
-  <div class="">
-    <p-toolbar styleClass="mb-4 gap-2">
+  <!-- show the delete conformation message -->
+  <p-confirmDialog [style]="{width: '450px'}"></p-confirmDialog>
+
+  <!--the div is needed for the p-toolbar width-->
+  <div>
+    <p-toolbar styleClass="mb-4">
       <ng-template pTemplate="left">
-        <button (click)="openNew()" class="p-button-success mr-2" icon="pi pi-plus" label="New" pButton
-                pRipple></button>
-        <button (click)="deleteSelectedCommands()" [disabled]="!selectedCommands || !selectedCommands.length"
-                [label]="Delete" class="p-button-danger" icon="pi pi-trash"
-                pButton pRipple></button>
+        <!--        TODO: add a tooltip -->
+        <button
+          (click)="openCreateCommandForm()"
+          class="p-button-success mr-2 btn-icon-align"
+          icon="pi pi-plus" pButton
+          pRipple
+          title="Create New Command"
+        ></button>
+
+        <!--        TODO: add a tooltip -->
+        <button
+          (click)="deleteSelectedCommands()"
+          [disabled]="!selectedCommands || !selectedCommands.length"
+          class="p-button-danger btn-icon-align"
+          icon="pi pi-trash" pButton
+          pRipple
+          title="Delete Selected Commands"
+        ></button>
       </ng-template>
 
       <ng-template pTemplate="right">
-        <button (click)="openMarketplaceDialog()" class="p-button-success mr-2" icon="pi pi-plus" label="Marketplace"
-                pButton
-                pRipple></button>
+        <!--        TODO: add tooltip -->
+        <button
+          (click)="openMarketplace()"
+          class="p-button-success mr-2 btn-icon-align w-4rem"
+          icon="pi pi-shopping-cart" pButton
+          pRipple
+          title="Marketplace: where you can install new commands"
+        ></button>
       </ng-template>
-
     </p-toolbar>
 
-    <div class="matG">
-      <mat-tab-group >
+    <mat-tab-group>
+      <mat-tab label="My Commands">
+        <app-my-commands
+          [(selection)]="selectedCommands"
+          [commands]="commands"
+          [deleteCommand]="deleteCommand"
+          [editCommand]="editCommand"
+        ></app-my-commands>
+      </mat-tab>
 
-        <mat-tab label="My Commands">
-          <p-table #dt [(selection)]="selectedCommands"
-                   [globalFilterFields]="['name','command','status', 'description']"
-                   [paginator]="true"
-                   [rowHover]="true"
-                   [rows]="5" [showCurrentPageReport]="true" [tableStyle]="{'min-width': '75rem'}"
-                   [value]="commands"
-                   currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries"
-                   dataKey="id">
-
-            <ng-template pTemplate="caption">
-
-              <div class="flex align-items-center justify-content-between">
-                <h5 class="m-0">Manage Commands</h5>
-                <span class="p-input-icon-left">
-                    <i class="pi pi-search"></i>
-                    <input (input)="dt.filterGlobal($event.target.value, 'contains')" pInputText placeholder="Search..."
-                           type="text"/>
-                </span>
-              </div>
-            </ng-template>
-
-
-            <ng-template pTemplate="header">
-
-              <tr>
-                <th class="p-checkbox-box" >
-                  <p-tableHeaderCheckbox></p-tableHeaderCheckbox>
-                </th>
-                <th></th>
-                <th class="td-width" pSortableColumn="name">Name
-                  <p-sortIcon field="name"></p-sortIcon>
-                </th>
-                <th class="td-width" pSortableColumn="commands">Command
-                  <p-sortIcon field="commands"></p-sortIcon>
-                </th>
-                <th class="td-width">Description</th>
-                <th class="td-width">Parameters</th>
-                <th class="td-width" pSortableColumn="status">Status
-                  <p-sortIcon field="status"></p-sortIcon>
-                </th>
-                <th class="td-width"></th>
-              </tr>
-
-            </ng-template>
-            <ng-template let-command pTemplate="body">
-              <tr>
-                <td class="p-checkbox-box">
-                  <p-tableCheckbox [value]="command"></p-tableCheckbox>
-                </td>
-                <td>
-                  <figure class="avatar">
-                    <img [src]="command.icon" class="shadow-4">
-                  </figure>
-                </td>
-                <td class="truncateT td-width">{{command.name}}</td>
-                <td class="truncateT td-width">{{command.commands}}</td>
-                <td class="truncate td-width">{{command.description}}</td>
-                <td class="truncateT td-width">{{command.parameters}}</td>
-                <td class="truncateT td-width"><span
-                  [class]="'status-' + (command.status ? command.status.toLowerCase() : '')">{{command.status}}</span>
-                </td>
-                <!--          <td><p-rating [ngModel]="command.rating" [readonly]="true" [cancel]="false"></p-rating></td>-->
-
-                <td class="truncateT td-width">
-                  <button (click)="editCommand(command)"
-                          class="p-button-rounded p-button-success mr-2"
-                          icon="pi pi-pencil"
-                          pButton
-                          pRipple></button>
-                  <button (click)="deleteCommand(command)"
-                          class="p-button-rounded p-button-warning"
-                          icon="pi pi-trash"
-                          pButton
-                          pRipple></button>
-                </td>
-              </tr>
-            </ng-template>
-            <ng-template pTemplate="summary">
-              <div class="flex align-items-center justify-content-between">
-                In total there are {{commands ? commands.length : 0 }} Commands.
-              </div>
-            </ng-template>
-          </p-table>
-        </mat-tab>
-        <mat-tab label="Public Commands">
-          <public-commands></public-commands>
-        </mat-tab>
-      </mat-tab-group>
-
-    </div>
-
-
+      <mat-tab label="Installed Commands">
+        <installed-commands></installed-commands>
+      </mat-tab>
+    </mat-tab-group>
   </div>
 
-  <p-dialog [(visible)]="commandDialog"
+  <p-dialog [(visible)]="showCommandDialog"
             [modal]="true"
             [style]="{width: '40%'}"
             header="Create New Command"
@@ -388,8 +326,7 @@
     </ng-template>
   </p-dialog>
 
-  <p-confirmDialog [style]="{width: '450px'}"></p-confirmDialog>
-
 </div>
 
 <app-marketplace (closeMarketplaceEvent)="closeMarketplace()" *ngIf="marketplaceFlag"></app-marketplace>
+

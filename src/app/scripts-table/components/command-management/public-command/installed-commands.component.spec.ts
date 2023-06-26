@@ -1,18 +1,18 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { PublicCommandsComponent } from './public-commands.component';
+import { InstalledCommandsComponent } from './installed-commands.component';
 
 describe('MyCommandsComponent', () => {
-  let component: PublicCommandsComponent;
-  let fixture: ComponentFixture<PublicCommandsComponent>;
+  let component: InstalledCommandsComponent;
+  let fixture: ComponentFixture<InstalledCommandsComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ PublicCommandsComponent ]
+      declarations: [ InstalledCommandsComponent ]
     })
     .compileComponents();
 
-    fixture = TestBed.createComponent(PublicCommandsComponent);
+    fixture = TestBed.createComponent(InstalledCommandsComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

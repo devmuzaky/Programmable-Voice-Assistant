@@ -5,7 +5,7 @@ import {PageNotFoundComponent} from './shared/components';
 import {CommandsTableModule} from './scripts-table/commands-table.module';
 import {AuthRoutingModule} from './auth/auth-routing.module';
 import {RecorderRoutingModule} from "./recorder/recorder-routing.module";
-import {CommandsTableComponent} from "./scripts-table/components/commands-table-component/commands-table-component";
+import {CommandManagement} from "./scripts-table/components/command-management/command-management.component";
 import {MarketplaceComponent} from "./scripts-table/components/marketplace-component/marketplace.component";
 import {RecorderComponent} from "./recorder/components/recorder/recorder.component";
 
@@ -21,7 +21,7 @@ const routes: Routes = [
   },
   {
     path: 'my-scripts',
-    component: CommandsTableComponent
+    component: CommandManagement
   },
   {
     path: 'marketplace',

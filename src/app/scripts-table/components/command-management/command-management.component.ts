@@ -1,4 +1,4 @@
-import {Component, OnInit, Output, TemplateRef, ViewChild} from '@angular/core';
+import {Component, OnInit, ViewChild} from '@angular/core';
 import {Command} from '../../interfaces/command.model';
 import {CommandService} from '../../services/command.service';
 import {ConfirmationService, MessageService} from "primeng/api";
@@ -7,11 +7,13 @@ import {FileUpload} from "primeng/fileupload";
 
 
 @Component({
-  selector: 'app-commands-table-component',
-  templateUrl: './commands-table-component.html',
-  styleUrls: ['./commands-table-component.scss']
+  selector: 'app-command-management',
+  templateUrl: './command-management.component.html',
+  styleUrls: ['./command-management.component.scss']
 })
-export class CommandsTableComponent implements OnInit {
+export class CommandManagement implements OnInit {
+  showCommandDialog: boolean;
+
 
   @ViewChild('iconUpload') fileUpload: any;
   @ViewChild('scriptUpload') scriptUpload: any;
@@ -19,7 +21,6 @@ export class CommandsTableComponent implements OnInit {
 
   marketplaceFlag = false;
 
-  commandDialog: boolean;
 
   commands: Command[];
 
@@ -49,14 +50,12 @@ export class CommandsTableComponent implements OnInit {
     }, error => console.error(error));
   }
 
-  openNew() {
+  openCreateCommandForm() {
     this.command = {
-      parameters: ['', '', '', ''],
-      patterns: ['', '', '', ''],
-      patternsNumber: 1,
+      parameters: ['', '', '', ''], patterns: ['', '', '', ''], patternsNumber: 1,
     };
     this.submitted = false;
-    this.commandDialog = true;
+    this.showCommandDialog = true;
 
     setTimeout(() => {
       document.querySelector<HTMLInputElement>('.parametersNumber .p-inputnumber-input').disabled = true;
@@ -78,7 +77,7 @@ export class CommandsTableComponent implements OnInit {
 
   editCommand(command: Command) {
     this.command = {...command};
-    this.commandDialog = true;
+    this.showCommandDialog = true;
   }
 
   deleteCommand(command: Command) {
@@ -95,40 +94,37 @@ export class CommandsTableComponent implements OnInit {
   }
 
   hideDialog() {
-    this.commandDialog = false;
+    this.showCommandDialog = false;
     this.submitted = false;
     this.command = {};
   }
 
-    onCreateCommand() {
-      this.submitted = true;
+  onCreateCommand() {
+    this.submitted = true;
 
-      const commandCreateRequest: CommandCreateRequest = {
-        name: this.command.name,
-        description: this.command.description,
-        parameters: this.command.parameters,
-        patterns: this.command.patterns,
-        script_data: {
-          script: this.command.script,
-          requirements: this.command.requirements,
-          scriptType: this.command.scriptType
-        },
-        icon: this.command.icon,
-        patternsNumber: this.command.patternsNumber
-      };
+    const commandCreateRequest: CommandCreateRequest = {
+      name: this.command.name,
+      description: this.command.description,
+      parameters: this.command.parameters,
+      patterns: this.command.patterns,
+      script_data: {
+        script: this.command.script, requirements: this.command.requirements, scriptType: this.command.scriptType
+      },
+      icon: this.command.icon,
+      patternsNumber: this.command.patternsNumber
+    };
 
 
-      this.commandService.createCommand(commandCreateRequest).subscribe(data => {
-        this.messageService.add({severity: 'success', summary: 'Successful', detail: 'Command Created', life: 3000});
-        this.commandDialog = false;
-        this.command = {};
-      }, error => {
-        this.messageService.add({severity: 'error', summary: 'Error', detail: 'Command Not Created', life: 3000});
-      });
+    this.commandService.createCommand(commandCreateRequest).subscribe(data => {
+      this.messageService.add({severity: 'success', summary: 'Successful', detail: 'Command Created', life: 3000});
+      this.showCommandDialog = false;
+      this.command = {};
+    }, error => {
+      this.messageService.add({severity: 'error', summary: 'Error', detail: 'Command Not Created', life: 3000});
+    });
 
 
-
-    }
+  }
 
   onUploadIcon($event: any) {
     this.command.icon = $event.files[0];
@@ -139,6 +135,7 @@ export class CommandsTableComponent implements OnInit {
     this.command.script = $event.files[0];
     this.messageService.add({severity: 'info', summary: 'Script Uploaded', detail: ''});
   }
+
   onUploadRequirementsFile($event: any) {
     this.command.requirements = $event.files[0];
     this.messageService.add({severity: 'info', summary: 'Requirements Uploaded', detail: ''});
@@ -151,7 +148,7 @@ export class CommandsTableComponent implements OnInit {
   }
 
 
-  openMarketplaceDialog() {
+  openMarketplace() {
     this.marketplaceFlag = true;
   }
 

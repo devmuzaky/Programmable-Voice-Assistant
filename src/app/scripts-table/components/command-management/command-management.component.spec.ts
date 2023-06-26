@@ -1,18 +1,18 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { CommandsTableComponent } from './commands-table-component';
+import { CommandManagement } from './command-management.component';
 
 describe('CommandsTableComponentComponent', () => {
-  let component: CommandsTableComponent;
-  let fixture: ComponentFixture<CommandsTableComponent>;
+  let component: CommandManagement;
+  let fixture: ComponentFixture<CommandManagement>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ CommandsTableComponent ]
+      declarations: [ CommandManagement ]
     })
       .compileComponents();
 
-    fixture = TestBed.createComponent(CommandsTableComponent);
+    fixture = TestBed.createComponent(CommandManagement);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });
