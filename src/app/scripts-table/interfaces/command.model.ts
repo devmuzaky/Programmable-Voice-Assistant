@@ -1,3 +1,5 @@
+import {Parameter} from "./parameter";
+
 export interface Command {
   patternsNumber?: number;
   requirements?: File;
@@ -9,7 +11,7 @@ export interface Command {
   script?: File;
   scriptType?: string;
   parametersNumber?: number;
-  parameters?: string[];
+  parameters?: Parameter[];
   description?: string;
   owner?: string;
 }

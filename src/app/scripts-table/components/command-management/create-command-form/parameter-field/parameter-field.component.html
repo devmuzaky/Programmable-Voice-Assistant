@@ -1,0 +1,22 @@
+<div class="flex">
+  <input
+    [(ngModel)]="command.parameters[order]['name']"
+    class="ml-1"
+    type="text"
+    pInputText
+    autofocus
+    required>
+
+  <div class="field p-1">
+    <p-dropdown [(ngModel)]="command.parameters[order]['type']"
+                id="parameterOneType"
+                [options]="parameterTypes"
+                placeholder="Select Type"
+                required>
+      <ng-template let-option pTemplate="item">
+        <span>{{option.label}}</span>
+      </ng-template>
+    </p-dropdown>
+    <small *ngIf="submitted && !command.parameters[order]['type']" class="p-error">Parameter type is required.</small>
+  </div>
+</div>

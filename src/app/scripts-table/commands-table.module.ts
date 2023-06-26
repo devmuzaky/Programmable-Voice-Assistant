@@ -21,23 +21,29 @@ import {InputNumberModule} from "primeng/inputnumber";
 import {ConfirmDialogModule} from "primeng/confirmdialog";
 import {MatInputModule} from "@angular/material/input";
 import {ReactiveFormsModule} from "@angular/forms";
-import { CommandsTableComponent } from './components/commands-table-component/commands-table-component';
+import { CommandManagement } from './components/command-management/command-management.component';
 import {CheckboxModule} from "primeng/checkbox";
 import {StepsModule} from "primeng/steps";
 import { CommandCardComponent } from './components/command-card/command-card.component';
 import { CardPreviewComponent } from './components/card-preview/card-preview.component';
 import {CardModule} from "primeng/card";
-import { PublicCommandsComponent } from './components/my-commands/public-commands.component';
+import { InstalledCommandsComponent } from './components/command-management/public-command/installed-commands.component';
+import { MyCommandsComponent } from './components/command-management/my-commands/my-commands.component';
+import { CreateCommandFormComponent } from './components/command-management/create-command-form/create-command-form.component';
+import { ParameterFieldComponent } from './components/command-management/create-command-form/parameter-field/parameter-field.component';
 
 
 
 @NgModule({
   declarations: [
     MarketplaceComponent,
-    CommandsTableComponent,
+    CommandManagement,
     CommandCardComponent,
     CardPreviewComponent,
-    PublicCommandsComponent,
+    InstalledCommandsComponent,
+    MyCommandsComponent,
+    CreateCommandFormComponent,
+    ParameterFieldComponent,
   ],
   imports: [
     CommonModule,
@@ -66,7 +72,7 @@ import { PublicCommandsComponent } from './components/my-commands/public-command
   ],
   exports: [
     MarketplaceComponent,
-    CommandsTableComponent
+    CommandManagement
   ]
 })
 export class CommandsTableModule { }

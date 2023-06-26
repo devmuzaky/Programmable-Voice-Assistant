@@ -1,0 +1,68 @@
+<div class="container">
+  <!--used to show notification -->
+  <p-toast></p-toast>
+
+  <!-- show the delete conformation message -->
+  <p-confirmDialog [style]="{width: '450px'}"></p-confirmDialog>
+
+  <!--the div is needed for the p-toolbar width-->
+  <div>
+    <p-toolbar styleClass="mb-4">
+      <ng-template pTemplate="left">
+        <!--        TODO: add a tooltip -->
+        <button
+          (click)="openCreateCommandForm()"
+          class="p-button-success mr-2 btn-icon-align"
+          icon="pi pi-plus" pButton
+          pRipple
+          title="Create New Command"
+        ></button>
+
+        <!--        TODO: add a tooltip -->
+        <button
+          (click)="deleteSelectedCommands()"
+          [disabled]="!selectedCommands || !selectedCommands.length"
+          class="p-button-danger btn-icon-align"
+          icon="pi pi-trash" pButton
+          pRipple
+          title="Delete Selected Commands"
+        ></button>
+      </ng-template>
+
+      <ng-template pTemplate="right">
+        <!--        TODO: add tooltip -->
+        <button
+          (click)="openMarketplace()"
+          class="p-button-success mr-2 btn-icon-align w-4rem"
+          icon="pi pi-shopping-cart" pButton
+          pRipple
+          title="Marketplace: where you can install new commands"
+        ></button>
+      </ng-template>
+    </p-toolbar>
+
+    <mat-tab-group>
+      <mat-tab label="My Commands">
+        <app-my-commands
+          [(selection)]="selectedCommands"
+          [commands]="commands"
+          [deleteCommand]="deleteCommand"
+          [editCommand]="editCommand"
+        ></app-my-commands>
+      </mat-tab>
+
+      <mat-tab label="Installed Commands">
+        <installed-commands></installed-commands>
+      </mat-tab>
+    </mat-tab-group>
+  </div>
+
+  <app-create-command-form
+    *ngIf="showCreateCommandForm"
+    (closeForm)="CloseCreateCommandForm()"
+  ></app-create-command-form>
+
+</div>
+
+<app-marketplace (closeMarketplaceEvent)="closeMarketplace()" *ngIf="marketplaceFlag"></app-marketplace>
+
