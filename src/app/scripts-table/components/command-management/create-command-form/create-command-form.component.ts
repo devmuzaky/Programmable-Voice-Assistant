@@ -16,6 +16,7 @@ export class CreateCommandFormComponent implements OnInit {
   command: Command = {
     name: '',
     description: '',
+    visibility: '',
     icon: null,
     script: null,
     requirements: null,

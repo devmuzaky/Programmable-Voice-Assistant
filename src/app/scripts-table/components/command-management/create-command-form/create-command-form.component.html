@@ -196,7 +196,7 @@
 
         <div class="field p-1 ">
           <label for="visibility">Visibility</label>
-          <p-dropdown [ngModel]="command.visibility"
+          <p-dropdown [(ngModel)]="command.visibility"
                       [options]="status" id="visibility"
                       placeholder="Select">
             <ng-template let-option pTemplate="item">
