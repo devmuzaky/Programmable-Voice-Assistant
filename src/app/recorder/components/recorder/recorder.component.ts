@@ -15,11 +15,4 @@ export class RecorderComponent implements OnInit {
   ngOnInit(): void {
   }
 
-  recordingState(isRecording: boolean) {
-    this.isRecording = isRecording;
-  }
-
-  recorderOutput(audioBlob: Blob) {
-    this.sttService.sendAudioBlob(audioBlob);
-  }
 }

@@ -33,7 +33,6 @@ import {UserCardComponent} from "./user-card/user-card.component";
         AuthRoutingModule,
         ReactiveFormsModule,
         FormsModule,
-        SharedModule,
         MatInputModule,
         MatCardModule,
         MatTabsModule,

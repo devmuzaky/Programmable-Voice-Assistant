@@ -1,5 +1,5 @@
 .sidenav {
-  background: #263238;
+  background: #2A323DFF;
   transition: all .5s ease;
   position: fixed;
   z-index: 1;
@@ -50,10 +50,6 @@
       }
     }
   }
-}
-
-.sidenav-collapsed {
-  width: 16.5625rem;
 }
 
 .sidenav-nav {
@@ -122,4 +118,26 @@
 .notification {
   margin-top: auto;
   padding-bottom: 10px;
+}
+
+::ng-deep .reorderChat {
+  .p-overlaypanel {
+    height: 558px !important;
+    width: 424px !important;
+    background: transparent;
+    border: none;
+    top: 35px !important;
+
+    &:before {
+      display: none;
+    }
+
+    &:after {
+      display: none;
+    }
+
+    .p-overlaypanel-content{
+      padding: 0 !important;
+    }
+  }
 }

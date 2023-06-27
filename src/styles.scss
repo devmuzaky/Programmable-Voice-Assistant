@@ -23,7 +23,7 @@ html, body {
   align-items: center;
   justify-content: center;
   //background: linear-gradient(135deg, #0d5e69, #254a5d);
-  background-color: rgb(32,38,46)!important;
+  background-color: rgb(32, 38, 46) !important;
   background-size: cover;
 
   .title {
@@ -56,24 +56,31 @@ html, body {
 }
 
 .snackbar-success {
-  background-color: #29D49F;
-  color: #fff;
+  border-left: 8px solid #34B189;
+  background-color: rgb(229, 248, 240, 0.9);
+  color: #34b173;
+  font-weight: bold;
 }
 
 .snackbar-fail {
-  background-color: #EF4470;
-  color: #fff;
+  border-left: 8px solid #FF6767;
+  background-color: rgb(253,232,231, 0.9);
+  color: #FF6767;
   font-weight: bold;
 }
 
 .snackbar-pending {
-  background-color: #F8C23F;
-  color: #fff;
+  border-left: 8px solid #D1953A;
+  background-color: rgb(253,242,228, 0.9);
+  color: #D1953A;
+  font-weight: bold;
 }
 
-general-snakbar {
-  background-color: #262626;
-  color: #0F9B48;
+.general-snackbar {
+  border-left: 8px solid #787AFF;
+  background-color: rgb(233, 234, 254, 0.9);
+  color: #787AFF;
+  font-weight: bold;
 }
 
 .btn-icon-align {

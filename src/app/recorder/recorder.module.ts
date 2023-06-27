@@ -7,6 +7,8 @@ import {SharedModule} from '../shared/shared.module';
 import { AudioVisualizerComponent } from './components/audio-visualizer/audio-visualizer.component';
 import { RecorderComponent } from './components/recorder/recorder.component';
 import {ChatComponent} from "./components/chat/chat.component";
+import {ChipsModule} from "primeng/chips";
+import {TrayModule} from "../tray/tray.module";
 
 
 @NgModule({
@@ -20,9 +22,11 @@ import {ChatComponent} from "./components/chat/chat.component";
     AudioVisualizerComponent,
     ChatComponent
   ],
-    imports: [
-        CommonModule,
-        SharedModule,
-        RecorderRoutingModule]
+  imports: [
+    CommonModule,
+    RecorderRoutingModule,
+    ChipsModule,
+
+  ]
 })
 export class RecorderModule { }

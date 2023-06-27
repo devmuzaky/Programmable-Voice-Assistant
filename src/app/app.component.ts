@@ -17,15 +17,12 @@ interface SideNavToggle {
 export class AppComponent {
   isSideNavCollapsed = false;
   screenWidth = 0;
-
   toggleModal: boolean;
   hideMain: boolean;
 
-  constructor(
-    private electronService: ElectronService,
-    private translate: TranslateService,
-    private router: Router
-  ) {
+  constructor(private electronService: ElectronService,
+              private translate: TranslateService,
+              private router: Router) {
     this.translate.setDefaultLang('en');
     console.log('APP_CONFIG', APP_CONFIG);
 
@@ -64,4 +61,5 @@ export class AppComponent {
   onToggleModal($event: boolean) {
     this.toggleModal = $event;
   }
+
 }

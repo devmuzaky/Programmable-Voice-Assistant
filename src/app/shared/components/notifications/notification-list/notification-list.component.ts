@@ -10,6 +10,8 @@ import {Subscription} from "rxjs";
   styleUrls: ['./notification-list.component.scss']
 })
 export class NotificationListComponent implements OnInit, OnDestroy {
+
+
   notificationList = [];
   private notificationSub: Subscription;
 

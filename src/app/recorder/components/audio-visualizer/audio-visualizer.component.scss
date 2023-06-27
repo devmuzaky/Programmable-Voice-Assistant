@@ -16,6 +16,11 @@ h1 {
     width: 11rem;
     height: 5rem;
   }
+
+  @media (max-width: 424px) {
+    width: 28rem;
+    height: 2rem;
+  }
 }
 
 .btn-start {

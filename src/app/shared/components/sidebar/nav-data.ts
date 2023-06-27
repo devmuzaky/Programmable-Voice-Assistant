@@ -1,6 +1,4 @@
 export const navbarData = [
-
-
   {
     routeLink: 'recorder',
     icon: './assets/icons/voice-recorder.svg',

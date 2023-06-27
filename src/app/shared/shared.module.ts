@@ -15,10 +15,14 @@ import {OverlayPanelModule} from "primeng/overlaypanel";
 import {ListboxModule} from "primeng/listbox";
 import {NotificationCardComponent} from './components/notifications/notification-card/notification-card.component';
 import {NotificationListComponent} from './components/notifications/notification-list/notification-list.component';
+import {TrayModule} from "../tray/tray.module";
+import {AuthModule} from "../auth/auth.module";
+import {ButtonModule} from "primeng/button";
+import {RecorderModule} from "../recorder/recorder.module";
 
 @NgModule({
   declarations: [PageNotFoundComponent, WebviewDirective, SidebarComponent, ModalComponent, HomeComponent, NotificationCardComponent, NotificationListComponent],
-  imports: [CommonModule, TranslateModule, FormsModule, BrowserAnimationsModule, RouterModule, OverlayPanelModule, ListboxModule],
+  imports: [CommonModule, TranslateModule, FormsModule, BrowserAnimationsModule, RouterModule, OverlayPanelModule, ListboxModule, TrayModule, AuthModule, ButtonModule, RecorderModule],
   exports: [TranslateModule, WebviewDirective, FormsModule, SidebarComponent, ModalComponent]
 })
 export class SharedModule {
