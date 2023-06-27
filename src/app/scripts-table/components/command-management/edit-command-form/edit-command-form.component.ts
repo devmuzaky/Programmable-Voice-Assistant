@@ -42,9 +42,10 @@ export class EditCommandFormComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.commandEditInfoDTO = this.copyCommandInitialValue()
-    this.parametersNumber = this.commandEditInfoDTO.parameters.length;
-    this.patternsNumber = this.commandEditInfoDTO.patterns.length;
+    this.commandEditInfoDTO = this.copyCommandInitialValue();
+
+    this.parametersNumber = this.initialCommandEditInfoDTO.parameters.length;
+    this.patternsNumber = this.initialCommandEditInfoDTO.patterns.length;
   }
 
   onEditCommand() {
@@ -53,83 +54,11 @@ export class EditCommandFormComponent implements OnInit {
       id: this.commandEditInfoDTO.id,
     };
     this.setUpdatedFields(commandEditRequest);
-    console.log({commandEditRequest})
+
+    // TODO: handle submission and closing the form (look at the create)
+    // this.submitted = false;
+    // this.closeForm.emit();
   }
-
-  private setUpdatedFields(commandEditRequest: CommandEditRequest) {
-    if (this.commandEditInfoDTO.name !== this.initialCommandEditInfoDTO.name) {
-      commandEditRequest.name = this.commandEditInfoDTO.name;
-    }
-
-    if (this.commandEditInfoDTO.description !== this.initialCommandEditInfoDTO.description) {
-      commandEditRequest.description = this.commandEditInfoDTO.description;
-    }
-
-    if (this.commandEditInfoDTO.parameters.length !== this.initialCommandEditInfoDTO.parameters.length) {
-      commandEditRequest.parameters = this.commandEditInfoDTO.parameters;
-    } else {
-      for (let i = 0; i < this.commandEditInfoDTO.parameters.length; i++) {
-        if (this.commandEditInfoDTO.parameters[i].name !== this.initialCommandEditInfoDTO.parameters[i].name || this.commandEditInfoDTO.parameters[i].type !== this.initialCommandEditInfoDTO.parameters[i].type || this.commandEditInfoDTO.parameters[i].order !== this.initialCommandEditInfoDTO.parameters[i].order) {
-          commandEditRequest.parameters = this.commandEditInfoDTO.parameters;
-          break;
-        }
-      }
-    }
-
-    if (this.commandEditInfoDTO.patterns.length !== this.initialCommandEditInfoDTO.patterns.length) {
-      commandEditRequest.patterns = this.commandEditInfoDTO.patterns.map(pattern => pattern.syntax);
-    } else {
-      for (let i = 0; i < this.commandEditInfoDTO.patterns.length; i++) {
-        if (this.commandEditInfoDTO.patterns[i].syntax !== this.initialCommandEditInfoDTO.patterns[i].syntax) {
-          commandEditRequest.patterns = this.commandEditInfoDTO.patterns.map(pattern => pattern.syntax)
-          break;
-        }
-      }
-    }
-
-    if (this.commandEditInfoDTO.state !== this.initialCommandEditInfoDTO.state) {
-      commandEditRequest.visibility = this.commandEditInfoDTO.state;
-    }
-
-    if (this.commandEditInfoDTO.icon) {
-      commandEditRequest.icon = this.commandEditInfoDTO.icon;
-    }
-
-    // the script, requirements, and type are optional, but one change the three should change
-    if (this.commandEditInfoDTO.script || this.commandEditInfoDTO.requirements || this.commandEditInfoDTO.scriptType) {
-      if (this.commandEditInfoDTO.script && this.commandEditInfoDTO.requirements && this.commandEditInfoDTO.scriptType) {
-        commandEditRequest.script_data = {
-          script: this.commandEditInfoDTO.script,
-          requirements: this.commandEditInfoDTO.requirements,
-          scriptType: this.commandEditInfoDTO.scriptType
-        }
-      }
-    }
-  }
-
-  private copyCommandInitialValue() {
-    return {
-      id: this.initialCommandEditInfoDTO.id,
-      name: this.initialCommandEditInfoDTO.name,
-      description: this.initialCommandEditInfoDTO.description,
-      state: this.initialCommandEditInfoDTO.state,
-      icon: null,
-      script: null,
-      requirements: null,
-      scriptType: '',
-      parameters: this.initialCommandEditInfoDTO.parameters.map(parameter => {
-        return {
-          order: parameter.order, name: parameter.name, type: parameter.type
-        }
-      }),
-      patterns: this.initialCommandEditInfoDTO.patterns.map(pattern => {
-        return {
-          syntax: pattern.syntax
-        }
-      })
-    };
-  }
-
 
   showScriptErrors(): boolean {
     if (this.commandEditInfoDTO.script || this.commandEditInfoDTO.requirements || this.commandEditInfoDTO.scriptType) {
@@ -172,5 +101,99 @@ export class EditCommandFormComponent implements OnInit {
   onClearSelectedFile(fileUpload: FileUpload, fileName: string) {
     fileUpload.clear();
     this.messageService.add({severity: 'info', summary: fileName + ' Cleared', detail: ''});
+  }
+
+  private setUpdatedFields(commandEditRequest: CommandEditRequest) {
+    if (this.commandEditInfoDTO.name !== this.initialCommandEditInfoDTO.name) {
+      commandEditRequest.name = this.commandEditInfoDTO.name;
+    }
+
+    if (this.commandEditInfoDTO.description !== this.initialCommandEditInfoDTO.description) {
+      commandEditRequest.description = this.commandEditInfoDTO.description;
+    }
+    const filterParameters = this.commandEditInfoDTO.parameters.filter(parameter => parameter.name !== "");
+    if (filterParameters.length !== this.initialCommandEditInfoDTO.parameters.length) {
+      commandEditRequest.parameters = filterParameters;
+    } else {
+      for (let i = 0; i < filterParameters.length; i++) {
+        if (filterParameters[i].name !== this.initialCommandEditInfoDTO.parameters[i].name || filterParameters[i].type !== this.initialCommandEditInfoDTO.parameters[i].type || filterParameters[i].order !== this.initialCommandEditInfoDTO.parameters[i].order) {
+          commandEditRequest.parameters = filterParameters;
+          break;
+        }
+      }
+    }
+    const filteredPatterns = this.commandEditInfoDTO.patterns.filter(parameter => parameter.syntax !== "");
+    if (filteredPatterns.length !== this.initialCommandEditInfoDTO.patterns.length) {
+      commandEditRequest.patterns = filteredPatterns.map(pattern => pattern.syntax);
+    } else {
+      for (let i = 0; i < filteredPatterns.length; i++) {
+        if (filteredPatterns[i].syntax !== this.initialCommandEditInfoDTO.patterns[i].syntax) {
+          commandEditRequest.patterns = filteredPatterns.map(pattern => pattern.syntax)
+          break;
+        }
+      }
+    }
+
+    if (this.commandEditInfoDTO.state !== this.initialCommandEditInfoDTO.state) {
+      commandEditRequest.visibility = this.commandEditInfoDTO.state;
+    }
+
+    if (this.commandEditInfoDTO.icon) {
+      commandEditRequest.icon = this.commandEditInfoDTO.icon;
+    }
+
+    // the script, requirements, and type are optional, but one change the three should change
+    if (this.commandEditInfoDTO.script || this.commandEditInfoDTO.requirements || this.commandEditInfoDTO.scriptType) {
+      if (this.commandEditInfoDTO.script && this.commandEditInfoDTO.requirements && this.commandEditInfoDTO.scriptType) {
+        commandEditRequest.script_data = {
+          script: this.commandEditInfoDTO.script,
+          requirements: this.commandEditInfoDTO.requirements,
+          scriptType: this.commandEditInfoDTO.scriptType
+        }
+      }
+    }
+  }
+
+  private copyCommandInitialValue() {
+    const command = {
+      id: this.initialCommandEditInfoDTO.id,
+      name: this.initialCommandEditInfoDTO.name,
+      description: this.initialCommandEditInfoDTO.description,
+      state: this.initialCommandEditInfoDTO.state,
+      icon: null,
+      script: null,
+      requirements: null,
+      scriptType: '',
+      parameters: this.initialCommandEditInfoDTO.parameters.map(parameter => {
+        return {
+          order: parameter.order, name: parameter.name, type: parameter.type
+        }
+      }),
+      patterns: this.initialCommandEditInfoDTO.patterns.map(pattern => {
+        return {
+          syntax: pattern.syntax
+        }
+      })
+    };
+
+    if (command.patterns.length !== 4) {
+      for (let i = command.patterns.length; i < 4; i++) {
+        command
+          .patterns.push({syntax: ''});
+      }
+
+    }
+
+
+    if (command.parameters.length !== 4) {
+      for (let i = command.parameters.length; i < 4; i++) {
+        command
+          .parameters.push({name: '', type: '', order: i});
+      }
+
+    }
+
+    return command;
+
   }
 }
