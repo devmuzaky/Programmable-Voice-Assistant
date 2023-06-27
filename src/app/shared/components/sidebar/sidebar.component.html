@@ -22,7 +22,9 @@
                         [appendTo]="targetEl" [dismissable]="true"
                         [hideTransitionOptions]="'500ms'" [showCloseIcon]="false"
                         [showTransitionOptions]="'500ms'" [style]="{width: '100%'}">
-          <app-chat></app-chat>
+          <div class="chat-container">
+            <app-chat></app-chat>
+          </div>
         </p-overlayPanel>
       </a>
     </li>
