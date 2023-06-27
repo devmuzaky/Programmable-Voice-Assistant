@@ -33,10 +33,8 @@ export class StorageService {
 
   public isLoggedIn(): boolean {
     const user = window.localStorage.getItem(USER);
-    if (user) {
-      return true;
-    }
-    return false;
+    return !!user;
+
   }
 
   saveAccessToken(access_token: string) {

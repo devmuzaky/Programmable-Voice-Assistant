@@ -16,6 +16,20 @@ export class SnackbarService {
     });
   }
 
+  openErrorSnackBar(message: string, action: string = 'Dismiss', duration: number = 3000) {
+    this.snackBar.open(message, action, {
+      duration,
+      panelClass: ['snackbar-fail']
+    });
+  }
+
+  openSuccessSnackBar(message: string, action: string = 'Dismiss', duration: number = 3000) {
+    this.snackBar.open(message, action, {
+      duration,
+      panelClass: ['snackbar-success']
+    });
+  }
+
   openNotificationSnackBar(notification: CommandNotification) {
     if (notification.status === 'success') {
       this.snackBar.open(notification.message, 'Dismiss', {
