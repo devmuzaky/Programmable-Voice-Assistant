@@ -56,8 +56,19 @@ export class EditCommandFormComponent implements OnInit {
     this.setUpdatedFields(commandEditRequest);
 
     // TODO: handle submission and closing the form (look at the create)
-    // this.submitted = false;
-    // this.closeForm.emit();
+    this.commandService.editCommand(commandEditRequest).subscribe(_ => {
+      this.messageService.add({
+        severity: 'success',
+        summary: 'Successful',
+        detail: 'Command Edited Successfully',
+        life: 3000
+      });
+      this.closeForm.emit();
+
+    // TODO: update the table
+    }, error => {
+      this.messageService.add({severity: 'error', summary: `Error ${error.status}`, detail: error.message, life: 3000});
+    });
   }
 
   showScriptErrors(): boolean {
