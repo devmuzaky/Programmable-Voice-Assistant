@@ -19,22 +19,17 @@ export class CommandService {
 
   getCommands() {
     return this.http.get<any>('assets/commands.json')
-      .pipe(
-        map((res: any) => {
-          return res.data;
-        })
-      );
+      .pipe(map((res: any) => {
+        return res.data;
+      }));
   }
 
   getUserCommands() {
     return this.http.get<any>('assets/my-commands.json')
-      .pipe(
-        map((res: any) => {
-          return res.data;
-        })
-      );
+      .pipe(map((res: any) => {
+        return res.data;
+      }));
   }
-
 
 
   getFiles() {
@@ -43,19 +38,12 @@ export class CommandService {
 
   searchCommand(search: string) {
     return this.http.get<any>('assets/commands.json')
-      .pipe(
-        map((res: any) => {
-          return res.data.filter((item: any) => {
+      .pipe(map((res: any) => {
+        return res.data.filter((item: any) => {
 
-            return item.name.toLowerCase().includes(search.toLowerCase())
-              || item.description.toLowerCase().includes(search.toLowerCase())
-              || item.owner.toLowerCase().includes(search.toLowerCase())
-              || item.commands.toLowerCase().includes(search.toLowerCase())
-              || item.status.toLowerCase().includes(search.toLowerCase())
-              || item.script.toLowerCase().includes(search.toLowerCase());
-          });
-        })
-      );
+          return item.name.toLowerCase().includes(search.toLowerCase()) || item.description.toLowerCase().includes(search.toLowerCase()) || item.owner.toLowerCase().includes(search.toLowerCase()) || item.commands.toLowerCase().includes(search.toLowerCase()) || item.status.toLowerCase().includes(search.toLowerCase()) || item.script.toLowerCase().includes(search.toLowerCase());
+        });
+      }));
   }
 
 
@@ -70,28 +58,22 @@ export class CommandService {
     }
 
     for (let i = 0; i < command.parameters.length; i++) {
-      if (!command.parameters[i]) {
+      if (!(command.parameters[i].name && command.parameters[i].type)) {
         continue;
       }
-      formData.append(`parameters[${i}]`, JSON.stringify({name: command.parameters[i]}));
+      formData.append(`parameters[${i}]`, JSON.stringify(command.parameters[i]));
     }
 
     for (let i = 0; i < command.patterns.length; i++) {
       if (!command.patterns[i]) {
         continue;
       }
-      formData.append(
-        `patterns[${i}]`,
-        JSON.stringify({syntax: command.patterns[i]})
-      );
+      formData.append(`patterns[${i}]`, JSON.stringify({syntax: command.patterns[i]}));
     }
 
     formData.append('script_data.scriptType', command.script_data.scriptType);
     formData.append('script_data.script', command.script_data.script);
     formData.append('script_data.requirements', command.script_data.requirements);
-
-    // formData.append('patternsNumber', command.patternsNumber.toString());
-
 
     return this.http.post(`${this.baseUrl}/api/commands/`, formData);
   }

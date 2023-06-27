@@ -1,7 +1,9 @@
+import {Parameter} from "./parameter";
+
 export interface CommandCreateRequest {
   name: string;
   description: string;
-  parameters: string[];
+  parameters: Parameter[];
   patterns: string[];
   script_data: {
     script: File,
