@@ -1,8 +1,9 @@
 import {HttpClient} from '@angular/common/http';
 import {Injectable} from '@angular/core';
-import {map} from "rxjs";
+import {map, Observable} from "rxjs";
 import {APP_CONFIG} from "../../../environments/environment";
 import {CommandCreateRequest} from "../interfaces/commandCreateRequest.model";
+import {CommandEditInfoDTO} from "../interfaces/CommandEditInfoDTO";
 
 
 @Injectable({
@@ -31,10 +32,6 @@ export class CommandService {
       }));
   }
 
-
-  getFiles() {
-    return this.http.get('assets/commands.json');
-  }
 
   searchCommand(search: string) {
     return this.http.get<any>('assets/commands.json')
@@ -79,4 +76,7 @@ export class CommandService {
   }
 
 
+  getCommandDetails(id: number): Observable<CommandEditInfoDTO> {
+    return this.http.get<CommandEditInfoDTO>(`${this.baseUrl}/api/commands/${id}/`)
+  }
 }

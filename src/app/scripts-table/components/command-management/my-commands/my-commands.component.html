@@ -85,6 +85,7 @@
 
 <app-edit-command-form
   *ngIf="showEditCommandForm"
-  [commandEditInfoDTO]="commandEditInfoDTO"
+  [initialCommandEditInfoDTO]="commandEditInfoDTO"
   (closeForm)="CloseEditCommandForm()"
 ></app-edit-command-form>
+

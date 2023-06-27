@@ -3,7 +3,7 @@
   [modal]="true"
   [style]="{width: '40%'}"
   [visible]="true"
-  header="Edit Command {{commandEditInfoDTO.name}}"
+  header="Edit {{commandEditInfoDTO.name}}"
   styleClass="p-fluid">
   <ng-template pTemplate="content">
     <div class="field flex flex-column">
@@ -161,7 +161,7 @@
           pRipple>
         </button>
 
-        <small *ngIf="submitted && !commandEditInfoDTO.script" class="p-error">Script is required.</small>
+        <small *ngIf="submitted && showScriptErrors() && !commandEditInfoDTO.script" class="p-error">Script is required.</small>
       </div>
 
       <div class="flex">
@@ -171,12 +171,12 @@
           <p-dropdown [(ngModel)]="commandEditInfoDTO.scriptType"
                       [options]="scriptType" id="scriptType"
                       placeholder="Select"
-                      required>
+          >
             <ng-template let-option pTemplate="item">
               <span>{{option.label}}</span>
             </ng-template>
           </p-dropdown>
-          <small *ngIf="submitted && !commandEditInfoDTO.scriptType" class="p-error">Script type is required.</small>
+          <small *ngIf="submitted && showScriptErrors() && !commandEditInfoDTO.scriptType" class="p-error">Script type is required.</small>
 
         </div>
 
@@ -220,8 +220,7 @@
           pRipple>
         </button>
 
-        <small *ngIf="submitted && !commandEditInfoDTO.requirements" class="p-error">Requirements File is
-          required.</small>
+        <small *ngIf="submitted && showScriptErrors() && !commandEditInfoDTO.requirements" class="p-error">Requirements File is required.</small>
 
       </div>
 
