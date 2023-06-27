@@ -1,5 +1,5 @@
 import {Component, Input} from '@angular/core';
-import {Command} from "../../../../interfaces/command.model";
+import {Parameter} from "../../../../interfaces/parameter";
 
 @Component({
   selector: 'app-parameter-field',
@@ -10,7 +10,7 @@ export class ParameterFieldComponent {
 
   @Input() submitted: boolean;
   @Input() order: number;
-  @Input() command: Command;
+  @Input() parameters: Parameter[];
 
   parameterTypes = [
     {
