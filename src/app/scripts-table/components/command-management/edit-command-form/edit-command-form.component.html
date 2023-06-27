@@ -3,31 +3,31 @@
   [modal]="true"
   [style]="{width: '40%'}"
   [visible]="true"
-  header="Create New Command"
+  header="Edit {{commandEditInfoDTO.name}}"
   styleClass="p-fluid">
   <ng-template pTemplate="content">
-
     <div class="field flex flex-column">
       <label for="name">Name</label>
       <input
-        [(ngModel)]="command.name" autofocus id="name"
+        [(ngModel)]="commandEditInfoDTO.name" autofocus id="name"
         pInputText required type="text">
-      <small *ngIf="submitted && !command.name" class="p-error">Name is required.</small>
+      <small *ngIf="submitted && !commandEditInfoDTO.name" class="p-error">Name is required.</small>
     </div>
 
     <div class="field flex flex-column">
       <label for="description">Description</label>
       <textarea
-        [(ngModel)]="command.description"
+        [(ngModel)]="commandEditInfoDTO.description"
         cols="10" id="description" pInputTextarea
-        rows="1"></textarea>
+        rows="1"
+      ></textarea>
     </div>
 
     <div class="field flex disable-select-input-number flex-column">
       <label for="parametersNo">Parameters Number </label>
       <div class="parameter flex flex-row">
         <p-inputNumber #paramNum (click)="onParametersStateChange(paramNum.value)"
-                       [(ngModel)]="command.parametersNumber"
+                       [(ngModel)]="parametersNumber"
                        [showButtons]="true"
                        [style]="{width: '110px', height: '30'}"
                        buttonLayout="horizontal"
@@ -44,27 +44,27 @@
         </p-inputNumber>
         <div class="flex-column w-full">
 
-          <app-parameter-field *ngIf="command.parametersNumber >= 1"
-                               [parameters]="command.parameters"
+          <app-parameter-field *ngIf="parametersNumber >= 1"
                                [order]="0"
+                               [parameters]="commandEditInfoDTO.parameters"
                                [submitted]="submitted">
           </app-parameter-field>
 
-          <app-parameter-field *ngIf="command.parametersNumber >= 2"
-                               [parameters]="command.parameters"
+          <app-parameter-field *ngIf="parametersNumber >= 2"
                                [order]="1"
+                               [parameters]="commandEditInfoDTO.parameters"
                                [submitted]="submitted">
           </app-parameter-field>
 
-          <app-parameter-field *ngIf="command.parametersNumber >= 3"
-                               [parameters]="command.parameters"
+          <app-parameter-field *ngIf="parametersNumber >= 3"
                                [order]="2"
+                               [parameters]="commandEditInfoDTO.parameters"
                                [submitted]="submitted">
           </app-parameter-field>
 
-          <app-parameter-field *ngIf="command.parametersNumber >= 4"
-                               [parameters]="command.parameters"
+          <app-parameter-field *ngIf="parametersNumber >= 4"
                                [order]="3"
+                               [parameters]="commandEditInfoDTO.parameters"
                                [submitted]="submitted">
           </app-parameter-field>
 
@@ -76,7 +76,7 @@
       <label for="patternsNum" style="display: block">Patterns Number </label>
       <div class="flex flex-row ">
         <p-inputNumber #patternsNum (click)="onPatternsStateChange(patternsNum.value)"
-                       [(ngModel)]="command.patternsNumber"
+                       [(ngModel)]="patternsNumber"
                        [showButtons]="true"
                        [style]="{width: '110px', height: '30'}"
                        buttonLayout="horizontal"
@@ -93,8 +93,8 @@
 
         <div class="flex flex-column w-full ">
           <input
-            *ngIf="command?.patternsNumber >= 1"
-            [(ngModel)]="command?.patterns[0]"
+            *ngIf="patternsNumber >= 1"
+            [(ngModel)]="commandEditInfoDTO?.patterns[0].syntax"
             autofocus
             class=" m-1"
             pInputText
@@ -102,8 +102,8 @@
             type="text"
           >
           <input
-            *ngIf="command.patternsNumber >= 2"
-            [(ngModel)]="command.patterns[1]"
+            *ngIf="patternsNumber >= 2"
+            [(ngModel)]="commandEditInfoDTO.patterns[1].syntax"
             autofocus
             class=" m-1"
             pInputText
@@ -111,8 +111,8 @@
             type="text"
           >
           <input
-            *ngIf="command.patternsNumber >= 3"
-            [(ngModel)]="command.patterns[2]"
+            *ngIf="patternsNumber >= 3"
+            [(ngModel)]="commandEditInfoDTO.patterns[2].syntax"
             autofocus
             class=" m-1"
             pInputText
@@ -120,8 +120,8 @@
             type="text"
           >
           <input
-            *ngIf="command.patternsNumber >= 4"
-            [(ngModel)]="command.patterns[3]"
+            *ngIf="patternsNumber >= 4"
+            [(ngModel)]="commandEditInfoDTO.patterns[3].syntax"
             autofocus
             class=" m-1"
             pInputText
@@ -130,7 +130,7 @@
           >
         </div>
       </div>
-      <small *ngIf="submitted && !command.patterns[0]" class="p-error">Patterns Number is required.</small>
+      <small *ngIf="submitted && !commandEditInfoDTO.patterns[0]" class="p-error">Patterns Number is required.</small>
     </div>
 
     <div [style]="{alignSelf: 'end', marginLeft: 'auto'}" class="field justify-content-between p-1 flex">
@@ -161,35 +161,35 @@
           pRipple>
         </button>
 
-        <small *ngIf="submitted && !command.script" class="p-error">Script is required.</small>
+        <small *ngIf="submitted && showScriptErrors() && !commandEditInfoDTO.script" class="p-error">Script is required.</small>
       </div>
 
       <div class="flex">
 
         <div class="field p-1 mr-3">
           <label for="scriptType">Script type</label>
-          <p-dropdown [(ngModel)]="command.scriptType"
+          <p-dropdown [(ngModel)]="commandEditInfoDTO.scriptType"
                       [options]="scriptType" id="scriptType"
                       placeholder="Select"
-                      required>
+          >
             <ng-template let-option pTemplate="item">
               <span>{{option.label}}</span>
             </ng-template>
           </p-dropdown>
-          <small *ngIf="submitted && !command.scriptType" class="p-error">Script type is required.</small>
+          <small *ngIf="submitted && showScriptErrors() && !commandEditInfoDTO.scriptType" class="p-error">Script type is required.</small>
 
         </div>
 
         <div class="field p-1 ">
           <label for="visibility">Visibility</label>
-          <p-dropdown [(ngModel)]="command.visibility"
+          <p-dropdown [(ngModel)]="commandEditInfoDTO.state"
                       [options]="status" id="visibility"
                       placeholder="Select">
             <ng-template let-option pTemplate="item">
               <span>{{option.label}}</span>
             </ng-template>
           </p-dropdown>
-          <small *ngIf="submitted && !command.visibility" class="p-error">Visibility is required.</small>
+          <small *ngIf="submitted && !commandEditInfoDTO.state" class="p-error">Visibility is required.</small>
         </div>
 
       </div>
@@ -220,7 +220,7 @@
           pRipple>
         </button>
 
-        <small *ngIf="submitted && !command.requirements" class="p-error">Requirements File is required.</small>
+        <small *ngIf="submitted && showScriptErrors() && !commandEditInfoDTO.requirements" class="p-error">Requirements File is required.</small>
 
       </div>
 
@@ -250,13 +250,10 @@
         </button>
       </div>
     </div>
-
   </ng-template>
 
   <ng-template pTemplate="footer">
-    <button (click)="closeForm.emit()" class="p-button-text" icon="pi pi-times" label="Cancel" pButton
-            pRipple></button>
-    <button (click)="onCreateCommand()" class="p-button-text" icon="pi pi-check" label="Save" pButton
-            pRipple></button>
+    <button (click)="closeForm.emit()" class="p-button-text" icon="pi pi-times" label="Cancel" pButton pRipple></button>
+    <button (click)="onEditCommand()" class="p-button-text" icon="pi pi-check" label="Save" pButton pRipple></button>
   </ng-template>
 </p-dialog>

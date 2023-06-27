@@ -80,12 +80,6 @@ export class CommandManagement implements OnInit {
     this.showCreateCommandForm = false;
   }
 
-  // handle editing a command
-  editCommand(command: Command) {
-    this.command = {...command};
-    this.showCreateCommandForm = true;
-  }
-
   //  handle deleting commands
   deleteCommand(command: Command) {
     this.confirmationService.confirm({

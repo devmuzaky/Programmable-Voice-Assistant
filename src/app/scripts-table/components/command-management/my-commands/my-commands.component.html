@@ -63,7 +63,7 @@
             <!--          <td><p-rating [ngModel]="command.rating" [readonly]="true" [cancel]="false"></p-rating></td>-->
 
             <td class="truncateT td-width">
-                <button (click)="editCommand(command)"
+                <button (click)="editCommand(command.id)"
                         class="p-button-rounded p-button-success mr-2"
                         icon="pi pi-pencil"
                         pButton
@@ -82,3 +82,10 @@
         </div>
     </ng-template>
 </p-table>
+
+<app-edit-command-form
+  *ngIf="showEditCommandForm"
+  [initialCommandEditInfoDTO]="commandEditInfoDTO"
+  (closeForm)="CloseEditCommandForm()"
+></app-edit-command-form>
+

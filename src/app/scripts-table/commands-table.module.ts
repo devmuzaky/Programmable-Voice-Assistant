@@ -31,6 +31,7 @@ import { InstalledCommandsComponent } from './components/command-management/publ
 import { MyCommandsComponent } from './components/command-management/my-commands/my-commands.component';
 import { CreateCommandFormComponent } from './components/command-management/create-command-form/create-command-form.component';
 import { ParameterFieldComponent } from './components/command-management/create-command-form/parameter-field/parameter-field.component';
+import { EditCommandFormComponent } from './components/command-management/edit-command-form/edit-command-form.component';
 
 
 
@@ -44,6 +45,7 @@ import { ParameterFieldComponent } from './components/command-management/create-
     MyCommandsComponent,
     CreateCommandFormComponent,
     ParameterFieldComponent,
+    EditCommandFormComponent,
   ],
   imports: [
     CommonModule,
