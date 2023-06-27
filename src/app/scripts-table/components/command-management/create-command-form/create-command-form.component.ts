@@ -1,4 +1,4 @@
-import {Component, EventEmitter, OnInit, Output} from '@angular/core';
+import {Component, EventEmitter, Output} from '@angular/core';
 import {Command} from "../../../interfaces/command.model";
 import {FileUpload} from "primeng/fileupload";
 import {CommandCreateRequest} from "../../../interfaces/commandCreateRequest.model";
@@ -72,21 +72,28 @@ export class CreateCommandFormComponent {
     const commandCreateRequest: CommandCreateRequest = {
       name: this.command.name,
       description: this.command.description,
-      parameters: this.command.parameters['name'],
+      parameters: this.command.parameters,
       patterns: this.command.patterns,
       script_data: {
-        script: this.command.script, requirements: this.command.requirements, scriptType: this.command.scriptType
+        script: this.command.script,
+        requirements: this.command.requirements,
+        scriptType: this.command.scriptType
       },
       icon: this.command.icon,
       patternsNumber: this.command.patternsNumber
     };
 
-    this.commandService.createCommand(commandCreateRequest).subscribe(data => {
-      this.messageService.add({severity: 'success', summary: 'Successful', detail: 'Command Created', life: 3000});
-      // should set showDialgo to false (TODO: check the rest of the lines in this function )
-      this.closeForm.emit()
+    this.commandService.createCommand(commandCreateRequest).subscribe(_ => {
+      this.messageService.add({
+        severity: 'success',
+        summary: 'Successful',
+        detail: 'Command Created',
+        life: 3000
+      });
+
+      this.closeForm.emit();
       this.command = {};
-    }, error => {
+    }, _ => {
       this.messageService.add({severity: 'error', summary: 'Error', detail: 'Command Not Created', life: 3000});
     });
   }

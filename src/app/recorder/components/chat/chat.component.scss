@@ -37,6 +37,7 @@
   display: flex;
   justify-content: space-between;
   flex-direction: column;
+  background: #3f4b5b;
 }
 
 
@@ -327,7 +328,8 @@
   }
 }
 
-@media screen and (max-width: 450px) {
+// TODO: should we remove this?
+@media screen and (max-width: 10000px) {
   .chat {
     flex-direction: column;
     height: 400px;
