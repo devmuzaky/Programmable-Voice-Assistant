@@ -1,5 +1,5 @@
 import {Component, ElementRef, Input, OnInit, ViewChild,} from '@angular/core';
-import {FormBuilder, FormGroup, Validators} from '@angular/forms';
+import {FormBuilder, Validators} from '@angular/forms';
 import {Router} from '@angular/router';
 import {AuthService} from '../services/auth-service/auth.service';
 import {StorageService} from "../services/storage.service";
@@ -8,6 +8,7 @@ import {HttpClient} from "@angular/common/http";
 import {LoginResponse} from "../interface/login.response";
 import {createPasswordStrengthValidator} from "../password-strength.validator";
 import {ValidationService} from "../services/not-match-validation/validation.service";
+import {MatTabGroup} from "@angular/material/tabs";
 
 @Component({
   selector: 'app-register-component',
@@ -16,10 +17,14 @@ import {ValidationService} from "../services/not-match-validation/validation.ser
 })
 export class RegisterComponentComponent implements OnInit {
   @ViewChild('elRef') comp: ElementRef;
+  @ViewChild('tabGroup') tabGroup: MatTabGroup;
+
 
   @Input('mat-stretch-tabs')
   stretchTabs: boolean
 
+
+  showPassword: boolean = false;
 
 
   loginForm = this.fb.group({
@@ -54,8 +59,9 @@ export class RegisterComponentComponent implements OnInit {
       validator: this.validationService.passwordMatch('password', 'confirmPassword')
     }
   );
-  private isLoginFailed: boolean = false;
   isLoggedIn: boolean = false;
+
+  private isLoginFailed: boolean = false;
   private errorMessage: string = '';
   private isSuccessful: boolean = false;
   private isSignUpFailed: boolean = false;
@@ -88,7 +94,6 @@ export class RegisterComponentComponent implements OnInit {
     return this.signUpForm.controls['username'];
   }
 
-
   get createPassword() {
     return this.signUpForm.controls['password'];
   }
@@ -98,10 +103,21 @@ export class RegisterComponentComponent implements OnInit {
   }
 
   ngOnInit(): void {
-
     if (this.storageService.isLoggedIn()) {
       this.isLoggedIn = true;
     }
+  }
+
+  openSnackBar(message: string) {
+    this.snackbarService.openSnackBar(message);
+  }
+
+  openSuccessSnackBar(message: string) {
+    this.snackbarService.openSuccessSnackBar(message);
+  }
+
+  openErrorSnackBar(message: string) {
+    this.snackbarService.openErrorSnackBar(message);
   }
 
   onSignUpSubmit() {
@@ -120,20 +136,35 @@ export class RegisterComponentComponent implements OnInit {
             this.isSignUpFailed = false;
             if (data) {
               this.showLogin();
-              this.openSnackBar("Your registration is successful!");
+              this.openSuccessSnackBar("Signup successful! Please login to continue.")
             }
+            this.tabGroup.selectedIndex = 0;
+            this.signUpForm.reset();
+            Object.keys(this.signUpForm.controls).forEach(key => {
+              this.signUpForm.controls[key].setErrors(null)
+            });
+            this.signUpForm.markAsPristine();
+            this.signUpForm.markAsUntouched();
+            this.signUpForm.updateValueAndValidity();
+            this.signUpForm.clearValidators();
           },
+
           error: error => {
-            this.registerErrorMessage = error.error.detail;
+            if (error.error.email) {
+              this.registerErrorMessage = "Email is already registered!";
+            }
+            if (error.error.username) {
+              this.registerErrorMessage = "Username is already registered!";
+            }
+            if (error.error.email && error.error.username) {
+              this.registerErrorMessage = "Email and username are already registered!";
+            }
             this.isSignUpFailed = true;
-            this.openSnackBar("Signup failed! " + this.registerErrorMessage)
+            this.isSuccessful = false;
+            this.openErrorSnackBar(this.registerErrorMessage);
           }
         }
       )
-  }
-
-  openSnackBar(message: string) {
-    this.snackbarService.openSnackBar(message);
   }
 
   onLoginSubmit() {
@@ -146,34 +177,34 @@ export class RegisterComponentComponent implements OnInit {
           this.storageService.saveRefreshToken(data.refresh_token);
           this.isLoginFailed = false;
           this.isLoggedIn = true;
-          this.openSnackBar("Logged in as " + this.storageService.getUser().email);
+          this.openSnackBar("Successfully logged in as " + data.user.username);
           this.authService.setLoggedIn(true);
         },
         err => {
-          this.errorMessage = err.error.detail;
+          this.errorMessage = "Invalid email or password!";
           this.isLoginFailed = true;
           this.isLoggedIn = false;
-          console.log(err)
-          this.openSnackBar("Login failed: " + this.errorMessage)
+          this.openErrorSnackBar(this.errorMessage);
         }
       );
 
   }
 
+  onLogout() {
+    this.authService.logout();
+    this.isLoggedIn = false;
+    this.openSnackBar("Successfully logged out!");
+  }
+
+  onForgotPasswordClick() {
+    this.router.navigate(['/forgot-password']);
+  }
 
   private showLogin() {
     this.router.navigate(['/recorder']);
   }
 
-
-  // TODO: Implement this method
-  onForgotPasswordClick() {
-    this.router.navigate(['/forgot-password']);
-  }
-
-  onLogout() {
-    this.authService.logout();
-    this.isLoggedIn = false;
-    this.openSnackBar("Logged out");
+  togglePasswordVisibility() {
+    this.showPassword = !this.showPassword;
   }
 }

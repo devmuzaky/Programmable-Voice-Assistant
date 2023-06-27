@@ -1,11 +1,10 @@
 <div class="login-page">
 
 
-
   <mat-card class="mat-elevation-z12">
 
-    <mat-tab-group *ngIf="!isLoggedIn"
-      class="example-stretched-tabs">
+    <mat-tab-group #tabGroup *ngIf="!isLoggedIn"
+                   class="example-stretched-tabs">
       <mat-tab label="Sign In">
         <mat-card-content>
           <form
@@ -20,21 +19,22 @@
                 placeholder="Email"
               >
               <mat-error *ngIf="emailLoginValue.errors?.required">Email is required</mat-error>
-              <mat-icon matSuffix>email</mat-icon>
             </mat-form-field>
             <mat-form-field>
               <input
+                [type]="showPassword ? 'text' : 'password'"
                 formControlName="password"
                 matInput
                 minlength="6"
                 name="password"
                 placeholder="Password"
                 required
-                type="password"
               >
+              <mat-icon (click)="togglePasswordVisibility()" matSuffix>
+                {{ showPassword ? 'visibility_off' : 'visibility' }}
+              </mat-icon>
               <mat-error *ngIf="passwordValue.errors?.required">Password is required</mat-error>
 
-              <mat-icon matSuffix>lock</mat-icon>
             </mat-form-field>
 
             <div class="flex align-items-center justify-content-between ml-5">
@@ -93,18 +93,21 @@
             </mat-form-field>
             <mat-form-field>
               <input
+                [type]="showPassword ? 'text' : 'password'"
                 formControlName="password"
                 matInput
                 name="password"
                 placeholder="Password"
-                type="password">
+              >
+              <mat-icon (click)="togglePasswordVisibility()" matSuffix>
+                {{ showPassword ? 'visibility_off' : 'visibility' }}
+              </mat-icon>
 
               <mat-error *ngIf="createPassword.errors?.required">Password is required</mat-error>
 
-              <mat-icon matSuffix>lock</mat-icon>
             </mat-form-field>
 
-            <div class="">
+            <div>
               <ng-container
                 *ngIf="createPassword.errors | onlyOneError:['required', 'minlength', 'maxlength','passwordStrength'] as error">
 
@@ -125,15 +128,12 @@
 
             <mat-form-field>
               <input
+                [type]="showPassword ? 'text' : 'password'"
                 formControlName="confirmPassword"
                 matInput
                 name="confirmPassword"
-                placeholder="Confirm Password"
-                type="password">
-              <mat-error *ngIf="confirmPassword.invalid"
-              >Passwords do not match
-              </mat-error>
-              <mat-icon matSuffix>lock</mat-icon>
+                placeholder="Confirm Password">
+              <mat-error *ngIf="confirmPassword.invalid">Passwords do not match</mat-error>
             </mat-form-field>
             <button
               class="login-button"
@@ -147,10 +147,9 @@
     </mat-tab-group>
 
 
-<ng-container *ngIf="isLoggedIn">
-  <app-user-card (logout)="onLogout()"></app-user-card>
-</ng-container>
-
+    <ng-container *ngIf="isLoggedIn">
+      <app-user-card (logout)="onLogout()"></app-user-card>
+    </ng-container>
 
 
   </mat-card>
