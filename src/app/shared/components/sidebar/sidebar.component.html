@@ -1,31 +1,36 @@
-<div [ngClass]="collapsed ? 'sidenav-collapsed': ''" class="sidenav">
+<div class="sidenav">
   <div class="logo-container">
-    <button (click)="toggleCollapse()" class="logo">A</button>
-    <div *ngIf="collapsed" @fadeInOut class="logo-text">Angular</div>
-    <button (click)="closeSidenav()" *ngIf="collapsed" @rotate class="btn-close">
-      <span class="fal fa-times close-icon"></span>
-    </button>
+    <button class="logo" title="My Assistant">MA</button>
   </div>
 
   <ul class="sidenav-nav">
-    <li *ngFor="let data of navData" class="sidenav-nav-item">
-      <a *ngIf="(data.label === 'My Scripts' && (isLogin$ | async)) || data.label !== 'My Scripts'"
-         [routerLinkActiveOptions]="{exact: true}" [routerLink]="[data.routeLink]"
+    <li  label="Commands Tables" class="sidenav-nav-item">
+      <a *ngIf=" (isLogin$ | async)"
+         [routerLinkActiveOptions]="{exact: true}" routerLink="/my-scripts"
          class="sidenav-nav-link"
-         routerLinkActive="active"
-      >
-        <img alt="icon" class="sidenav-link-icon" src="{{data.icon}}"/>
-        <span *ngIf="collapsed" @fadeInOut class="sidenav-link-text">
-                                {{data.label}}
-            </span>
+         routerLinkActive="active">
+        <img title="Commands Tables" alt="icon" class="sidenav-link-icon" src="./assets/icons/script.svg"/>
+      </a>
+
+    </li>
+
+    <li class="sidenav-nav-item reorderChat">
+      <a (click)="opT.show($event, targetEl)" class="sidenav-nav-link" routerLinkActive="active">
+        <img alt="icon" class="sidenav-link-icon" src='./assets/icons/voice-recorder.svg' title="Open your assistant"/>
+        <div #targetEl class="mt-5 ml-6 w-10rem h-8rem flex align-items-center justify-content-center"></div>
+        <p-overlayPanel #opT
+                        [appendTo]="targetEl" [dismissable]="true"
+                        [hideTransitionOptions]="'500ms'" [showCloseIcon]="false"
+                        [showTransitionOptions]="'500ms'" [style]="{width: '100%'}">
+          <app-chat></app-chat>
+        </p-overlayPanel>
       </a>
     </li>
 
     <li (click)="op.toggle($event)"
         class="sidenav-nav-item notification">
       <a class="sidenav-nav-link">
-        <img alt="icon" class="sidenav-link-icon" src="./assets/icons/notification.svg"/>
-        <span *ngIf="collapsed" @fadeInOut class="sidenav-link-text">Notifications</span>
+        <img alt="icon" class="sidenav-link-icon" src="./assets/icons/notification.svg" title="Notifications"/>
       </a>
 
       <p-overlayPanel #op>
@@ -33,16 +38,13 @@
       </p-overlayPanel>
     </li>
 
-
     <li class="sidenav-nav-item">
       <a (click)="setToggleModal($event)" [routerLinkActiveOptions]="{exact: true}" class="sidenav-nav-link"
          routerLinkActive="active"
       >
-        <img alt="icon" class="sidenav-link-icon" src="assets/icons/acc.svg"/>
-        <span *ngIf="collapsed" @fadeInOut class="sidenav-link-text"> My Profile </span>
+        <img alt="icon" class="sidenav-link-icon" src="assets/icons/acc.svg" title="My Profile"/>
       </a>
-      <div>
-      </div>
     </li>
   </ul>
+
 </div>

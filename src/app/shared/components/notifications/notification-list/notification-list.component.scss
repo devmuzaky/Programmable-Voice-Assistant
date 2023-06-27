@@ -1,22 +1,33 @@
 :host ::ng-deep {
   .p-listbox .p-listbox-list .p-listbox-item {
-    margin: 0;
-    padding: 0.5rem 1.5rem;
-    border: 0 none;
-    color: rgba(255, 255, 255, 0.87);
-    transition: box-shadow 0.15s;
-    border-radius: 0;
     height: 60px !important;
-    background-color: #465156;
+    padding: 0.5rem 1.5rem;
+    margin: 0;
+    border: 0 none;
+    border-radius: 8px;
+    transition: box-shadow 0.15s;
   }
 
   .p-listbox .p-listbox-list .p-listbox-item.p-highlight {
-    background-color: transparent !important;
+    background-color: rgba(70, 81, 86, 0.55);
   }
-
 
   .p-listbox .p-listbox-list .p-listbox-item:focus {
     box-shadow: inset 0 0 0 0 rgba(255, 255, 255, 0);
   }
+
+
+  p-listbox ::-webkit-scrollbar {
+    background: #2a323d;
+    width: 12px;
+    height: 100%;
+    border-radius: 8px;
+  }
+
+  p-listbox ::-webkit-scrollbar-thumb {
+    background: rgb(107, 116, 124);
+    border-radius: 4px;
+  }
+
 
 }

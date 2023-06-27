@@ -1,5 +1,5 @@
 import {animate, keyframes, style, transition, trigger} from '@angular/animations';
-import {Component, Output, EventEmitter, OnInit, HostListener, Input} from '@angular/core';
+import {Component, Output, EventEmitter, OnInit} from '@angular/core';
 import {navbarData} from './nav-data';
 import {AuthService} from "../../../auth/services/auth-service/auth.service";
 import {Observable} from "rxjs";
@@ -43,41 +43,18 @@ interface SideNavToggle {
 export class SidebarComponent implements OnInit {
 
 
-  @Output() onToggleSideNav: EventEmitter<SideNavToggle> = new EventEmitter();
   @Output() onToggleModal: EventEmitter<boolean> = new EventEmitter();
 
-  collapsed = false;
-  screenWidth = 0;
+
   navData = navbarData;
   toggleModal: boolean;
   isLogin$: Observable<boolean>;
 
   constructor(private authService: AuthService) {
     this.isLogin$ = this.authService.isUserLoggedIn;
-    console.log(this.isLogin$)
-  }
-
-  @HostListener('window:resize', ['$event'])
-  onResize(event: any) {
-    this.screenWidth = window.innerWidth;
-    if (this.screenWidth <= 768) {
-      this.collapsed = false;
-      this.onToggleSideNav.emit({collapsed: this.collapsed, screenWidth: this.screenWidth});
-    }
   }
 
   ngOnInit(): void {
-    this.screenWidth = window.innerWidth;
-  }
-
-  toggleCollapse(): void {
-    this.collapsed = !this.collapsed;
-    this.onToggleSideNav.emit({collapsed: this.collapsed, screenWidth: this.screenWidth});
-  }
-
-  closeSidenav(): void {
-    this.collapsed = false;
-    this.onToggleSideNav.emit({collapsed: this.collapsed, screenWidth: this.screenWidth});
   }
 
 
