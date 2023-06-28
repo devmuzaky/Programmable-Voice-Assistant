@@ -80,7 +80,8 @@ export class CreateCommandFormComponent {
         scriptType: this.command.scriptType
       },
       icon: this.command.icon,
-      patternsNumber: this.command.patternsNumber
+      patternsNumber: this.command.patternsNumber,
+      visibility: this.command.visibility
     };
 
     this.commandService.createCommand(commandCreateRequest).subscribe(_ => {

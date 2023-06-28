@@ -1,7 +1,9 @@
 import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
-import {Command} from "../../../interfaces/command.model";
+import {Command, CommandForTableDTO} from "../../../interfaces/command.model";
 import {CommandService} from "../../../services/command.service";
 import {CommandEditInfoDTO} from "../../../interfaces/CommandEditInfoDTO";
+import {Parameter} from "../../../interfaces/parameter";
+import {Pattern} from "../../../interfaces/pattern";
 
 @Component({
   selector: 'app-my-commands',
@@ -10,13 +12,13 @@ import {CommandEditInfoDTO} from "../../../interfaces/CommandEditInfoDTO";
 })
 export class MyCommandsComponent implements OnInit {
 
-  @Input() selection: Command[];
+  @Input() selection: CommandForTableDTO[];
 
-  @Output() selectionChange = new EventEmitter<Command[]>();
+  @Output() selectionChange = new EventEmitter<CommandForTableDTO[]>();
 
-  @Input() commands: Command[];
+  @Input() commands: CommandForTableDTO[];
 
-  @Input() deleteCommand: (command: Command) => void;
+  @Input() deleteCommand: (command: CommandForTableDTO) => void;
 
   showEditCommandForm: boolean;
   commandEditInfoDTO: CommandEditInfoDTO;
@@ -45,5 +47,35 @@ export class MyCommandsComponent implements OnInit {
 
   CloseEditCommandForm() {
     this.showEditCommandForm = false;
+  }
+
+  getParameterString(parameters: Parameter[]) {
+
+    return parameters
+      .sort(parameter => parameter.order)
+      .map(parameter => `${parameter.name} (${parameter.type})`)
+      .join(', ');
+  }
+
+  getPatternsString(patterns: Pattern[]) {
+    return patterns.map(pattern => pattern.syntax).join('/ ');
+  }
+
+  downloadCommandFiles(command: CommandForTableDTO) {
+    const link = document.createElement('a');
+    link.target = '_blank';
+    link.href = command.script_link;
+    link.download = `${command.name}_script.zip`;
+    link.click();
+
+    link.target = '_blank';
+    link.href = command.requirements_link;
+    link.download = `${command.name}_requirements.zip`;
+    link.click();
+
+    link.target = '_blank';
+    link.href = command.icon_link;
+    link.download = `${command.name}_icon.zip`;
+    link.click();
   }
 }

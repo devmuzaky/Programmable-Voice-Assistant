@@ -26,11 +26,8 @@ export class CommandService {
       }));
   }
 
-  getUserCommands() {
-    return this.http.get<any>('assets/my-commands.json')
-      .pipe(map((res: any) => {
-        return res.data;
-      }));
+  getMyCommands(user_id: number) {
+    return this.http.get<any>(`${this.baseUrl}/api/commands/user/${user_id}/`);
   }
 
 
@@ -43,7 +40,6 @@ export class CommandService {
         });
       }));
   }
-
 
   createCommand(command: CommandCreateRequest) {
     const formData = new FormData();
@@ -75,7 +71,6 @@ export class CommandService {
 
     return this.http.post(`${this.baseUrl}/api/commands/`, formData);
   }
-
 
   getCommandDetails(id: number): Observable<CommandEditInfoDTO> {
     return this.http.get<CommandEditInfoDTO>(`${this.baseUrl}/api/commands/${id}/`)

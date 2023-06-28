@@ -2,6 +2,7 @@ import {Component, OnInit} from '@angular/core';
 import {Command} from '../../interfaces/command.model';
 import {CommandService} from '../../services/command.service';
 import {ConfirmationService, MessageService} from "primeng/api";
+import {AuthService} from "../../../auth/services/auth-service/auth.service";
 
 
 @Component({
@@ -48,13 +49,15 @@ export class CommandManagement implements OnInit {
   selectedCommands: Command[];
 
 
-  constructor(private commandService: CommandService,
-              private messageService: MessageService,
-              private confirmationService: ConfirmationService,) {
+  constructor(
+    private authService: AuthService,
+    private commandService: CommandService,
+    private messageService: MessageService,
+    private confirmationService: ConfirmationService,) {
   }
 
   ngOnInit() {
-    this.commandService.getUserCommands().subscribe(data => {
+    this.commandService.getMyCommands(this.authService.getUserId()).subscribe(data => {
       this.commands = data;
     }, error => console.error(error));
   }
