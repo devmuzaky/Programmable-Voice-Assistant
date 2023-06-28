@@ -26,8 +26,8 @@ export class CommandService {
       }));
   }
 
-  getMyCommands(user_id: number) {
-    return this.http.get<any>(`${this.baseUrl}/api/commands/user/${user_id}/`);
+  getMyCommands() {
+    return this.http.get<any>(`${this.baseUrl}/api/commands/mine/`);
   }
 
 
