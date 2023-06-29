@@ -19,11 +19,13 @@ import {TrayModule} from "../tray/tray.module";
 import {AuthModule} from "../auth/auth.module";
 import {ButtonModule} from "primeng/button";
 import {RecorderModule} from "../recorder/recorder.module";
+import { LoaderComponent } from './components/loader/loader.component';
+import {ProgressSpinnerModule} from "primeng/progressspinner";
 
 @NgModule({
-  declarations: [PageNotFoundComponent, WebviewDirective, SidebarComponent, ModalComponent, HomeComponent, NotificationCardComponent, NotificationListComponent],
-  imports: [CommonModule, TranslateModule, FormsModule, BrowserAnimationsModule, RouterModule, OverlayPanelModule, ListboxModule, TrayModule, AuthModule, ButtonModule, RecorderModule],
-  exports: [TranslateModule, WebviewDirective, FormsModule, SidebarComponent, ModalComponent]
+  declarations: [PageNotFoundComponent, WebviewDirective, SidebarComponent, ModalComponent, HomeComponent, NotificationCardComponent, NotificationListComponent, LoaderComponent],
+    imports: [CommonModule, TranslateModule, FormsModule, BrowserAnimationsModule, RouterModule, OverlayPanelModule, ListboxModule, TrayModule, AuthModule, ButtonModule, RecorderModule, ProgressSpinnerModule],
+  exports: [TranslateModule, WebviewDirective, FormsModule, SidebarComponent, ModalComponent, LoaderComponent]
 })
 export class SharedModule {
 }
