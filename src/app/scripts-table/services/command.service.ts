@@ -50,7 +50,7 @@ export class CommandService {
     const formData = new FormData();
     formData.append('name', command.name);
     formData.append('description', command.description);
-    formData.append('visibility', command.visibility || '');
+    formData.append('state', command.visibility || '');
 
     if (command.icon) {
       formData.append('icon', command.icon);
@@ -83,6 +83,7 @@ export class CommandService {
 
   editCommand(command: CommandEditRequest) {
     const formData = new FormData();
+
     if (command.name) {
       formData.append('name', command.name);
     }
@@ -93,7 +94,7 @@ export class CommandService {
     }
 
     if (command.visibility) {
-      formData.append('visibility', command.visibility || '');
+      formData.append('state', command.visibility || '');
     }
 
     if (command.icon) {
@@ -125,6 +126,6 @@ export class CommandService {
       formData.append('script_data.requirements', command.script_data.requirements);
     }
 
-    return this.http.put(`${this.baseUrl}/api/commands/${command.id}/`, formData);
+    return this.http.patch(`${this.baseUrl}/api/commands/${command.id}/`, formData);
   }
 }
