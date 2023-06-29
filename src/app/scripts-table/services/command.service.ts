@@ -106,7 +106,7 @@ export class CommandService {
         if (!(command.parameters[i].name && command.parameters[i].type)) {
           continue;
         }
-        formData.append(`parameters[${i}]`, JSON.stringify(command.parameters[i]));
+        formData.append(`parametersX[${i}]`, JSON.stringify(command.parameters[i]));
       }
     }
 
@@ -116,14 +116,14 @@ export class CommandService {
         if (!command.patterns[i]) {
           continue;
         }
-        formData.append(`patterns[${i}]`, JSON.stringify({syntax: command.patterns[i]}));
+        formData.append(`patternsX[${i}]`, JSON.stringify({syntax: command.patterns[i]}));
       }
     }
 
     if (command.script_data) {
-      formData.append('script_data.scriptType', command.script_data.scriptType);
-      formData.append('script_data.script', command.script_data.script);
-      formData.append('script_data.requirements', command.script_data.requirements);
+      formData.append('script_dataX.scriptType', command.script_data.scriptType);
+      formData.append('script_dataX.script', command.script_data.script);
+      formData.append('script_dataX.requirements', command.script_data.requirements);
     }
 
     return this.http.put(`${this.baseUrl}/api/commands/${command.id}/`, formData);
