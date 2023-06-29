@@ -9,6 +9,7 @@ import {LoginResponse} from "../interface/login.response";
 import {createPasswordStrengthValidator} from "../password-strength.validator";
 import {ValidationService} from "../services/not-match-validation/validation.service";
 import {MatTabGroup} from "@angular/material/tabs";
+import {NotificationService} from "../../core/services/notification/notification.service";
 
 @Component({
   selector: 'app-register-component',
@@ -74,7 +75,8 @@ export class RegisterComponentComponent implements OnInit {
     private router: Router,
     private authService: AuthService,
     private storageService: StorageService,
-    private validationService: ValidationService
+    private validationService: ValidationService,
+    private notificationService: NotificationService
   ) {
   }
 
@@ -179,6 +181,9 @@ export class RegisterComponentComponent implements OnInit {
           this.isLoggedIn = true;
           this.openSnackBar("Successfully logged in as " + data.user.username);
           this.authService.setLoggedIn(true);
+
+          this.notificationService.connect(this.storageService.getUser().pk);
+
         },
         err => {
           this.errorMessage = "Invalid email or password!";
