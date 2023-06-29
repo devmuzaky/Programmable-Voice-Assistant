@@ -129,6 +129,7 @@ export class CommandService {
   }
 
   installCommand(id: number) {
-    return this.http.get<{ id: number, executable_url: string }>(`${this.baseUrl}/api/commands/${id}/install/`);
+    return this.http.get<{ id: number, name: string, executable_url: string }>(
+      `${this.baseUrl}/api/commands/${id}/install/`);
   }
 }

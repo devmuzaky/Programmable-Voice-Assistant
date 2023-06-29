@@ -38,12 +38,12 @@ export class MarketplaceComponent implements AfterViewInit, OnInit {
 
   ngOnInit() {
     this.commandService.getMarketplaceCommands().subscribe(data => {
-      this.commandsList = data;
-      this.commandSelected = this.commandsList[0];
-      this.commandSelectedFlag = true;
-      console.log(this.commandsList)
-    },
-        error => console.error(error));
+        this.commandsList = data;
+        this.commandSelected = this.commandsList[0];
+        if (this.commandsList.length > 0) this.commandSelectedFlag = true;
+        console.log(this.commandsList)
+      },
+      error => console.error(error));
 
   }
 

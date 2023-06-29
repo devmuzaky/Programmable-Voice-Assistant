@@ -1,6 +1,10 @@
 import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import {MarketPlaceCommandDTO} from "../../../interfaces/MarketPlaceCommandDTO";
 import {CommandService} from "../../../services/command.service";
+import {ElectronService} from "../../../../core/services";
+import {
+  InstalledCommandsService
+} from "../../command-management/public-command/installed-commands-service/installed-commands.service";
 
 @Component({
   selector: 'app-card-preview',
@@ -12,7 +16,11 @@ export class CardPreviewComponent implements OnInit {
   @Input() command: MarketPlaceCommandDTO;
   @Output() showLoader: EventEmitter<boolean> = new EventEmitter<boolean>();
   @Output() closeMarketPlace: EventEmitter<void> = new EventEmitter<void>();
-  constructor(private commandService: CommandService) {
+  constructor(
+    private commandService: CommandService,
+    private electronService: ElectronService,
+    private installedCommandsService: InstalledCommandsService
+  ) {
   }
 
   ngOnInit(): void {
@@ -22,16 +30,13 @@ export class CardPreviewComponent implements OnInit {
   installCommand(id: number) {
     this.showLoader.emit(true);
 
-    // do some work
-    this.commandService.installCommand(id).subscribe((exe_link) => {
-      // TODO: pass to electron to  download the exe save to the db
+    this.commandService.installCommand(id).subscribe((command) => {
+      this.electronService.ipcRenderer.send('save_executable', command.id, command.name, command.executable_url);
 
-      // TODO: update the installed table
-
-      // close the marketplace
-      this.closeMarketPlace.emit()
+      this.installedCommandsService.getInstalledCommands();
 
       this.showLoader.emit(false);
+      this.closeMarketPlace.emit()
     });
 
   }
