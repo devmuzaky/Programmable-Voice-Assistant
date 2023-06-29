@@ -21,6 +21,9 @@ export class FileManager {
     await this.ensureDirectoryExists(this.directoryPath);
 
     return new Promise((resolve, reject) => {
+      // clear the file content, if it exists
+      fs.writeFileSync(filePath, '');
+
       const fileStream = fs.createWriteStream(filePath);
       const protocol = url.startsWith('https') ? https : http;
 

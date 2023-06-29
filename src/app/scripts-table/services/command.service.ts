@@ -36,7 +36,12 @@ export class CommandService {
       .pipe(map((res: any) => {
         return res.data.filter((item: any) => {
 
-          return item.name.toLowerCase().includes(search.toLowerCase()) || item.description.toLowerCase().includes(search.toLowerCase()) || item.owner.toLowerCase().includes(search.toLowerCase()) || item.commands.toLowerCase().includes(search.toLowerCase()) || item.status.toLowerCase().includes(search.toLowerCase()) || item.script.toLowerCase().includes(search.toLowerCase());
+          return item.name.toLowerCase().includes(search.toLowerCase())
+            || item.description.toLowerCase().includes(search.toLowerCase())
+            || item.owner.toLowerCase().includes(search.toLowerCase())
+            || item.commands.toLowerCase().includes(search.toLowerCase())
+            || item.status.toLowerCase().includes(search.toLowerCase())
+            || item.script.toLowerCase().includes(search.toLowerCase());
         });
       }));
   }
@@ -120,6 +125,6 @@ export class CommandService {
       formData.append('script_data.requirements', command.script_data.requirements);
     }
 
-    return this.http.patch(`${this.baseUrl}/api/commands/${command.id}/`, command);
+    return this.http.put(`${this.baseUrl}/api/commands/${command.id}/`, formData);
   }
 }

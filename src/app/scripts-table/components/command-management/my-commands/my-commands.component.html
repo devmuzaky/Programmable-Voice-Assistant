@@ -90,18 +90,18 @@
                 icon="pi pi-pencil"
                 pButton
                 pRipple></button>
-        <button (click)="deleteCommand(command)"
-                class="p-button-rounded p-button-warning  mr-2"
-                icon="pi pi-trash"
-                pButton
-                pRipple></button>
         <button
           (click)="downloadCommandFiles(command)"
-          class="p-button-rounded p-button-info"
+          class="p-button-rounded p-button-info mr-2"
           icon="pi pi-download"
           pButton pRipple
         >
         </button>
+        <button (click)="deleteCommand(command)"
+                class="p-button-rounded p-button-danger"
+                icon="pi pi-trash"
+                pButton
+                pRipple></button>
       </td>
     </tr>
   </ng-template>
