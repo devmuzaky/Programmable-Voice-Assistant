@@ -126,6 +126,6 @@ export class CommandService {
       formData.append('script_data.requirements', command.script_data.requirements);
     }
 
-    return this.http.patch(`${this.baseUrl}/api/commands/${command.id}/`, formData);
+    return this.http.put(`${this.baseUrl}/api/commands/${command.id}/`, formData);
   }
 }
