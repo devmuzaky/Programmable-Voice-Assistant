@@ -1,5 +1,5 @@
 import {Component, EventEmitter, Input, Output} from '@angular/core';
-import {MarketPlaceCommandDTO} from "../../interfaces/MarketPlaceCommandDTO";
+import {MarketPlaceCommandDTO} from "../../../interfaces/MarketPlaceCommandDTO";
 
 @Component({
   selector: 'app-command-card',

@@ -127,4 +127,8 @@ export class CommandService {
   getMarketplaceCommands() {
     return this.http.get<MarketPlaceCommandDTO[]>(`${this.baseUrl}/api/commands/public/`);
   }
+
+  installCommand(id: number) {
+    return this.http.get<{ id: number, executable_url: string }>(`${this.baseUrl}/api/commands/${id}/install/`);
+  }
 }

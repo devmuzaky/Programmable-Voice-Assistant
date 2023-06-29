@@ -4,11 +4,6 @@
   styleClass="p-card-shadow"
   subheader="{{command.owner}}">
 
-<!--  <ng-template pTemplate="header">-->
-<!--    <img [src]="command.icon_link" alt="Card">-->
-<!--  </ng-template>-->
-
-
   <p>{{command.description}}!</p>
 
   <h3>information that need to be provided</h3>
@@ -27,7 +22,7 @@
 
 
   <p-footer>
-    <button (click)="installCommand(command)" icon="pi pi-check" label="Install" pButton type="button"></button>
+    <button (click)="installCommand(command.id)" icon="pi pi-check" label="Install" pButton type="button"></button>
   </p-footer>
 
 </p-card>

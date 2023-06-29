@@ -24,14 +24,15 @@ import {ReactiveFormsModule} from "@angular/forms";
 import { CommandManagement } from './components/command-management/command-management.component';
 import {CheckboxModule} from "primeng/checkbox";
 import {StepsModule} from "primeng/steps";
-import { CommandCardComponent } from './components/command-card/command-card.component';
-import { CardPreviewComponent } from './components/card-preview/card-preview.component';
+import { CommandCardComponent } from './components/marketplace-component/command-card/command-card.component';
+import { CardPreviewComponent } from './components/marketplace-component/card-preview/card-preview.component';
 import {CardModule} from "primeng/card";
 import { InstalledCommandsComponent } from './components/command-management/public-command/installed-commands.component';
 import { MyCommandsComponent } from './components/command-management/my-commands/my-commands.component';
 import { CreateCommandFormComponent } from './components/command-management/create-command-form/create-command-form.component';
 import { ParameterFieldComponent } from './components/command-management/create-command-form/parameter-field/parameter-field.component';
 import { EditCommandFormComponent } from './components/command-management/edit-command-form/edit-command-form.component';
+import {ProgressSpinnerModule} from "primeng/progressspinner";
 
 
 
@@ -70,7 +71,8 @@ import { EditCommandFormComponent } from './components/command-management/edit-c
     StepsModule,
     CardModule,
     MatTabsModule,
-    TabViewModule
+    TabViewModule,
+    ProgressSpinnerModule
   ],
   exports: [
     MarketplaceComponent,
