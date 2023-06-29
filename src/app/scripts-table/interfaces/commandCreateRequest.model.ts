@@ -11,7 +11,7 @@ export interface CommandCreateRequest {
     scriptType: string
   };
 
-  visibility?: string;
+  visibility: string;
   icon: File;
   patternsNumber: number;
 }

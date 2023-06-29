@@ -1,4 +1,8 @@
 ::ng-deep {
+  * {
+    user-select: none;
+  }
+
   .card {
     height: 90%;
   }
@@ -51,7 +55,17 @@
       padding: 10px 10px;
     }
 
-    .td-width {
+    .small-cell-width {
+      min-width: 1rem;
+      max-width: 1rem;
+    }
+
+    .medium-cell-width {
+      min-width: 2rem;
+      max-width: 2rem;
+    }
+
+    .large-cell-width {
       min-width: 3.5rem;
       max-width: 3.5rem;
     }
@@ -183,14 +197,14 @@
   }
 
 
-::-webkit-scrollbar{
+  ::-webkit-scrollbar {
     background: #2a323d;
     width: 12px;
     height: 100%;
     border-radius: 8px;
   }
 
-  ::-webkit-scrollbar-thumb{
+  ::-webkit-scrollbar-thumb {
     background: rgb(107, 116, 124);
     border-radius: 4px;
   }
@@ -233,9 +247,5 @@
         }
       }
     }
-
-
   }
-
-
 }

@@ -48,13 +48,14 @@ export class CommandManagement implements OnInit {
   selectedCommands: Command[];
 
 
-  constructor(private commandService: CommandService,
-              private messageService: MessageService,
-              private confirmationService: ConfirmationService,) {
+  constructor(
+    private commandService: CommandService,
+    private messageService: MessageService,
+    private confirmationService: ConfirmationService,) {
   }
 
   ngOnInit() {
-    this.commandService.getUserCommands().subscribe(data => {
+    this.commandService.getMyCommands().subscribe(data => {
       this.commands = data;
     }, error => console.error(error));
   }

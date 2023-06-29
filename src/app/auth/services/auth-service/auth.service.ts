@@ -41,4 +41,8 @@ export class AuthService {
   setLoggedIn(loggedIn: boolean) {
     this.isUserLoggedIn$.next(loggedIn);
   }
+
+  getUserId() {
+    return this.storageService.getUser().pk;
+  }
 }
