@@ -1,5 +1,5 @@
 import {Component, EventEmitter, Input, Output} from '@angular/core';
-import {Command} from "../../interfaces/command.model";
+import {MarketPlaceCommandDTO} from "../../interfaces/MarketPlaceCommandDTO";
 
 @Component({
   selector: 'app-command-card',
@@ -8,13 +8,13 @@ import {Command} from "../../interfaces/command.model";
 })
 export class CommandCardComponent {
 
-  @Input() command: Command;
+  @Input() command: MarketPlaceCommandDTO;
   @Output() commandSelected = new EventEmitter<any>();
 
   @Output('commandSelectedFlag') selectedCommand = new EventEmitter<any>();
 
 
-  onSelectCommand(command: Command) {
+  onSelectCommand(command: MarketPlaceCommandDTO) {
     this.commandSelected.emit(command);
     this.selectedCommand.emit(true);
 

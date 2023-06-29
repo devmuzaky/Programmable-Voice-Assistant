@@ -1,5 +1,5 @@
 import {Component, Input, OnInit} from '@angular/core';
-import {Command} from "../../interfaces/command.model";
+import {MarketPlaceCommandDTO} from "../../interfaces/MarketPlaceCommandDTO";
 
 @Component({
   selector: 'app-card-preview',
@@ -8,7 +8,7 @@ import {Command} from "../../interfaces/command.model";
 })
 export class CardPreviewComponent implements OnInit {
 
-  @Input() command: Command;
+  @Input() command: MarketPlaceCommandDTO;
 
   constructor() {
   }
@@ -17,7 +17,7 @@ export class CardPreviewComponent implements OnInit {
   }
 
 
-  installCommand(command: Command) {
+  installCommand(command: MarketPlaceCommandDTO) {
     console.log('installCommand', command);
   }
 }

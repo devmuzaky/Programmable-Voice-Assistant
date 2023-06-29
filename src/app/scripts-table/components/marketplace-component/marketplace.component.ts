@@ -1,10 +1,12 @@
 import {AfterViewInit, Component, ElementRef, EventEmitter, Input, OnInit, Output, ViewChild} from '@angular/core';
 import {CommandService} from "../../services/command.service";
 import {debounceTime, distinctUntilChanged, fromEvent, map, switchMap} from "rxjs";
-import {Command} from "../../interfaces/command.model";
+import {MarketPlaceCommandDTO} from "../../interfaces/MarketPlaceCommandDTO";
 
 @Component({
-  selector: 'app-marketplace', templateUrl: './marketplace.component.html', styleUrls: ['./marketplace.component.scss']
+  selector: 'app-marketplace',
+  templateUrl: './marketplace.component.html',
+  styleUrls: ['./marketplace.component.scss']
 })
 
 export class MarketplaceComponent implements AfterViewInit, OnInit {
@@ -17,18 +19,20 @@ export class MarketplaceComponent implements AfterViewInit, OnInit {
 
   commandSelectedFlag = false;
 
-  commandsList: Command[] = [];
-  commandSelected: Command;
+  commandsList: MarketPlaceCommandDTO[] = [];
+  commandSelected: MarketPlaceCommandDTO;
 
   constructor(private commandService: CommandService) {
 
   }
 
   ngOnInit() {
-    this.commandService.getCommands().subscribe(data => {
+    this.commandService.getMarketplaceCommands().subscribe(data => {
       this.commandsList = data;
-      console.log("Commands: ", this.commandsList)
-    }, error => console.error(error));
+      this.commandSelected = this.commandsList[0];
+      console.log(this.commandsList);
+    },
+        error => console.error(error));
 
   }
 
