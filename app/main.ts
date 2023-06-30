@@ -62,7 +62,7 @@ function createWindow(): BrowserWindow {
 
 
   // TODO: remove this line: it drop and recreate the tables
-  sequelize.sync({ force: true }); // Drops and recreates the tables
+  // sequelize.sync();
 
   sttInit();
   ttsInit();

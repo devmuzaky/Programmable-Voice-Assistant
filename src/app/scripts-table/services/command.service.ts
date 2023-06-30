@@ -37,7 +37,12 @@ export class CommandService {
       .pipe(map((res: any) => {
         return res.data.filter((item: any) => {
 
-          return item.name.toLowerCase().includes(search.toLowerCase()) || item.description.toLowerCase().includes(search.toLowerCase()) || item.owner.toLowerCase().includes(search.toLowerCase()) || item.commands.toLowerCase().includes(search.toLowerCase()) || item.status.toLowerCase().includes(search.toLowerCase()) || item.script.toLowerCase().includes(search.toLowerCase());
+          return item.name.toLowerCase().includes(search.toLowerCase())
+            || item.description.toLowerCase().includes(search.toLowerCase())
+            || item.owner.toLowerCase().includes(search.toLowerCase())
+            || item.commands.toLowerCase().includes(search.toLowerCase())
+            || item.status.toLowerCase().includes(search.toLowerCase())
+            || item.script.toLowerCase().includes(search.toLowerCase());
         });
       }));
   }
@@ -46,7 +51,7 @@ export class CommandService {
     const formData = new FormData();
     formData.append('name', command.name);
     formData.append('description', command.description);
-    formData.append('visibility', command.visibility || '');
+    formData.append('state', command.visibility || '');
 
     if (command.icon) {
       formData.append('icon', command.icon);
@@ -79,6 +84,7 @@ export class CommandService {
 
   editCommand(command: CommandEditRequest) {
     const formData = new FormData();
+
     if (command.name) {
       formData.append('name', command.name);
     }
@@ -89,7 +95,7 @@ export class CommandService {
     }
 
     if (command.visibility) {
-      formData.append('visibility', command.visibility || '');
+      formData.append('state', command.visibility || '');
     }
 
     if (command.icon) {
@@ -101,7 +107,7 @@ export class CommandService {
         if (!(command.parameters[i].name && command.parameters[i].type)) {
           continue;
         }
-        formData.append(`parameters[${i}]`, JSON.stringify(command.parameters[i]));
+        formData.append(`parametersX[${i}]`, JSON.stringify(command.parameters[i]));
       }
     }
 
@@ -111,17 +117,17 @@ export class CommandService {
         if (!command.patterns[i]) {
           continue;
         }
-        formData.append(`patterns[${i}]`, JSON.stringify({syntax: command.patterns[i]}));
+        formData.append(`patternsX[${i}]`, JSON.stringify({syntax: command.patterns[i]}));
       }
     }
 
     if (command.script_data) {
-      formData.append('script_data.scriptType', command.script_data.scriptType);
-      formData.append('script_data.script', command.script_data.script);
-      formData.append('script_data.requirements', command.script_data.requirements);
+      formData.append('script_dataX.scriptType', command.script_data.scriptType);
+      formData.append('script_dataX.script', command.script_data.script);
+      formData.append('script_dataX.requirements', command.script_data.requirements);
     }
 
-    return this.http.patch(`${this.baseUrl}/api/commands/${command.id}/`, command);
+    return this.http.put(`${this.baseUrl}/api/commands/${command.id}/`, formData);
   }
 
   getMarketplaceCommands() {
