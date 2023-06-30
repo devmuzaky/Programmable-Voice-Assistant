@@ -11,13 +11,13 @@
     [responsive]="true"
     [showHeader]="false"
     visible="true">
+    <app-loader [showLoader]="showLoader">
+      <p-toolbar styleClass="gap-2">
 
-    <p-toolbar styleClass="gap-2">
-
-      <ng-template pTemplate="left">
+        <ng-template pTemplate="left">
 
 
-        <div class="flex align-items-center justify-content-between">
+          <div class="flex align-items-center justify-content-between">
                   <span class="p-input-icon-left w-362 search-input">
                     <i class="pi pi-search"></i>
                     <input
@@ -28,27 +28,26 @@
                       type="text"
                     />
                   </span>
-        </div>
+          </div>
 
 
-      </ng-template>
+        </ng-template>
 
-      <ng-template pTemplate="right">
-        <button
-          (click)="closeMarketplace()"
-          class="btn-close"
-          pButton
-          type="button"
-        >
-          <i class="pi pi-times"></i>
-        </button>
-      </ng-template>
-    </p-toolbar>
+        <ng-template pTemplate="right">
+          <button
+            (click)="closeMarketplace()"
+            class="btn-close"
+            pButton
+            type="button"
+          >
+            <i class="pi pi-times"></i>
+          </button>
+        </ng-template>
+      </p-toolbar>
 
+      <div class="parent">
 
-    <div class="parent">
-
-      <div class="div2">
+        <div class="div2">
 
           <app-command-card
             (commandSelected)="commandSelected = $event"
@@ -58,27 +57,29 @@
           ></app-command-card>
 
 
-        <div *ngIf="!commandsList.length" class="no-commands-found">
-          <span>No commands found</span>
+          <div *ngIf="!commandsList.length" class="no-commands-found">
+            <span>No commands found</span>
+          </div>
+
+
         </div>
 
-
-      </div>
-
-      <div class="div3 flex">
+        <div class="div3 flex">
                 <span *ngIf="!commandSelectedFlag" class="prev-text">
                   Select Command to preview it
                 </span>
 
-        <app-card-preview
-          *ngIf="commandSelectedFlag"
-          [command]="commandSelected"
-        ></app-card-preview>
+          <app-card-preview
+            *ngIf="commandSelectedFlag"
+            [command]="commandSelected"
+            (showLoader)="showLoader = $event"
+            (closeMarketPlace)="closeMarketplace()"
+          ></app-card-preview>
+
+        </div>
 
       </div>
-
-    </div>
-
+    </app-loader>
   </p-dialog>
 
 

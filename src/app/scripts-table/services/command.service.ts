@@ -5,6 +5,7 @@ import {APP_CONFIG} from "../../../environments/environment";
 import {CommandCreateRequest} from "../interfaces/commandCreateRequest.model";
 import {CommandEditInfoDTO} from "../interfaces/CommandEditInfoDTO";
 import {CommandEditRequest} from "../interfaces/commandEditRequest.model";
+import {MarketPlaceCommandDTO} from "../interfaces/MarketPlaceCommandDTO";
 
 
 @Injectable({
@@ -121,5 +122,14 @@ export class CommandService {
     }
 
     return this.http.patch(`${this.baseUrl}/api/commands/${command.id}/`, command);
+  }
+
+  getMarketplaceCommands() {
+    return this.http.get<MarketPlaceCommandDTO[]>(`${this.baseUrl}/api/commands/public/`);
+  }
+
+  installCommand(id: number) {
+    return this.http.get<{ id: number, name: string, executable_url: string }>(
+      `${this.baseUrl}/api/commands/${id}/install/`);
   }
 }

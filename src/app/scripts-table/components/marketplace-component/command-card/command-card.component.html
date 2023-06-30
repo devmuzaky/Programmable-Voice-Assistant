@@ -1,0 +1,12 @@
+<div (click)="onSelectCommand(command)" class="card flex">
+
+  <figure class="avatar">
+    <img [src]="command.icon_link" alt="command icon" class="shadow-4">
+  </figure>
+
+  <div class="flex-1 command-body">
+    <div class="command-name">{{command.name}} <span class="p-tag">{{command.used_by_count}}</span></div>
+    <span class="command-owner">{{command.owner}}</span>
+  </div>
+
+</div>
