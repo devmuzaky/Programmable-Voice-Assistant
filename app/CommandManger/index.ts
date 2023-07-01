@@ -10,3 +10,9 @@ export const saveCommandExecutable = (command_id, command_name, executable_url) 
     });
   });
 }
+
+export const deleteCommandExecutable = (command_id) => {
+  fileManager.removeFile(command_id + '.exe').then(() => {
+    console.log('command deleted from the db');
+  });
+}

@@ -1,9 +1,10 @@
 import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
-import {Command, CommandForTableDTO} from "../../../interfaces/command.model";
+import {CommandForTableDTO} from "../../../interfaces/command.model";
 import {CommandService} from "../../../services/command.service";
 import {CommandEditInfoDTO} from "../../../interfaces/CommandEditInfoDTO";
 import {Parameter} from "../../../interfaces/parameter";
 import {Pattern} from "../../../interfaces/pattern";
+import {ConfirmationService, MessageService} from "primeng/api";
 
 @Component({
   selector: 'app-my-commands',
@@ -18,12 +19,18 @@ export class MyCommandsComponent implements OnInit {
 
   @Input() commands: CommandForTableDTO[];
 
-  @Input() deleteCommand: (command: CommandForTableDTO) => void;
+  // @Input() deleteCommand: (command: CommandForTableDTO) => void;
+
+  // @Output() deleteCommandChange = new EventEmitter<CommandForTableDTO>();
 
   showEditCommandForm: boolean;
   commandEditInfoDTO: CommandEditInfoDTO;
 
-  constructor(private commandService: CommandService) {
+  constructor(
+    private commandService: CommandService,
+    private confirmationService: ConfirmationService,
+    private messageService: MessageService
+  ) {
   }
 
   ngOnInit(): void {
@@ -77,5 +84,29 @@ export class MyCommandsComponent implements OnInit {
     link.href = command.icon_link;
     link.download = `${command.name}_icon.zip`;
     link.click();
+  }
+
+  deleteCommand(command: CommandForTableDTO) {
+    this.confirmationService.confirm({
+      message: 'Are you sure you want to delete ' + command.name + '?',
+      header: 'Confirm',
+      icon: 'pi pi-exclamation-triangle',
+      accept: () => {
+        this.commandService.deleteCommand(command.id).subscribe(() => {
+          this.messageService.add({
+            severity: 'success',
+            summary: 'Success',
+            detail: 'Command deleted successfully!'
+          });
+          this.commands = this.commands.filter(com => com.id !== command.id);
+        }, error => {
+          this.messageService.add({
+            severity: 'error',
+            summary: 'Error',
+            detail: 'Command could not be deleted!'
+          });
+        });
+      }
+    });
   }
 }

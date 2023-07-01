@@ -6,6 +6,7 @@ import {CommandCreateRequest} from "../interfaces/commandCreateRequest.model";
 import {CommandEditInfoDTO} from "../interfaces/CommandEditInfoDTO";
 import {CommandEditRequest} from "../interfaces/commandEditRequest.model";
 import {MarketPlaceCommandDTO} from "../interfaces/MarketPlaceCommandDTO";
+import {ElectronService} from "../../core/services";
 
 
 @Injectable({
@@ -16,7 +17,10 @@ export class CommandService {
   baseUrl = APP_CONFIG.apiBaseUrl;
 
 
-  constructor(private http: HttpClient) {
+  constructor(
+    private http: HttpClient,
+    private electronService: ElectronService
+  ) {
   }
 
 
@@ -137,5 +141,14 @@ export class CommandService {
   installCommand(id: number) {
     return this.http.get<{ id: number, name: string, executable_url: string }>(
       `${this.baseUrl}/api/commands/${id}/install/`);
+  }
+
+  deleteCommand(id: number) {
+    this.deleteExecutableFileFromDB(id);
+    return this.http.delete(`${this.baseUrl}/api/commands/${id}/`);
+  }
+
+  private deleteExecutableFileFromDB(id: number) {
+    return this.electronService.ipcRenderer.sendSync('delete-executable-file', id);
   }
 }

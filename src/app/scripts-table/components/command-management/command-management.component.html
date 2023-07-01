@@ -44,9 +44,8 @@
     <mat-tab-group>
       <mat-tab label="My Commands">
         <app-my-commands
-          [(selection)]="selectedCommands"
+          [(selection)]='selectedCommands'
           [commands]="commands"
-          [deleteCommand]="deleteCommand"
         ></app-my-commands>
       </mat-tab>
 
@@ -57,8 +56,8 @@
   </div>
 
   <app-create-command-form
-    *ngIf="showCreateCommandForm"
     (closeForm)="CloseCreateCommandForm()"
+    *ngIf="showCreateCommandForm"
   ></app-create-command-form>
 
 </div>

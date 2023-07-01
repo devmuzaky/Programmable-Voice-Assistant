@@ -1,5 +1,5 @@
 import {Component, OnInit} from '@angular/core';
-import {Command} from '../../interfaces/command.model';
+import {Command, CommandForTableDTO} from '../../interfaces/command.model';
 import {CommandService} from '../../services/command.service';
 import {ConfirmationService, MessageService} from "primeng/api";
 
@@ -51,7 +51,7 @@ export class CommandManagement implements OnInit {
   constructor(
     private commandService: CommandService,
     private messageService: MessageService,
-    private confirmationService: ConfirmationService,) {
+    private confirmationService: ConfirmationService) {
   }
 
   ngOnInit() {
@@ -79,20 +79,6 @@ export class CommandManagement implements OnInit {
 
   CloseCreateCommandForm() {
     this.showCreateCommandForm = false;
-  }
-
-  //  handle deleting commands
-  deleteCommand(command: Command) {
-    this.confirmationService.confirm({
-      message: 'Are you sure you want to delete ' + command.name + '?',
-      header: 'Confirm',
-      icon: 'pi pi-exclamation-triangle',
-      accept: () => {
-        this.commands = this.commands.filter(val => val.id !== command.id);
-        this.command = {};
-        this.messageService.add({severity: 'success', summary: 'Successful', detail: 'Command Deleted', life: 3000});
-      }
-    });
   }
 
   deleteSelectedCommands() {
