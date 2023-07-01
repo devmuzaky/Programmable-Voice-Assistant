@@ -144,11 +144,11 @@ export class CommandService {
   }
 
   deleteCommand(id: number) {
-    this.deleteExecutableFileFromDB(id);
     return this.http.delete(`${this.baseUrl}/api/commands/${id}/`);
   }
 
-  private deleteExecutableFileFromDB(id: number) {
-    return this.electronService.ipcRenderer.sendSync('delete-executable-file', id);
+  uninstallCommand(id: number) {
+    return this.http.delete(`${this.baseUrl}/api/commands/${id}/uninstall/`);
   }
+
 }

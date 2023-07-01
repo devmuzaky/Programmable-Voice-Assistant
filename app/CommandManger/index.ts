@@ -1,5 +1,5 @@
 import {FileManager} from "./file-manger";
-import {createCommand} from "../DB/queries/command-repository";
+import {createCommand, deleteCommand} from "../DB/queries/command-repository";
 
 const fileManager = new FileManager("test-files");
 
@@ -13,6 +13,8 @@ export const saveCommandExecutable = (command_id, command_name, executable_url) 
 
 export const deleteCommandExecutable = (command_id) => {
   fileManager.removeFile(command_id + '.exe').then(() => {
-    console.log('command deleted from the db');
+    deleteCommand(command_id).then(() => {
+      console.log('command deleted from the db')
+    });
   });
 }

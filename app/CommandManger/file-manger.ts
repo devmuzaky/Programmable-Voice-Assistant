@@ -21,7 +21,11 @@ export class FileManager {
     await this.ensureDirectoryExists(this.directoryPath);
 
     return new Promise((resolve, reject) => {
-      // clear the file content, if it exists
+
+      if (!url) {
+        reject(`Error downloading file '${fileName}': url is empty`);
+      }
+
       fs.writeFileSync(filePath, '');
 
       const fileStream = fs.createWriteStream(filePath);
@@ -52,6 +56,9 @@ export class FileManager {
   }
 
   async removeFile(fileName: string): Promise<void> {
+    if (!(await existsAsync(path.join(this.directoryPath, fileName)))) {
+      return;
+    }
     const filePath = path.join(this.directoryPath, fileName);
     await unlinkAsync(filePath);
     console.log(`File '${fileName}' removed successfully!`);

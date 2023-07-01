@@ -5,6 +5,7 @@ import {CommandEditInfoDTO} from "../../../interfaces/CommandEditInfoDTO";
 import {Parameter} from "../../../interfaces/parameter";
 import {Pattern} from "../../../interfaces/pattern";
 import {ConfirmationService, MessageService} from "primeng/api";
+import {ElectronService} from "../../../../core/services";
 
 @Component({
   selector: 'app-my-commands',
@@ -29,7 +30,8 @@ export class MyCommandsComponent implements OnInit {
   constructor(
     private commandService: CommandService,
     private confirmationService: ConfirmationService,
-    private messageService: MessageService
+    private messageService: MessageService,
+    private electronService: ElectronService
   ) {
   }
 
@@ -98,6 +100,7 @@ export class MyCommandsComponent implements OnInit {
             summary: 'Success',
             detail: 'Command deleted successfully!'
           });
+          this.electronService.ipcRenderer.send('delete-executable-file', command.id);
           this.commands = this.commands.filter(com => com.id !== command.id);
         }, error => {
           this.messageService.add({
