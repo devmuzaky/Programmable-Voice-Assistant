@@ -15,6 +15,7 @@ import {ElectronService} from "../../core/services";
 export class CommandService {
 
   baseUrl = APP_CONFIG.apiBaseUrl;
+  private updateMyCommandsTable: boolean = false;
 
 
   constructor(
@@ -150,5 +151,10 @@ export class CommandService {
   uninstallCommand(id: number) {
     return this.http.delete(`${this.baseUrl}/api/commands/${id}/uninstall/`);
   }
+
+  forkCommand(id) {
+    return this.http.get(`${this.baseUrl}/api/commands/${id}/fork/`);
+  }
+
 
 }

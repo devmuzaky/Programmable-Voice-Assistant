@@ -43,10 +43,7 @@
 
     <mat-tab-group>
       <mat-tab label="My Commands">
-        <app-my-commands
-          [(selection)]='selectedCommands'
-          [commands]="commands"
-        ></app-my-commands>
+        <app-my-commands [(selection)]='selectedCommands'></app-my-commands>
       </mat-tab>
 
       <mat-tab label="Installed Commands">

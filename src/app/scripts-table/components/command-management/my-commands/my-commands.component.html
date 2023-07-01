@@ -4,7 +4,7 @@
          [rowHover]="true"
          [rows]="5"
          [selection]="selection" [showCurrentPageReport]="true" [tableStyle]="{'min-width': '75rem'}"
-         [value]="commands"
+         [value]="(commands$ | async)"
          currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries"
          dataKey="id">
 
@@ -107,7 +107,7 @@
   </ng-template>
   <ng-template pTemplate="summary">
     <div class="flex align-items-center justify-content-between">
-      In total there are {{commands ? commands.length : 0 }} Commands.
+      In total there are {{commands$ ? (commands$ | async).length : 0 }} Commands.
     </div>
   </ng-template>
 </p-table>

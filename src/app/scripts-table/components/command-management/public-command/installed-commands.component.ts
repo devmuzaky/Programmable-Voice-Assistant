@@ -7,6 +7,7 @@ import {Observable} from "rxjs";
 import {CommandService} from "../../../services/command.service";
 import {ConfirmationService, MessageService} from "primeng/api";
 import {ElectronService} from "../../../../core/services";
+import {MyCommandService} from "../my-commands/my-command-service/my-command.service";
 
 @Component({
   selector: 'installed-commands',
@@ -21,7 +22,8 @@ export class InstalledCommandsComponent implements OnInit {
     private commandService: CommandService,
     private confirmationService: ConfirmationService,
     private messageService: MessageService,
-    private electronService: ElectronService
+    private electronService: ElectronService,
+    private myCommandService: MyCommandService
   ) {
   }
 
@@ -60,6 +62,32 @@ export class InstalledCommandsComponent implements OnInit {
             severity: 'error',
             summary: 'Error',
             detail: 'Command could not be uninstalled!'
+          });
+        });
+      }
+    });
+  }
+
+
+  forkCommand(command: any) {
+    this.confirmationService.confirm({
+      message: 'Are you sure that you want to fork this command?',
+      header: 'Confirm',
+      icon: 'pi pi-exclamation-triangle',
+      accept: () => {
+        this.commandService.forkCommand(command.id).subscribe(() => {
+          this.messageService.add({
+            severity: 'success',
+            summary: 'Success',
+            detail: 'Command forked successfully!'
+          });
+          this.myCommandService.getMyCommands();
+
+        }, error => {
+          this.messageService.add({
+            severity: 'error',
+            summary: 'Error',
+            detail: 'Command could not be forked!'
           });
         });
       }

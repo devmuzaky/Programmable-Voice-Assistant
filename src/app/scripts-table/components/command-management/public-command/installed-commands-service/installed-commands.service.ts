@@ -26,4 +26,5 @@ export class InstalledCommandsService {
         this._installedCommands$.next(res);
       });
   }
+
 }

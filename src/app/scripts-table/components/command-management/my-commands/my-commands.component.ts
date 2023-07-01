@@ -6,6 +6,8 @@ import {Parameter} from "../../../interfaces/parameter";
 import {Pattern} from "../../../interfaces/pattern";
 import {ConfirmationService, MessageService} from "primeng/api";
 import {ElectronService} from "../../../../core/services";
+import {MyCommandService} from "./my-command-service/my-command.service";
+import {Observable} from "rxjs";
 
 @Component({
   selector: 'app-my-commands',
@@ -18,11 +20,7 @@ export class MyCommandsComponent implements OnInit {
 
   @Output() selectionChange = new EventEmitter<CommandForTableDTO[]>();
 
-  @Input() commands: CommandForTableDTO[];
-
-  // @Input() deleteCommand: (command: CommandForTableDTO) => void;
-
-  // @Output() deleteCommandChange = new EventEmitter<CommandForTableDTO>();
+  commands$: Observable<CommandForTableDTO[]>;
 
   showEditCommandForm: boolean;
   commandEditInfoDTO: CommandEditInfoDTO;
@@ -31,11 +29,14 @@ export class MyCommandsComponent implements OnInit {
     private commandService: CommandService,
     private confirmationService: ConfirmationService,
     private messageService: MessageService,
-    private electronService: ElectronService
+    private electronService: ElectronService,
+    private myCommandService: MyCommandService
   ) {
   }
 
   ngOnInit(): void {
+    this.commands$ = this.myCommandService.myCommands$;
+
   }
 
   editCommand(id: number) {
@@ -101,7 +102,7 @@ export class MyCommandsComponent implements OnInit {
             detail: 'Command deleted successfully!'
           });
           this.electronService.ipcRenderer.send('delete-executable-file', command.id);
-          this.commands = this.commands.filter(com => com.id !== command.id);
+          this.myCommandService.getMyCommands();
         }, error => {
           this.messageService.add({
             severity: 'error',
