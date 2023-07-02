@@ -6,6 +6,7 @@ import {CommandCreateRequest} from "../interfaces/commandCreateRequest.model";
 import {CommandEditInfoDTO} from "../interfaces/CommandEditInfoDTO";
 import {CommandEditRequest} from "../interfaces/commandEditRequest.model";
 import {MarketPlaceCommandDTO} from "../interfaces/MarketPlaceCommandDTO";
+import {ElectronService} from "../../core/services";
 
 
 @Injectable({
@@ -14,9 +15,13 @@ import {MarketPlaceCommandDTO} from "../interfaces/MarketPlaceCommandDTO";
 export class CommandService {
 
   baseUrl = APP_CONFIG.apiBaseUrl;
+  private updateMyCommandsTable: boolean = false;
 
 
-  constructor(private http: HttpClient) {
+  constructor(
+    private http: HttpClient,
+    private electronService: ElectronService
+  ) {
   }
 
 
@@ -138,4 +143,18 @@ export class CommandService {
     return this.http.get<{ id: number, name: string, executable_url: string }>(
       `${this.baseUrl}/api/commands/${id}/install/`);
   }
+
+  deleteCommand(id: number) {
+    return this.http.delete(`${this.baseUrl}/api/commands/${id}/`);
+  }
+
+  uninstallCommand(id: number) {
+    return this.http.delete(`${this.baseUrl}/api/commands/${id}/uninstall/`);
+  }
+
+  forkCommand(id) {
+    return this.http.get(`${this.baseUrl}/api/commands/${id}/fork/`);
+  }
+
+
 }

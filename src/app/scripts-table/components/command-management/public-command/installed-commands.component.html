@@ -74,6 +74,7 @@
       </td>
       <td class="">
         <button
+          (click)="forkCommand(command)"
           class="p-button-rounded p-button-success mr-2"
           pButton
           pRipple>
@@ -83,6 +84,7 @@
           </svg>
         </button>
         <button
+          (click)="uninstallCommand(command)"
           class="p-button-rounded p-button-danger p-2"
           icon="pi pi-trash"
           pButton

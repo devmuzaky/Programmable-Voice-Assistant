@@ -1,9 +1,13 @@
 import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
-import {Command, CommandForTableDTO} from "../../../interfaces/command.model";
+import {CommandForTableDTO} from "../../../interfaces/command.model";
 import {CommandService} from "../../../services/command.service";
 import {CommandEditInfoDTO} from "../../../interfaces/CommandEditInfoDTO";
 import {Parameter} from "../../../interfaces/parameter";
 import {Pattern} from "../../../interfaces/pattern";
+import {ConfirmationService, MessageService} from "primeng/api";
+import {ElectronService} from "../../../../core/services";
+import {MyCommandService} from "./my-command-service/my-command.service";
+import {Observable} from "rxjs";
 
 @Component({
   selector: 'app-my-commands',
@@ -16,17 +20,23 @@ export class MyCommandsComponent implements OnInit {
 
   @Output() selectionChange = new EventEmitter<CommandForTableDTO[]>();
 
-  @Input() commands: CommandForTableDTO[];
-
-  @Input() deleteCommand: (command: CommandForTableDTO) => void;
+  commands$: Observable<CommandForTableDTO[]>;
 
   showEditCommandForm: boolean;
   commandEditInfoDTO: CommandEditInfoDTO;
 
-  constructor(private commandService: CommandService) {
+  constructor(
+    private commandService: CommandService,
+    private confirmationService: ConfirmationService,
+    private messageService: MessageService,
+    private electronService: ElectronService,
+    private myCommandService: MyCommandService
+  ) {
   }
 
   ngOnInit(): void {
+    this.commands$ = this.myCommandService.myCommands$;
+
   }
 
   editCommand(id: number) {
@@ -77,5 +87,30 @@ export class MyCommandsComponent implements OnInit {
     link.href = command.icon_link;
     link.download = `${command.name}_icon.zip`;
     link.click();
+  }
+
+  deleteCommand(command: CommandForTableDTO) {
+    this.confirmationService.confirm({
+      message: 'Are you sure you want to delete ' + command.name + '?',
+      header: 'Confirm',
+      icon: 'pi pi-exclamation-triangle',
+      accept: () => {
+        this.commandService.deleteCommand(command.id).subscribe(() => {
+          this.messageService.add({
+            severity: 'success',
+            summary: 'Success',
+            detail: 'Command deleted successfully!'
+          });
+          this.electronService.ipcRenderer.send('delete-executable-file', command.id);
+          this.myCommandService.getMyCommands();
+        }, error => {
+          this.messageService.add({
+            severity: 'error',
+            summary: 'Error',
+            detail: 'Command could not be deleted!'
+          });
+        });
+      }
+    });
   }
 }
