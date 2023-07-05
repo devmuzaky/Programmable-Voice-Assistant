@@ -184,6 +184,8 @@ export class RegisterComponentComponent implements OnInit {
 
           this.notificationService.connect(this.storageService.getUser().pk);
 
+          this.router.navigate(['/my-scripts']);
+
         },
         err => {
           this.errorMessage = "Invalid email or password!";
@@ -206,7 +208,7 @@ export class RegisterComponentComponent implements OnInit {
   }
 
   private showLogin() {
-    this.router.navigate(['/recorder']);
+    this.router.navigate(['/home-page']);
   }
 
   togglePasswordVisibility() {

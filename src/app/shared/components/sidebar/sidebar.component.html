@@ -4,18 +4,29 @@
   </div>
 
   <ul class="sidenav-nav">
-    <li  label="Commands Tables" class="sidenav-nav-item">
+
+    <li class="sidenav-nav-item" label="Home Page">
+      <a
+        [routerLinkActiveOptions]="{exact: true}" class="sidenav-nav-link"
+        routerLink="/home-page"
+        routerLinkActive="active">
+        <img alt="icon" class="sidenav-link-icon" src="./assets/icons/homepage.svg" title="Home"/>
+      </a>
+    </li>
+
+    <li class="sidenav-nav-item" label="Commands Tables">
       <a *ngIf=" (isLogin$ | async)"
-         [routerLinkActiveOptions]="{exact: true}" routerLink="/my-scripts"
-         class="sidenav-nav-link"
+         [routerLinkActiveOptions]="{exact: true}" class="sidenav-nav-link"
+         routerLink="/my-scripts"
          routerLinkActive="active">
-        <img title="Commands Tables" alt="icon" class="sidenav-link-icon" src="./assets/icons/script.svg"/>
+        <img alt="icon" class="sidenav-link-icon" src="./assets/icons/script.svg" title="Commands Tables"/>
       </a>
 
     </li>
 
     <li class="sidenav-nav-item reorderChat">
-      <a (click)="opT.show($event, targetEl)" class="sidenav-nav-link" routerLinkActive="active">
+      <a (click)="opT.show($event, targetEl)" *ngIf=" (isLogin$ | async)" class="sidenav-nav-link"
+         routerLinkActive="active">
         <img alt="icon" class="sidenav-link-icon" src='./assets/icons/voice-recorder.svg' title="Open your assistant"/>
         <div #targetEl class="mt-5 ml-6 w-10rem h-8rem flex align-items-center justify-content-center"></div>
         <p-overlayPanel #opT
@@ -29,9 +40,10 @@
       </a>
     </li>
 
+
     <li (click)="op.toggle($event)"
         class="sidenav-nav-item notification">
-      <a class="sidenav-nav-link">
+      <a *ngIf=" (isLogin$ | async)" class="sidenav-nav-link">
         <img alt="icon" class="sidenav-link-icon" src="./assets/icons/notification.svg" title="Notifications"/>
       </a>
 

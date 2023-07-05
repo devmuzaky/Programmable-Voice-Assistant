@@ -1,0 +1,33 @@
+<div class="home-page-container">
+
+
+  <section>
+    <div class="title">
+      <span>My Assistant</span>
+      <span>a desktop application that helps you
+        <a>Organize your daily tasks</a>
+              <div *ngIf="(isLogin$ | async)" class="user-message">
+        Welcome <a>{{ getUsername()}}</a>! Enjoy the full range of features and personalized experience on your assistant.
+      </div>
+            <div *ngIf="!(isLogin$ | async)" class="user-message">
+      Welcome! Please
+              <div (click)="setToggleModal($event)" class="inline-block more-link">  <div
+                class="link">log in or sign up</div></div>
+              to access all the amazing feature.
+    </div>
+      </span>
+
+    </div>
+
+  </section>
+
+  <nav class="mr-auto">
+    <ul>
+      <li>About us</li>
+      <li><a (click)="openLinkInBrowser('https://github.com/Programmable-Voice-Assistant')">GitHub</a></li>
+      <li><a (click)="openLinkInBrowser('linkedin.com/in/Programmable-Voice-Assistant/')">Contact us</a></li>
+
+      <li class="slide"></li>
+    </ul>
+  </nav>
+</div>
