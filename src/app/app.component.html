@@ -1,11 +1,10 @@
 <ng-container *ngIf="!hideMain">
 
-  <app-sidebar (onToggleModal)="onToggleModal($event)">
-  </app-sidebar>
+  <app-sidebar></app-sidebar>
 
   <div [ngClass]="getBodyClass()" class="main-content" id="body">
     <router-outlet></router-outlet>
-    <app-modal (close)="toggleModal = false" *ngIf="toggleModal" class="modalApp">
+    <app-modal (close)="closeModal()" *ngIf="(toggleModal$ | async)" class="modalApp">
       <app-register-component></app-register-component>
     </app-modal>
   </div>

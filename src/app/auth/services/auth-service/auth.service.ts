@@ -35,14 +35,14 @@ export class AuthService {
   logout(): Observable<any> | any {
     this.isUserLoggedIn$.next(false);
     this.storageService.clean();
-    this.router.navigate(['/recorder']);
+    this.router.navigate(['/home-page']);
   }
 
   setLoggedIn(loggedIn: boolean) {
     this.isUserLoggedIn$.next(loggedIn);
   }
 
-  getUserId() {
-    return this.storageService.getUser().pk;
+  getUsername() {
+    return this.storageService.getUser().username;
   }
 }

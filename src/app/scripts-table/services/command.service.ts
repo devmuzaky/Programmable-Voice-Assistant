@@ -6,7 +6,6 @@ import {CommandCreateRequest} from "../interfaces/commandCreateRequest.model";
 import {CommandEditInfoDTO} from "../interfaces/CommandEditInfoDTO";
 import {CommandEditRequest} from "../interfaces/commandEditRequest.model";
 import {MarketPlaceCommandDTO} from "../interfaces/MarketPlaceCommandDTO";
-import {ElectronService} from "../../core/services";
 
 
 @Injectable({
@@ -15,22 +14,12 @@ import {ElectronService} from "../../core/services";
 export class CommandService {
 
   baseUrl = APP_CONFIG.apiBaseUrl;
-  private updateMyCommandsTable: boolean = false;
 
 
   constructor(
-    private http: HttpClient,
-    private electronService: ElectronService
-  ) {
+    private http: HttpClient) {
   }
 
-
-  getCommands() {
-    return this.http.get<any>('assets/commands.json')
-      .pipe(map((res: any) => {
-        return res.data;
-      }));
-  }
 
   getMyCommands() {
     return this.http.get<any>(`${this.baseUrl}/api/commands/mine/`);
