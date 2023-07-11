@@ -4,6 +4,7 @@ import {Subscription} from "rxjs";
 import {TtsService} from "../../services/tts/tts.service";
 import {ElectronService} from "../../../core/services";
 import {RasaSocketService} from "../../services/rasa/rasa.socket/rasa-socket.service";
+import {AuthService} from "../../../auth/services/auth-service/auth.service";
 
 @Component({
   selector: 'app-chat',
@@ -18,6 +19,7 @@ export class ChatComponent implements OnInit, OnDestroy, AfterViewInit {
 
   ttsAudioSubscription: Subscription;
   scriptResponseSubscription: Subscription;
+  AuthSubscription: Subscription;
 
   @ViewChild('audioElement') audioElement: ElementRef<HTMLAudioElement>;
   @ViewChild('messagesContent') messagesContent: ElementRef<HTMLElement>;
@@ -29,7 +31,8 @@ export class ChatComponent implements OnInit, OnDestroy, AfterViewInit {
               private ttsService: TtsService,
               private rasaSocketService: RasaSocketService,
               private electronService: ElectronService,
-              private zone: NgZone) {
+              private zone: NgZone,
+              private authService: AuthService) {
   }
 
   updateScrollbar() {
@@ -41,6 +44,12 @@ export class ChatComponent implements OnInit, OnDestroy, AfterViewInit {
   }
 
   ngOnInit(): void {
+    this.AuthSubscription = this.authService.newUserSubject.subscribe({
+      next: (data) => {
+        console.log("newUserSubject");
+        this.rasaSocketService.connect();
+      }
+    });
     this.transcribedSubscription = this.sttService.getTranscriptObservable().subscribe({
       next: (msg: string) => {
         this.addUserMessage(msg);

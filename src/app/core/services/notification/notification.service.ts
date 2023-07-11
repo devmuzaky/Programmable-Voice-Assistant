@@ -10,6 +10,8 @@ export class NotificationService {
 
   private notificationSubject: Subject<CommandNotification> = new Subject<CommandNotification>();
   private socket: WebSocket;
+  private rasa_socket: WebSocket;
+
 
   constructor(private electronService: ElectronService) {
   }
@@ -38,6 +40,24 @@ export class NotificationService {
       console.log('Notification connection closed.');
     };
 
+  }
+
+  rasa_connect(user_id: number): void {
+    const ws_url = `ws://localhost:8000/ws/rasa/notifications/${user_id}/`;
+    this.rasa_socket = new WebSocket(ws_url);
+    this.rasa_socket.onopen = (event) => {
+      console.log('Rasa Notification connection opened.');
+    };
+
+    this.rasa_socket.onmessage = (event) => {
+      console.log('Rasa Received message:', event.data)
+      const notification = JSON.parse(event.data).notification;
+      this.notificationSubject.next(notification);
+    };
+
+    this.rasa_socket.onclose = (event) => {
+      console.log('Rasa Notification connection closed.');
+    };
   }
 
   getNotificationObservable(): Observable<CommandNotification> {

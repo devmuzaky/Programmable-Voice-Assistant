@@ -191,10 +191,11 @@ export class RegisterComponentComponent implements OnInit {
           this.authService.setLoggedIn(true);
 
           this.notificationService.connect(this.storageService.getUser().pk);
+          this.notificationService.rasa_connect(this.storageService.getUser().pk);
 
           this.installedCommandsService.getInstalledCommands();
           this.myCommandService.getMyCommands();
-
+          this.authService.newUserSubject.next(true);
           this.router.navigate(['/my-scripts']);
 
 

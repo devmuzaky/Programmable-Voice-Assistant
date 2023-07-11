@@ -1,4 +1,4 @@
-import {Component, Input, OnInit} from '@angular/core';
+import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import {CommandNotification, EmptyCommandNotification} from "../interfaces/notification";
 
 @Component({
@@ -8,7 +8,7 @@ import {CommandNotification, EmptyCommandNotification} from "../interfaces/notif
 })
 export class NotificationCardComponent implements OnInit {
   @Input() notification: CommandNotification = EmptyCommandNotification;
-
+  @Output() onNotificationClick: EventEmitter<CommandNotification> = new EventEmitter<CommandNotification>();
   constructor() {
   }
 

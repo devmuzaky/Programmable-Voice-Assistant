@@ -3,6 +3,7 @@ import {NotificationService} from "../../../../core/services/notification/notifi
 import {StorageService} from "../../../../auth/services/storage.service";
 import {SnackbarService} from "../../../snackbar-service/snackbar.service";
 import {Subscription} from "rxjs";
+import {CommandNotification} from "../interfaces/notification";
 
 @Component({
   selector: 'app-notification-list',
@@ -24,6 +25,7 @@ export class NotificationListComponent implements OnInit, OnDestroy {
     if (this.storageService.isLoggedIn()) {
       console.log(this.storageService.getUser())
       this.notificationService.connect(this.storageService.getUser().pk);
+      this.notificationService.rasa_connect(this.storageService.getUser().pk);
     }
   }
 
@@ -34,7 +36,7 @@ export class NotificationListComponent implements OnInit, OnDestroy {
 
         this.snackbarService.openNotificationSnackBar(notification);
 
-        this.notificationList = this.notificationList.filter((item) => item.id !== notification.id);
+        // this.notificationList = this.notificationList.filter((item) => item.id !== notification.id);
         this.notificationList = [...this.notificationList, notification];
 
         this.zone.run(() => {
@@ -46,5 +48,14 @@ export class NotificationListComponent implements OnInit, OnDestroy {
 
   ngOnDestroy(): void {
     this.notificationSub.unsubscribe();
+  }
+
+  deleteNotification(notification: CommandNotification) {
+    this.notificationList = this.notificationList.filter((item) => {
+      return !(item.id === notification.id &&
+        item.message === notification.message &&
+        item.name === notification.name &&
+        item.status === notification.status)
+    });
   }
 }

@@ -2,7 +2,7 @@ import {Injectable} from '@angular/core';
 import {UserLogin} from '../../interface/userLogin';
 import {UserSignUp} from '../../interface/userSignUp';
 import {HttpClient} from "@angular/common/http";
-import {BehaviorSubject, Observable} from "rxjs";
+import {BehaviorSubject, Observable, Subject} from "rxjs";
 import {APP_CONFIG} from "../../../../environments/environment";
 import {StorageService} from "../storage.service";
 import {Router} from "@angular/router";
@@ -13,6 +13,7 @@ import {Router} from "@angular/router";
 })
 export class AuthService {
   baseUrl = APP_CONFIG.apiBaseUrl + '/users';
+  newUserSubject: Subject<boolean> = new Subject<boolean>()
 
   private isUserLoggedIn$: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
 
@@ -44,5 +45,9 @@ export class AuthService {
 
   getUsername() {
     return this.storageService.getUser().username;
+  }
+
+  getUserRasaPort() {
+    return this.http.get<{port: number}>(`${this.baseUrl}/rasa/port/${this.storageService.getUser().pk}`)
   }
 }
