@@ -142,8 +142,6 @@ export class CommandService {
   }
 
   forkCommand(id) {
-    return this.http.get(`${this.baseUrl}/api/commands/${id}/fork/`);
+    return this.http.post(`${this.baseUrl}/api/commands/${id}/fork/`, {});
   }
-
-
 }

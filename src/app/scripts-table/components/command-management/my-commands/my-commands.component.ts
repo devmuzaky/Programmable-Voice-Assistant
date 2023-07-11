@@ -24,6 +24,7 @@ export class MyCommandsComponent implements OnInit {
 
   showEditCommandForm: boolean;
   commandEditInfoDTO: CommandEditInfoDTO;
+  loading: boolean = false;
 
   constructor(
     private commandService: CommandService,
@@ -36,7 +37,6 @@ export class MyCommandsComponent implements OnInit {
 
   ngOnInit(): void {
     this.commands$ = this.myCommandService.myCommands$;
-
   }
 
   editCommand(id: number) {
@@ -68,7 +68,7 @@ export class MyCommandsComponent implements OnInit {
   }
 
   getPatternsString(patterns: Pattern[]) {
-    return patterns.map(pattern => pattern.syntax).join('/ ');
+    return patterns.map(pattern => pattern.syntax).join(' \n\n');
   }
 
   downloadCommandFiles(command: CommandForTableDTO) {
@@ -95,6 +95,7 @@ export class MyCommandsComponent implements OnInit {
       header: 'Confirm',
       icon: 'pi pi-exclamation-triangle',
       accept: () => {
+        this.loading = true;
         this.commandService.deleteCommand(command.id).subscribe(() => {
           this.messageService.add({
             severity: 'success',
@@ -103,12 +104,14 @@ export class MyCommandsComponent implements OnInit {
           });
           this.electronService.ipcRenderer.send('delete-executable-file', command.id);
           this.myCommandService.getMyCommands();
+          this.loading = false;
         }, error => {
           this.messageService.add({
             severity: 'error',
             summary: 'Error',
             detail: 'Command could not be deleted!'
           });
+          this.loading = false;
         });
       }
     });

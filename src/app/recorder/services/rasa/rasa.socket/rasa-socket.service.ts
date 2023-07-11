@@ -1,9 +1,7 @@
 import {Injectable} from '@angular/core';
 import {io} from "socket.io-client";
 
-@Injectable({
-  providedIn: 'root'
-})
+@Injectable()
 export class RasaSocketService {
   private readonly socket: any;
 

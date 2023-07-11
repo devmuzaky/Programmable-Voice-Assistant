@@ -8,7 +8,8 @@ import {RasaSocketService} from "../../services/rasa/rasa.socket/rasa-socket.ser
 @Component({
   selector: 'app-chat',
   templateUrl: './chat.component.html',
-  styleUrls: ['./chat.component.scss']
+  styleUrls: ['./chat.component.scss'],
+  providers: [RasaSocketService]
 })
 export class ChatComponent implements OnInit, OnDestroy, AfterViewInit {
 

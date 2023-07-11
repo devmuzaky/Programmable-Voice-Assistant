@@ -17,7 +17,7 @@ export const createTray = (trayPath, serve: boolean) => {
         nodeIntegration: true,
         allowRunningInsecureContent: serve,
         contextIsolation: false,
-        devTools: false
+        devTools: true
       },
     },
     showDockIcon: false,

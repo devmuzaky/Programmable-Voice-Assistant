@@ -5,11 +5,8 @@ import {RecorderModule} from "../recorder/recorder.module";
 
 
 @NgModule({
-  declarations: [TrayComponent],
-  imports: [
-    CommonModule,
-    RecorderModule
-  ],
+  declarations: [TrayComponent,],
+  imports: [CommonModule, RecorderModule],
   exports: [TrayComponent]
 })
 export class TrayModule {

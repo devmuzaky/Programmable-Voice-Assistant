@@ -4,6 +4,7 @@ import {CommandService} from "../../../services/command.service";
 import {FileUpload} from "primeng/fileupload";
 import {CommandEditInfoDTO} from "../../../interfaces/CommandEditInfoDTO";
 import {CommandEditRequest} from "../../../interfaces/commandEditRequest.model";
+import {MyCommandService} from "../my-commands/my-command-service/my-command.service";
 
 @Component({
   selector: 'app-edit-command-form',
@@ -13,7 +14,7 @@ import {CommandEditRequest} from "../../../interfaces/commandEditRequest.model";
 export class EditCommandFormComponent implements OnInit {
   @Input() initialCommandEditInfoDTO: CommandEditInfoDTO;
   @Output() closeForm = new EventEmitter<void>();
-
+  loading: boolean = false;
   scriptType = [
     {
       label: '---', value: ''
@@ -38,7 +39,11 @@ export class EditCommandFormComponent implements OnInit {
   patternsNumber: number = 1;
   commandEditInfoDTO: CommandEditInfoDTO;
 
-  constructor(private messageService: MessageService, private commandService: CommandService) {
+  constructor(
+    private messageService: MessageService,
+    private commandService: CommandService,
+    private myCommandService: MyCommandService
+  ) {
   }
 
   ngOnInit(): void {
@@ -49,7 +54,9 @@ export class EditCommandFormComponent implements OnInit {
   }
 
   onEditCommand() {
+    if (this.loading) return;
     this.submitted = true;
+    this.loading = true;
     const commandEditRequest: CommandEditRequest = {
       id: this.commandEditInfoDTO.id,
     };
@@ -64,10 +71,12 @@ export class EditCommandFormComponent implements OnInit {
         life: 3000
       });
       this.closeForm.emit();
+      this.loading = false;
 
-    // TODO: update the table
+      this.myCommandService.getMyCommands();
     }, error => {
       this.messageService.add({severity: 'error', summary: `Error ${error.status}`, detail: error.message, life: 3000});
+      this.loading = false;
     });
   }
 
