@@ -20,7 +20,9 @@
             type="text" id="tokenInput" placeholder="Put your token here"
                  pInputText [(ngModel)]="token" />
 
-          <i (click)="onSaveToken()" class="send  pi pi-save" pButton></i>
+          <button pButton (click)="onSaveToken()">
+            <i  class="send  pi pi-save" ></i>
+          </button>
 
         </div>
 
