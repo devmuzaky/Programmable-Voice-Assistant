@@ -7,17 +7,19 @@ import {AuthRoutingModule} from './auth/auth-routing.module';
 import {RecorderRoutingModule} from "./recorder/recorder-routing.module";
 import {CommandManagement} from "./scripts-table/components/command-management/command-management.component";
 import {MarketplaceComponent} from "./scripts-table/components/marketplace-component/marketplace.component";
-import {RecorderComponent} from "./recorder/components/recorder/recorder.component";
+import {HomePageComponent} from "./recorder/components/home-page/home-page.component";
+import {GoogleTokenComponent} from "./shared/components/google-token/google-token.component";
 
 const routes: Routes = [
   {
     path: '',
-    redirectTo: 'recorder',
-    pathMatch: 'full'
+    redirectTo: 'home-page',
+    pathMatch: 'full',
+
   },
   {
-    path: 'recorder',
-    component: RecorderComponent
+    path: 'home-page',
+    component: HomePageComponent
   },
   {
     path: 'my-scripts',
@@ -26,6 +28,10 @@ const routes: Routes = [
   {
     path: 'marketplace',
     component: MarketplaceComponent
+  },
+  {
+    path: 'gToken',
+    component: GoogleTokenComponent
   },
   {
     path: '**',

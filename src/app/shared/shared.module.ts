@@ -21,9 +21,10 @@ import {ButtonModule} from "primeng/button";
 import {RecorderModule} from "../recorder/recorder.module";
 import { LoaderComponent } from './components/loader/loader.component';
 import {ProgressSpinnerModule} from "primeng/progressspinner";
+import { GoogleTokenComponent } from './components/google-token/google-token.component';
 
 @NgModule({
-  declarations: [PageNotFoundComponent, WebviewDirective, SidebarComponent, ModalComponent, HomeComponent, NotificationCardComponent, NotificationListComponent, LoaderComponent],
+  declarations: [PageNotFoundComponent, WebviewDirective, SidebarComponent, ModalComponent, HomeComponent, NotificationCardComponent, NotificationListComponent, LoaderComponent, GoogleTokenComponent],
     imports: [CommonModule, TranslateModule, FormsModule, BrowserAnimationsModule, RouterModule, OverlayPanelModule, ListboxModule, TrayModule, AuthModule, ButtonModule, RecorderModule, ProgressSpinnerModule],
   exports: [TranslateModule, WebviewDirective, FormsModule, SidebarComponent, ModalComponent, LoaderComponent]
 })

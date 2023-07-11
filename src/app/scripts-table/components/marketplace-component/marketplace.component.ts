@@ -52,7 +52,7 @@ export class MarketplaceComponent implements AfterViewInit, OnInit {
     fromEvent(this.input.nativeElement, 'keyup')
       .pipe(map((event: any) => {
         return event.target.value;
-      }), debounceTime(1000), distinctUntilChanged(), switchMap(search => this.commandService.searchCommand(search)))
+      }), debounceTime(500), distinctUntilChanged(), switchMap(search => this.commandService.searchCommand(search)))
       .subscribe((results: any) => {
         this.commandsList = results;
       });
