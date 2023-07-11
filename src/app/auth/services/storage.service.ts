@@ -16,6 +16,7 @@ export class StorageService {
     window.localStorage.removeItem(USER);
     window.localStorage.removeItem(ACCESS_TOKEN);
     window.localStorage.removeItem(REFRESH_TOKEN);
+    window.localStorage.removeItem('google-token');
   }
 
   public saveUser(user: AuthUser): void {
