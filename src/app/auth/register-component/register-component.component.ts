@@ -194,7 +194,8 @@ export class RegisterComponentComponent implements OnInit {
 
           this.installedCommandsService.getInstalledCommands();
           this.myCommandService.getMyCommands();
-
+          console.log("dfkjgllllllllll")
+          this.authService.newUserSubject.next(true);
           this.router.navigate(['/my-scripts']);
 
 
