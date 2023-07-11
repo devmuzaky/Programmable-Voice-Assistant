@@ -1,9 +1,11 @@
-import {Component, EventEmitter, Output} from '@angular/core';
+import {Component, EventEmitter, NgZone, Output} from '@angular/core';
 import {Command} from "../../../interfaces/command.model";
 import {FileUpload} from "primeng/fileupload";
 import {CommandCreateRequest} from "../../../interfaces/commandCreateRequest.model";
 import {MessageService} from "primeng/api";
 import {CommandService} from "../../../services/command.service";
+import {MyCommandService} from "../my-commands/my-command-service/my-command.service";
+import {BehaviorSubject} from "rxjs";
 
 @Component({
   selector: 'app-create-command-form',
@@ -12,7 +14,7 @@ import {CommandService} from "../../../services/command.service";
 })
 export class CreateCommandFormComponent {
   @Output() closeForm = new EventEmitter<void>();
-
+  loading: BehaviorSubject<Boolean> = new BehaviorSubject<Boolean>(false);
   command: Command = {
     name: '',
     description: '',
@@ -63,12 +65,22 @@ export class CreateCommandFormComponent {
   submitted: boolean;
 
 
-  constructor(private messageService: MessageService, private commandService: CommandService) {
-  }
+  constructor(
+    private zone: NgZone,
+    private messageService: MessageService,
+    private commandService: CommandService,
+    private myCommandService: MyCommandService
+  ) {}
 
   onCreateCommand() {
-    this.submitted = true;
+    if (this.submitted) return;
 
+    this.submitted = true;
+    this.loading.next(true);
+    this.zone.run(() => {
+        // fix for delay re-rendering in electron
+      }
+    );
     const commandCreateRequest: CommandCreateRequest = {
       name: this.command.name,
       description: this.command.description,
@@ -85,18 +97,25 @@ export class CreateCommandFormComponent {
     };
 
     this.commandService.createCommand(commandCreateRequest).subscribe(_ => {
-      this.messageService.add({
-        severity: 'success',
-        summary: 'Successful',
-        detail: 'Command Created',
-        life: 3000
-      });
+        this.messageService.add({
+          severity: 'success',
+          summary: 'Successful',
+          detail: 'Command Created',
+          life: 3000
+        });
 
-      this.closeForm.emit();
-      this.command = {};
-    }, _ => {
-      this.messageService.add({severity: 'error', summary: 'Error', detail: 'Command Not Created', life: 3000});
-    });
+        this.closeForm.emit();
+        this.command = {};
+        this.myCommandService.getMyCommands();
+        this.loading.next(false);
+        this.submitted = false;
+
+      }, _ => {
+        this.messageService.add({severity: 'error', summary: 'Error', detail: 'Command Not Created', life: 3000});
+        this.loading.next(false);
+        this.submitted = false;
+      }
+    );
   }
 
   // file management
