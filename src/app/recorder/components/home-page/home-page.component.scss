@@ -326,49 +326,11 @@
     }
   }
 
-  $color: #193f48;
 
 
   .more-link {
     user-select: none;
   }
 
-  .link {
-    border: 1px solid $color;
-    border-radius: 8px;
-    color: $color;
-    cursor: pointer;
-    font-size: 1rem;
-    margin: 0 auto 40px;
-    padding: 10px 20px;
-    position: relative;
-    text-align: center;
-    text-decoration: none;
-    transition: all 500ms linear;
-
-    &::after {
-      background-color: rgba(255, 255, 255, 0.4);
-      content: "";
-      height: 100%;
-      left: 0;
-      position: absolute;
-      top: 0;
-      transition: none;
-      width: 0;
-    }
-
-    &:hover {
-      background-color: rgba($color, 0.8);
-      box-shadow: 0 0 10px 0 $color;
-      color: #fff;
-      text-decoration: none;
-
-      &::after {
-        background-color: rgba(255, 255, 255, 0);
-        transition: all 300ms ease-out;
-        width: 100%;
-      }
-    }
-  }
 
 }

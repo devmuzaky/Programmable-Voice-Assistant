@@ -1,4 +1,4 @@
-import {Component} from '@angular/core';
+import {Component, EventEmitter, Output} from '@angular/core';
 
 @Component({
   selector: 'app-google-token',
@@ -9,6 +9,7 @@ export class GoogleTokenComponent {
 
   token: string;
 
+  @Output() closeTokenModal: EventEmitter<void> = new EventEmitter();
   constructor() {
   }
 
@@ -22,4 +23,7 @@ export class GoogleTokenComponent {
 
   }
 
+  onSaveToken() {
+    this.closeTokenModal.emit();
+  }
 }

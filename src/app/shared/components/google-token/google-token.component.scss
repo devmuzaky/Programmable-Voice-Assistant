@@ -1,3 +1,50 @@
-.token-input-container {
+
+.token-style{
+
+  border-radius: 20px;
+  box-sizing: border-box;
+}
+.container{
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: flex-start;
+}
+
+
+.title {
+  font-family: sans-serif;
+  font-size: 36px;
+  font-weight: 600;
+  margin-top: 30px;
+}
+
+.subtitle {
+  font-family: sans-serif;
+  font-size: 16px;
+  font-weight: 600;
   margin-top: 10px;
+}
+
+.input-container {
+  display: flex;
+  flex-direction: column;
+  margin-top: 10px;
+
+}
+
+.send {
+  padding: 10px;
+  text-align: center;
+  border-radius: 12px;
+  cursor: pointer;
+  width: 50%;
+  margin: 3px auto auto;
+}
+
+.link{
+  color: white !important;
+  text-decoration: none !important;
+  background: #394554 !important;
+  margin: 0 0 0 20px;
 }

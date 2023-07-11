@@ -30,10 +30,6 @@ const routes: Routes = [
     component: MarketplaceComponent
   },
   {
-    path: 'gToken',
-    component: GoogleTokenComponent
-  },
-  {
     path: '**',
     component: PageNotFoundComponent
   }
