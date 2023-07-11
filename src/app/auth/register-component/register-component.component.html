@@ -38,10 +38,6 @@
             </mat-form-field>
 
             <div class="flex align-items-center justify-content-between ml-5">
-              <div class="flex align-items-center">
-                <p-checkbox [binary]="true" id="rememberme1" styleClass="mr-2"></p-checkbox>
-                <label class="text-900" for="rememberme1">Remember Me!</label>
-              </div>
               <a (click)="onForgotPasswordClick()"
                  class="font-medium no-underline ml-2 text-pink-500 text-right cursor-pointer"
               >Forgot password?</a>
@@ -54,11 +50,6 @@
               Sign In
             </button>
 
-            <button
-              class="login-button"
-              mat-raised-button>
-              Login with Google
-            </button>
           </form>
         </mat-card-content>
       </mat-tab>

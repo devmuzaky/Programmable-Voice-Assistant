@@ -27,4 +27,8 @@ export class InstalledCommandsService {
       });
   }
 
+  clearInstalledCommands() {
+    this._installedCommands$.next([]);
+  }
+
 }

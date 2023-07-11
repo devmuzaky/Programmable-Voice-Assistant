@@ -10,6 +10,12 @@ import {createPasswordStrengthValidator} from "../password-strength.validator";
 import {ValidationService} from "../services/not-match-validation/validation.service";
 import {MatTabGroup} from "@angular/material/tabs";
 import {NotificationService} from "../../core/services/notification/notification.service";
+import {
+  InstalledCommandsService
+} from "../../scripts-table/components/command-management/public-command/installed-commands-service/installed-commands.service";
+import {
+  MyCommandService
+} from "../../scripts-table/components/command-management/my-commands/my-command-service/my-command.service";
 
 @Component({
   selector: 'app-register-component',
@@ -29,11 +35,11 @@ export class RegisterComponentComponent implements OnInit {
 
 
   loginForm = this.fb.group({
-    email: ['moe_zaky@gmail.com', {
+    email: ['', {
       validators: [Validators.required, Validators.email],
       updateOn: 'blur'
     }],
-    password: ['Mm123456#', [
+    password: ['', [
       Validators.required,
       Validators.minLength(8),
       Validators.maxLength(20)
@@ -76,7 +82,9 @@ export class RegisterComponentComponent implements OnInit {
     private authService: AuthService,
     private storageService: StorageService,
     private validationService: ValidationService,
-    private notificationService: NotificationService
+    private notificationService: NotificationService,
+    private installedCommandsService: InstalledCommandsService,
+    private myCommandService: MyCommandService,
   ) {
   }
 
@@ -184,6 +192,12 @@ export class RegisterComponentComponent implements OnInit {
 
           this.notificationService.connect(this.storageService.getUser().pk);
 
+          this.installedCommandsService.getInstalledCommands();
+          this.myCommandService.getMyCommands();
+
+          this.router.navigate(['/my-scripts']);
+
+
         },
         err => {
           this.errorMessage = "Invalid email or password!";
@@ -199,17 +213,19 @@ export class RegisterComponentComponent implements OnInit {
     this.authService.logout();
     this.isLoggedIn = false;
     this.openSnackBar("Successfully logged out!");
+    this.installedCommandsService.clearInstalledCommands();
+    this.myCommandService.clearMyCommands();
   }
 
   onForgotPasswordClick() {
     this.router.navigate(['/forgot-password']);
   }
 
-  private showLogin() {
-    this.router.navigate(['/recorder']);
-  }
-
   togglePasswordVisibility() {
     this.showPassword = !this.showPassword;
+  }
+
+  private showLogin() {
+    this.router.navigate(['/home-page']);
   }
 }

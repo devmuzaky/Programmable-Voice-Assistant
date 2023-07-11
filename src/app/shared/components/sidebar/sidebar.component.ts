@@ -1,13 +1,9 @@
 import {animate, keyframes, style, transition, trigger} from '@angular/animations';
-import {Component, Output, EventEmitter, OnInit} from '@angular/core';
-import {navbarData} from './nav-data';
+import {Component, OnInit} from '@angular/core';
 import {AuthService} from "../../../auth/services/auth-service/auth.service";
 import {Observable} from "rxjs";
+import {ToggleLoginService} from "./toggle-login.service";
 
-interface SideNavToggle {
-  screenWidth: number;
-  collapsed: boolean;
-}
 
 @Component({
   selector: 'app-sidebar',
@@ -43,24 +39,23 @@ interface SideNavToggle {
 export class SidebarComponent implements OnInit {
 
 
-  @Output() onToggleModal: EventEmitter<boolean> = new EventEmitter();
-
-
-  navData = navbarData;
-  toggleModal: boolean;
   isLogin$: Observable<boolean>;
 
-  constructor(private authService: AuthService) {
+  constructor(
+    private authService: AuthService,
+    private toggleLoginService: ToggleLoginService
+  ) {
     this.isLogin$ = this.authService.isUserLoggedIn;
   }
 
   ngOnInit(): void {
+
   }
 
 
   setToggleModal(e: MouseEvent) {
     e.preventDefault();
-    this.toggleModal = !this.toggleModal;
-    this.onToggleModal.emit(this.toggleModal);
+
+    this.toggleLoginService.toggleLogin();
   }
 }

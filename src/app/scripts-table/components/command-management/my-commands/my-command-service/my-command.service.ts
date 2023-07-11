@@ -28,5 +28,9 @@ export class MyCommandService {
     )
   }
 
+  clearMyCommands() {
+    this._myCommands$.next([]);
+  }
+
 
 }

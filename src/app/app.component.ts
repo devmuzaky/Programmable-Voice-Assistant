@@ -1,28 +1,29 @@
-import {Component} from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {ElectronService} from './core/services';
 import {TranslateService} from '@ngx-translate/core';
 import {APP_CONFIG} from '../environments/environment';
 import {NavigationEnd, Router} from "@angular/router";
+import {Observable} from "rxjs";
+import {ToggleLoginService} from "./shared/components/sidebar/toggle-login.service";
 
-interface SideNavToggle {
-  screenWidth: number;
-  collapsed: boolean;
-}
 
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.scss']
 })
-export class AppComponent {
+export class AppComponent implements OnInit {
   isSideNavCollapsed = false;
   screenWidth = 0;
-  toggleModal: boolean;
+  toggleModal$: Observable<boolean>;
   hideMain: boolean;
 
-  constructor(private electronService: ElectronService,
-              private translate: TranslateService,
-              private router: Router) {
+  constructor(
+    private electronService: ElectronService,
+    private translate: TranslateService,
+    private router: Router,
+    private toggleLoginService: ToggleLoginService
+  ) {
     this.translate.setDefaultLang('en');
     console.log('APP_CONFIG', APP_CONFIG);
 
@@ -43,6 +44,10 @@ export class AppComponent {
     });
   }
 
+  ngOnInit() {
+    this.toggleModal$ = this.toggleLoginService.toggleModal$;
+  }
+
   getBodyClass(): string {
     let styleClass = '';
     if (this.isSideNavCollapsed && this.screenWidth > 768) {
@@ -53,13 +58,8 @@ export class AppComponent {
     return styleClass;
   }
 
-  onToggleSideNav(data: SideNavToggle): void {
-    this.screenWidth = data.screenWidth;
-    this.isSideNavCollapsed = data.collapsed;
-  }
 
-  onToggleModal($event: boolean) {
-    this.toggleModal = $event;
+  closeModal() {
+    this.toggleLoginService.toggleLogin();
   }
-
 }
