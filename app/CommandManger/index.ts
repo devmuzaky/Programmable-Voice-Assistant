@@ -1,7 +1,7 @@
 import {FileManager} from "./file-manger";
 import {createCommand, deleteCommand} from "../DB/queries/command-repository";
 
-const fileManager = new FileManager("test-files");
+const fileManager = new FileManager("executables");
 
 export const saveCommandExecutable = (command_id, command_name, executable_url) => {
   fileManager.createFile(command_id + '.exe', executable_url).then((path) => {

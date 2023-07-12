@@ -9,7 +9,7 @@
   <hr *ngIf="command.description != ''">
 
   <h4 *ngIf="command.description != ''" class="m-auto preview-title">
-    Command description and usage
+    Description
   </h4>
 
   <p>{{command.description}}!</p>
@@ -18,7 +18,7 @@
 
 
   <h4 *ngIf="command.parameters.length > 0" class="m-auto preview-title">
-    Parameters that need to be passed to the command
+    Information that need to be provided
   </h4>
   <div>
     <span *ngFor="let parameter of command.parameters" class="p-tag p-tag-rounded p-tag-info tag-color mr-2">

@@ -8,7 +8,7 @@ export const runScript = (scriptName: string, args: string[] = [], event) => {
     argString += `"${arg}" `;
   }
 
-  const filePath = `test-exe\\${scriptName}.exe`;
+  const filePath = `executables\\${scriptName}.exe`;
 
   // Check if a file exists
   fs.access(filePath, fs.constants.F_OK, (err) => {
@@ -22,7 +22,7 @@ export const runScript = (scriptName: string, args: string[] = [], event) => {
 
   console.log("argString", argString);
 
-  exec(`test-exe\\${scriptName}.exe ${argString}`, (error, stdout, stderr) => {
+  exec(`executables\\${scriptName}.exe ${argString}`, (error, stdout, stderr) => {
     if (error) {
       console.log(`error: ${error.message}`);
       return;

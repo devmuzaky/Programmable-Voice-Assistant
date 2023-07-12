@@ -82,6 +82,7 @@ export class InstalledCommandsComponent implements OnInit {
       header: 'Confirm',
       icon: 'pi pi-exclamation-triangle',
       accept: () => {
+        this.loading = true;
         this.commandService.forkCommand(command.id).subscribe(() => {
           this.messageService.add({
             severity: 'success',
@@ -89,13 +90,14 @@ export class InstalledCommandsComponent implements OnInit {
             detail: 'Command forked successfully!'
           });
           this.myCommandService.getMyCommands();
-
+          this.loading = false;
         }, error => {
           this.messageService.add({
             severity: 'error',
             summary: 'Error',
             detail: 'Command could not be forked!'
           });
+          this.loading = false;
         });
       }
     });
