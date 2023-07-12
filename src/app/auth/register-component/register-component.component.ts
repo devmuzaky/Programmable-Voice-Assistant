@@ -74,6 +74,8 @@ export class RegisterComponentComponent implements OnInit {
   private isSignUpFailed: boolean = false;
   private registerErrorMessage: string = '';
 
+  loading: boolean = false;
+
   constructor(
     private snackbarService: SnackbarService,
     private http: HttpClient,
@@ -132,7 +134,7 @@ export class RegisterComponentComponent implements OnInit {
 
   onSignUpSubmit() {
     const value = this.signUpForm.value;
-
+    this.loading = true;
     this.authService.signUp({
       username: value.username,
       email: value.email,
@@ -157,6 +159,7 @@ export class RegisterComponentComponent implements OnInit {
             this.signUpForm.markAsUntouched();
             this.signUpForm.updateValueAndValidity();
             this.signUpForm.clearValidators();
+            this.loading = false;
           },
 
           error: error => {
@@ -172,6 +175,7 @@ export class RegisterComponentComponent implements OnInit {
             this.isSignUpFailed = true;
             this.isSuccessful = false;
             this.openErrorSnackBar(this.registerErrorMessage);
+            this.loading = false;
           }
         }
       )
@@ -179,6 +183,7 @@ export class RegisterComponentComponent implements OnInit {
 
   onLoginSubmit() {
     const value = this.loginForm.value;
+    this.loading = true;
     this.authService.login({email: value.email, password: value.password})
       .subscribe(
         (data: LoginResponse) => {
@@ -197,7 +202,7 @@ export class RegisterComponentComponent implements OnInit {
           this.myCommandService.getMyCommands();
           this.authService.newUserSubject.next(true);
           this.router.navigate(['/my-scripts']);
-
+          this.loading = false;
 
         },
         err => {
@@ -205,6 +210,7 @@ export class RegisterComponentComponent implements OnInit {
           this.isLoginFailed = true;
           this.isLoggedIn = false;
           this.openErrorSnackBar(this.errorMessage);
+          this.loading = false;
         }
       );
 

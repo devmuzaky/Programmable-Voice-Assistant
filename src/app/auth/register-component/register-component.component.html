@@ -1,147 +1,163 @@
+
+
+
+
 <div class="login-page">
+    <div  style="position: relative; width: 100%; height: 100%;">
+      <div *ngIf="loading"
+           style="position: absolute; top: 0; left: 0; right: 0; bottom: 0; background-color: rgba(0, 0, 0, 0.5); z-index: 999;"></div>
 
+      <div *ngIf="loading" style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); z-index: 1000;">
+        <p-progressSpinner style="width: 100px; height: 100px;"></p-progressSpinner>
+      </div>
+      <mat-card class="mat-elevation-z12">
 
-  <mat-card class="mat-elevation-z12">
+      <mat-tab-group #tabGroup *ngIf="!isLoggedIn"
+                     class="example-stretched-tabs">
 
-    <mat-tab-group #tabGroup *ngIf="!isLoggedIn"
-                   class="example-stretched-tabs">
-      <mat-tab label="Sign In">
-        <mat-card-content>
-          <form
-            (ngSubmit)="onLoginSubmit()"
-            [formGroup]="loginForm">
-            <mat-form-field>
-              <input
-                #emailLogin
-                formControlName="email"
-                matInput
-                name="email"
-                placeholder="Email"
-              >
-              <mat-error *ngIf="emailLoginValue.errors?.required">Email is required</mat-error>
-            </mat-form-field>
-            <mat-form-field>
-              <input
-                [type]="showPassword ? 'text' : 'password'"
-                formControlName="password"
-                matInput
-                minlength="6"
-                name="password"
-                placeholder="Password"
-                required
-              >
-              <mat-icon (click)="togglePasswordVisibility()" matSuffix>
-                {{ showPassword ? 'visibility_off' : 'visibility' }}
-              </mat-icon>
-              <mat-error *ngIf="passwordValue.errors?.required">Password is required</mat-error>
+        <mat-tab label="Sign In">
+          <mat-card-content>
+            <form
+              (ngSubmit)="onLoginSubmit()"
+              [formGroup]="loginForm">
+              <mat-form-field>
+                <input
+                  #emailLogin
+                  formControlName="email"
+                  matInput
+                  name="email"
+                  placeholder="Email"
+                >
+                <mat-error *ngIf="emailLoginValue.errors?.required">Email is required</mat-error>
+              </mat-form-field>
+              <mat-form-field>
+                <input
+                  [type]="showPassword ? 'text' : 'password'"
+                  formControlName="password"
+                  matInput
+                  minlength="6"
+                  name="password"
+                  placeholder="Password"
+                  required
+                >
+                <mat-icon (click)="togglePasswordVisibility()" matSuffix>
+                  {{ showPassword ? 'visibility_off' : 'visibility' }}
+                </mat-icon>
+                <mat-error *ngIf="passwordValue.errors?.required">Password is required</mat-error>
 
-            </mat-form-field>
+              </mat-form-field>
 
-            <div class="flex align-items-center justify-content-between ml-5">
-              <a (click)="onForgotPasswordClick()"
-                 class="font-medium no-underline ml-2 text-pink-500 text-right cursor-pointer"
-              >Forgot password?</a>
-            </div>
+              <div class="flex align-items-center justify-content-between ml-5">
+                <a (click)="onForgotPasswordClick()"
+                   class="font-medium no-underline ml-2 text-pink-500 text-right cursor-pointer"
+                >Forgot password?</a>
+              </div>
 
-            <button
-              class="login-button"
-              color="primary"
-              mat-raised-button>
-              Sign In
-            </button>
+              <button
+                class="login-button"
+                color="primary"
+                mat-raised-button>
+                Sign In
+              </button>
 
-          </form>
-        </mat-card-content>
-      </mat-tab>
+            </form>
+          </mat-card-content>
+        </mat-tab>
 
-      <mat-tab label="Sign Up">
-        <mat-card-content>
-          <form (ngSubmit)="onSignUpSubmit()"
-                [formGroup]="signUpForm"
-                action="">
-            <mat-form-field>
-              <input
-                formControlName="username"
-                matInput
-                name="username"
-                placeholder="User Name"
-              >
-              <mat-icon matSuffix>perm_identity</mat-icon>
+        <mat-tab label="Sign Up">
+          <mat-card-content>
+            <form (ngSubmit)="onSignUpSubmit()"
+                  [formGroup]="signUpForm"
+                  action="">
+              <mat-form-field>
+                <input
+                  formControlName="username"
+                  matInput
+                  name="username"
+                  placeholder="User Name"
+                >
+                <mat-icon matSuffix>perm_identity</mat-icon>
 
-              <mat-error *ngIf="usernameValue.errors?.required">User Name is required</mat-error>
+                <mat-error *ngIf="usernameValue.errors?.required">User Name is required</mat-error>
 
-            </mat-form-field>
-            <mat-form-field>
-              <input
-                formControlName="email"
-                matInput
-                name="email"
-                placeholder="Email">
+              </mat-form-field>
+              <mat-form-field>
+                <input
+                  formControlName="email"
+                  matInput
+                  name="email"
+                  placeholder="Email">
 
-              <mat-error *ngIf="emailSignUpValue.errors?.required">Email is required</mat-error>
+                <mat-error *ngIf="emailSignUpValue.errors?.required">Email is required</mat-error>
 
-              <mat-icon matSuffix>email</mat-icon>
-            </mat-form-field>
-            <mat-form-field>
-              <input
-                [type]="showPassword ? 'text' : 'password'"
-                formControlName="password"
-                matInput
-                name="password"
-                placeholder="Password"
-              >
-              <mat-icon (click)="togglePasswordVisibility()" matSuffix>
-                {{ showPassword ? 'visibility_off' : 'visibility' }}
-              </mat-icon>
+                <mat-icon matSuffix>email</mat-icon>
+              </mat-form-field>
+              <mat-form-field>
+                <input
+                  [type]="showPassword ? 'text' : 'password'"
+                  formControlName="password"
+                  matInput
+                  name="password"
+                  placeholder="Password"
+                >
+                <mat-icon (click)="togglePasswordVisibility()" matSuffix>
+                  {{ showPassword ? 'visibility_off' : 'visibility' }}
+                </mat-icon>
 
-              <mat-error *ngIf="createPassword.errors?.required">Password is required</mat-error>
+                <mat-error *ngIf="createPassword.errors?.required">Password is required</mat-error>
 
-            </mat-form-field>
+              </mat-form-field>
 
-            <div>
-              <ng-container
-                *ngIf="createPassword.errors | onlyOneError:['required', 'minlength', 'maxlength','passwordStrength'] as error">
+              <div>
+                <ng-container
+                  *ngIf="createPassword.errors | onlyOneError:['required', 'minlength', 'maxlength','passwordStrength'] as error">
 
-                <mat-error *ngIf="error?.minlength" class="field-message ">your password must have at
-                  least {{error.minlength.requiredLength}} characters.
-                </mat-error>
+                  <mat-error *ngIf="error?.minlength" class="field-message ">your password must have at
+                    least {{error.minlength.requiredLength}} characters.
+                  </mat-error>
 
-                <mat-error *ngIf="error?.maxlength" class="field-message ">your password must have at
-                  most {{error.maxlength.requiredLength}} characters.
-                </mat-error>
+                  <mat-error *ngIf="error?.maxlength" class="field-message ">your password must have at
+                    most {{error.maxlength.requiredLength}} characters.
+                  </mat-error>
 
-                <mat-error *ngIf="error?.passwordStrength" class="field-message">
-                  Please use a password with an uppercase letter, a lowercase letter, a number, and a special
-                  character.
-                </mat-error>
-              </ng-container>
-            </div>
+                  <mat-error *ngIf="error?.passwordStrength" class="field-message">
+                    Please use a password with an uppercase letter, a lowercase letter, a number, and a special
+                    character.
+                  </mat-error>
+                </ng-container>
+              </div>
 
-            <mat-form-field>
-              <input
-                [type]="showPassword ? 'text' : 'password'"
-                formControlName="confirmPassword"
-                matInput
-                name="confirmPassword"
-                placeholder="Confirm Password">
-              <mat-error *ngIf="confirmPassword.invalid">Passwords do not match</mat-error>
-            </mat-form-field>
-            <button
-              class="login-button"
-              color="primary"
-              mat-raised-button>
-              Sign Up
-            </button>
-          </form>
-        </mat-card-content>
-      </mat-tab>
-    </mat-tab-group>
-
-
-    <ng-container *ngIf="isLoggedIn">
-      <app-user-card (logout)="onLogout()"></app-user-card>
-    </ng-container>
-
-
+              <mat-form-field>
+                <input
+                  [type]="showPassword ? 'text' : 'password'"
+                  formControlName="confirmPassword"
+                  matInput
+                  name="confirmPassword"
+                  placeholder="Confirm Password">
+                <mat-error *ngIf="confirmPassword.invalid">Passwords do not match</mat-error>
+              </mat-form-field>
+              <button
+                class="login-button"
+                color="primary"
+                mat-raised-button>
+                Sign Up
+              </button>
+            </form>
+          </mat-card-content>
+        </mat-tab>
+      </mat-tab-group>
+      <ng-container *ngIf="isLoggedIn">
+        <app-user-card (logout)="onLogout()"></app-user-card>
+      </ng-container>
   </mat-card>
+
+    </div>
+
+
+
+
+
+
+
+
 </div>
