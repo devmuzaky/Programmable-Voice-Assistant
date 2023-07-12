@@ -27,16 +27,13 @@ export class CommandService {
 
 
   searchCommand(search: string) {
-    return this.http.get<any>('assets/commands.json')
+    return this.http.get<any>(`${this.baseUrl}/api/commands/public/`)
       .pipe(map((res: any) => {
-        return res.data.filter((item: any) => {
+        return res.filter((item: any) => {
 
           return item.name.toLowerCase().includes(search.toLowerCase())
             || item.description.toLowerCase().includes(search.toLowerCase())
             || item.owner.toLowerCase().includes(search.toLowerCase())
-            || item.commands.toLowerCase().includes(search.toLowerCase())
-            || item.status.toLowerCase().includes(search.toLowerCase())
-            || item.script.toLowerCase().includes(search.toLowerCase());
         });
       }));
   }

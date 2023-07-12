@@ -9,8 +9,8 @@ import {MarketPlaceCommandDTO} from "../../../interfaces/MarketPlaceCommandDTO";
 export class CommandCardComponent {
 
   @Input() command: MarketPlaceCommandDTO;
+  @Input() commandSelectedFlag: MarketPlaceCommandDTO;
   @Output() commandSelected = new EventEmitter<any>();
-
   @Output('commandSelectedFlag') selectedCommand = new EventEmitter<any>();
 
 
