@@ -7,7 +7,7 @@ import {googleStt, sttInit} from "./stt/googleStt";
 import {googleTts, ttsInit} from "./tts/googleTts";
 import {runScript} from "./scriptRunner/scriptRunner";
 import {deleteCommandExecutable, saveCommandExecutable} from "./CommandManger";
-
+import {google} from "googleapis";
 
 let win: BrowserWindow = null;
 const args = process.argv.slice(1),
@@ -110,5 +110,41 @@ ipcMain.on('delete-executable-file', (event, command_id) => {
 });
 
 ipcMain.on('add-google-token', (event, code) => {
-  fs.writeFileSync('google-token.txt', code);
+  // TODO: remove the old token file
+  const oAuth2Client = new google.auth.OAuth2(
+    "412397975040-34od6dhsn56ktgkmb4tljiql397k89as.apps.googleusercontent.com",
+    "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",
+    "urn:ietf:wg:oauth:2.0:oob"
+  );
+
+  oAuth2Client.getToken(code, (err, token) => {
+    if (err) {
+      return console.error('Error retrieving access token', err);
+    }
+    oAuth2Client.setCredentials(token);
+    try {
+      fs.writeFileSync("token.json", JSON.stringify(token));
+    //   TODO: add next to the .exe too, if the first didn't work
+    } catch (err) {
+      return console.error(err);
+    }
+  });
+});
+
+ipcMain.on('get-token-url', (event) => {
+  const oAuth2Client = new google.auth.OAuth2(
+    "412397975040-34od6dhsn56ktgkmb4tljiql397k89as.apps.googleusercontent.com",
+    "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",
+    "urn:ietf:wg:oauth:2.0:oob"
+  );
+
+  const authUrl = oAuth2Client.generateAuthUrl({
+    access_type: 'offline',
+    scope: [
+      'https://www.googleapis.com/auth/calendar.events',
+      'https://www.googleapis.com/auth/calendar',
+    ],
+  });
+
+  event.reply(`get-token-url-replay`, authUrl)
 });

@@ -4,6 +4,7 @@ export interface CommandNotification {
   message: string;
   status: string;
   executable_url?: string;
+  type?: string
 }
 
 export const EmptyCommandNotification: CommandNotification = {

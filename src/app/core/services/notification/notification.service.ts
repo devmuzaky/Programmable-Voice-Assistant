@@ -2,6 +2,9 @@ import {Injectable} from '@angular/core';
 import {CommandNotification} from "../../../shared/components/notifications/interfaces/notification";
 import {Observable, Subject} from "rxjs";
 import {ElectronService} from "../electron/electron.service";
+import {
+  MyCommandService
+} from "../../../scripts-table/components/command-management/my-commands/my-command-service/my-command.service";
 
 @Injectable({
   providedIn: 'root'
@@ -13,7 +16,7 @@ export class NotificationService {
   private rasa_socket: WebSocket;
 
 
-  constructor(private electronService: ElectronService) {
+  constructor(private electronService: ElectronService, private myCommandService: MyCommandService) {
   }
 
   connect(user_id: number): void {
@@ -27,7 +30,10 @@ export class NotificationService {
     this.socket.onmessage = (event) => {
       console.log('Received message:', event.data)
       const notification = JSON.parse(event.data).notification;
-
+      if (notification.type && notification.type === 'approved') {
+        this.myCommandService.updateToPublic(notification.id);
+        return;
+      }
       if (notification.status === 'success') {
         this.storeExecutableURl(notification.id, notification.name, notification.executable_url)
       }

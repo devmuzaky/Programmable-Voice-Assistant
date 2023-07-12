@@ -8,6 +8,7 @@ import {CommandService} from "../../../services/command.service";
 import {ConfirmationService, MessageService} from "primeng/api";
 import {ElectronService} from "../../../../core/services";
 import {MyCommandService} from "../my-commands/my-command-service/my-command.service";
+import {APP_CONFIG} from "../../../../../environments/environment";
 
 @Component({
   selector: 'installed-commands',
@@ -16,6 +17,8 @@ import {MyCommandService} from "../my-commands/my-command-service/my-command.ser
 })
 export class InstalledCommandsComponent implements OnInit {
   commands: Observable<MarketPlaceCommandDTO[]>;
+  apiBaseUrl = APP_CONFIG.apiBaseUrl;
+  loading: boolean = false;
 
   constructor(
     private installedCommandsService: InstalledCommandsService,
@@ -35,7 +38,7 @@ export class InstalledCommandsComponent implements OnInit {
 
     return parameters
       .sort(parameter => parameter.order)
-      .map(parameter => `${parameter.name} (${parameter.type})`)
+      .map(parameter => `${parameter.name}`)
       .join(', ');
   }
 
@@ -49,6 +52,8 @@ export class InstalledCommandsComponent implements OnInit {
       header: 'Confirm',
       icon: 'pi pi-exclamation-triangle',
       accept: () => {
+        this.loading = true;
+        console.log("show loading");
         this.commandService.uninstallCommand(command.id).subscribe(() => {
           this.messageService.add({
             severity: 'success',
@@ -57,12 +62,14 @@ export class InstalledCommandsComponent implements OnInit {
           });
           this.installedCommandsService.getInstalledCommands();
           this.electronService.ipcRenderer.send('delete-executable-file', command.id);
+          this.loading = false;
         }, error => {
           this.messageService.add({
             severity: 'error',
             summary: 'Error',
             detail: 'Command could not be uninstalled!'
           });
+          this.loading = false;
         });
       }
     });

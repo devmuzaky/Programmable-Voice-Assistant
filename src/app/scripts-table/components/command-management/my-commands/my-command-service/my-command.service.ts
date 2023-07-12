@@ -9,12 +9,13 @@ import {CommandForTableDTO} from "../../../../interfaces/command.model";
 })
 export class MyCommandService {
   private baseUrl = APP_CONFIG.apiBaseUrl;
-  private _myCommands$: Subject<CommandForTableDTO[]> = new BehaviorSubject<CommandForTableDTO[]>([]);
 
   constructor(
     private http: HttpClient) {
     this.getMyCommands();
   }
+
+  private _myCommands$: BehaviorSubject<CommandForTableDTO[]> = new BehaviorSubject<CommandForTableDTO[]>([]);
 
   get myCommands$() {
     return this._myCommands$.asObservable();
@@ -28,9 +29,18 @@ export class MyCommandService {
     )
   }
 
+  updateToPublic(id: number) {
+    const commands = this._myCommands$.getValue();
+    commands.forEach((command) => {
+      if (command.id === id) {
+        command.state = 'public';
+      }
+    });
+
+    this._myCommands$.next(commands);
+  }
+
   clearMyCommands() {
     this._myCommands$.next([]);
   }
-
-
 }

@@ -8,6 +8,7 @@ import {ConfirmationService, MessageService} from "primeng/api";
 import {ElectronService} from "../../../../core/services";
 import {MyCommandService} from "./my-command-service/my-command.service";
 import {Observable} from "rxjs";
+import {APP_CONFIG} from "../../../../../environments/environment";
 
 @Component({
   selector: 'app-my-commands',
@@ -21,6 +22,7 @@ export class MyCommandsComponent implements OnInit {
   @Output() selectionChange = new EventEmitter<CommandForTableDTO[]>();
 
   commands$: Observable<CommandForTableDTO[]>;
+  apiBaseUrl = APP_CONFIG.apiBaseUrl;
 
   showEditCommandForm: boolean;
   commandEditInfoDTO: CommandEditInfoDTO;
@@ -63,7 +65,7 @@ export class MyCommandsComponent implements OnInit {
 
     return parameters
       .sort(parameter => parameter.order)
-      .map(parameter => `${parameter.name} (${parameter.type})`)
+      .map(parameter => `${parameter.name}`)
       .join(', ');
   }
 
@@ -75,17 +77,17 @@ export class MyCommandsComponent implements OnInit {
     const link = document.createElement('a');
     link.target = '_blank';
     link.href = command.script_link;
-    link.download = `${command.name}_script.zip`;
+    link.download = `${command.name}_script.py`;
     link.click();
 
     link.target = '_blank';
     link.href = command.requirements_link;
-    link.download = `${command.name}_requirements.zip`;
+    link.download = `${command.name}_requirements.txt`;
     link.click();
 
     link.target = '_blank';
     link.href = command.icon_link;
-    link.download = `${command.name}_icon.zip`;
+    link.download = `${command.name}_icon.png`;
     link.click();
   }
 

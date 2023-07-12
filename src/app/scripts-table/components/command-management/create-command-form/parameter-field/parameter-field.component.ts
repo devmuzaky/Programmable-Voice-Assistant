@@ -21,6 +21,9 @@ export class ParameterFieldComponent {
     },
     {
       label: 'Number', value: 'number'
+    },
+    {
+      label: 'Phrase', value: 'phrase'
     }
   ];
 
