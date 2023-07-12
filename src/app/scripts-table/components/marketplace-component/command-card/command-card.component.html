@@ -1,11 +1,14 @@
-<div (click)="onSelectCommand(command)" class="card flex">
+<div (click)="onSelectCommand(command)" [ngClass]="{
+    'card-selected': commandSelectedFlag.id === command.id
+  }"
+     class="card flex">
 
   <figure class="avatar">
     <img [src]="apiBaseUrl + command.icon_link" alt="command icon" class="shadow-4">
   </figure>
 
-  <div class="flex-1 command-body">
-    <div class="command-name">{{command.name}} <span class="p-tag">{{command.used_by_count}}</span></div>
+  <div class="flex-1 flex  command-body">
+    <div class="command-name">{{command.name}} <span class="p-tag mr-2">{{command.used_by_count}}</span></div>
     <span class="command-owner">{{command.owner}}</span>
   </div>
 

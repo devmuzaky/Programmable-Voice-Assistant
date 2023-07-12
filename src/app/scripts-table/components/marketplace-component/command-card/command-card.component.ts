@@ -10,8 +10,8 @@ import {APP_CONFIG} from "../../../../../environments/environment";
 export class CommandCardComponent {
 
   @Input() command: MarketPlaceCommandDTO;
+  @Input() commandSelectedFlag: MarketPlaceCommandDTO;
   @Output() commandSelected = new EventEmitter<any>();
-
   @Output('commandSelectedFlag') selectedCommand = new EventEmitter<any>();
   apiBaseUrl = APP_CONFIG.apiBaseUrl;
 

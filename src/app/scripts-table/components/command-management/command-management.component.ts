@@ -60,7 +60,6 @@ export class CommandManagement implements OnInit {
     }, error => console.error(error));
   }
 
-  //  toggle the marketpalce
   openMarketplace() {
     this.marketplaceFlag = true;
   }

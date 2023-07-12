@@ -54,6 +54,7 @@
             (commandSelectedFlag)="commandSelectedFlag = $event"
             *ngFor="let command of commandsList"
             [command]="command"
+            [commandSelectedFlag]="commandSelected"
           ></app-command-card>
 
 
@@ -69,7 +70,7 @@
                   Select Command to preview it
                 </span>
 
-          <app-card-preview
+          <app-card-preview class="w-full"
             *ngIf="commandSelectedFlag"
             [command]="commandSelected"
             (showLoader)="showLoader = $event"

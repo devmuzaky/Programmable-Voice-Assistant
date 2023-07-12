@@ -39,9 +39,13 @@ export class MarketplaceComponent implements AfterViewInit, OnInit {
   ngOnInit() {
     this.commandService.getMarketplaceCommands().subscribe(data => {
         this.commandsList = data;
-        this.commandSelected = this.commandsList[0];
+        if (this.commandsList.length > 0) {
+          this.commandSelected = this.commandsList[0];
+        } else {
+          this.commandSelected = null;
+          this.commandSelectedFlag = false;
+        }
         if (this.commandsList.length > 0) this.commandSelectedFlag = true;
-        console.log(this.commandsList)
       },
       error => console.error(error));
 
@@ -55,6 +59,14 @@ export class MarketplaceComponent implements AfterViewInit, OnInit {
       }), debounceTime(500), distinctUntilChanged(), switchMap(search => this.commandService.searchCommand(search)))
       .subscribe((results: any) => {
         this.commandsList = results;
+        if (this.commandsList.length > 0) {
+          this.commandSelected = this.commandsList[0];
+        } else {
+          this.commandSelected = null;
+          this.commandSelectedFlag = false;
+        }
+
+        if (this.commandsList.length > 0) this.commandSelectedFlag = true;
       });
 
 

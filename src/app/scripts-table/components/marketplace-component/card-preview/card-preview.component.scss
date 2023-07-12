@@ -23,4 +23,29 @@
 
   }
 
+  .tag-color {
+    background-color: #3f4b5b;
+    border-radius: 8px;
+    padding: 5px 5px;
+    font-size: 14px;
+    color: rgb(255, 255, 255);
+    font-weight: 500;
+    margin-right: 10px;
+    margin-bottom: 10px;
+    display: flex;
+  }
+
+  .preview-title{
+    color: #00bcd4;
+    border: 1px solid #3f4b5b;
+    font-size: 16px;
+    font-weight: 500;
+    margin-bottom: 5px;
+  }
+
+  hr{
+    border: 1px solid #3f4b5b;
+    margin: 0;
+  }
+
 }
