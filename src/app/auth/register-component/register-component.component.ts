@@ -1,11 +1,10 @@
 import {Component, ElementRef, Input, OnInit, ViewChild,} from '@angular/core';
 import {FormBuilder, Validators} from '@angular/forms';
 import {Router} from '@angular/router';
+import {LoginResponse} from "../interface/login.response";
 import {AuthService} from '../services/auth-service/auth.service';
 import {StorageService} from "../services/storage.service";
 import {SnackbarService} from "../../shared/snackbar-service/snackbar.service";
-import {HttpClient} from "@angular/common/http";
-import {LoginResponse} from "../interface/login.response";
 import {createPasswordStrengthValidator} from "../password-strength.validator";
 import {ValidationService} from "../services/not-match-validation/validation.service";
 import {MatTabGroup} from "@angular/material/tabs";
@@ -30,10 +29,9 @@ export class RegisterComponentComponent implements OnInit {
   @Input('mat-stretch-tabs')
   stretchTabs: boolean
 
-
+  isLoggedIn: boolean = false;
+  loading: boolean = false;
   showPassword: boolean = false;
-
-
   loginForm = this.fb.group({
     email: ['', {
       validators: [Validators.required, Validators.email],
@@ -45,6 +43,7 @@ export class RegisterComponentComponent implements OnInit {
       Validators.maxLength(20)
     ]]
   });
+
   signUpForm = this.fb.group({
       username: ['', Validators.compose([
         Validators.required
@@ -66,19 +65,13 @@ export class RegisterComponentComponent implements OnInit {
       validator: this.validationService.passwordMatch('password', 'confirmPassword')
     }
   );
-  isLoggedIn: boolean = false;
-
   private isLoginFailed: boolean = false;
   private errorMessage: string = '';
   private isSuccessful: boolean = false;
   private isSignUpFailed: boolean = false;
   private registerErrorMessage: string = '';
 
-  loading: boolean = false;
-
   constructor(
-    private snackbarService: SnackbarService,
-    private http: HttpClient,
     private fb: FormBuilder,
     private router: Router,
     private authService: AuthService,
@@ -87,6 +80,7 @@ export class RegisterComponentComponent implements OnInit {
     private notificationService: NotificationService,
     private installedCommandsService: InstalledCommandsService,
     private myCommandService: MyCommandService,
+    private snackbarService: SnackbarService
   ) {
   }
 
@@ -189,7 +183,7 @@ export class RegisterComponentComponent implements OnInit {
         (data: LoginResponse) => {
           this.storageService.saveUser(data.user);
           this.storageService.saveAccessToken(data.access_token);
-          this.storageService.saveRefreshToken(data.refresh_token);
+          this.storageService.setRefreshToken(data.refresh_token);
           this.isLoginFailed = false;
           this.isLoggedIn = true;
           this.openSnackBar("Successfully logged in as " + data.user.username);
@@ -222,10 +216,6 @@ export class RegisterComponentComponent implements OnInit {
     this.openSnackBar("Successfully logged out!");
     this.installedCommandsService.clearInstalledCommands();
     this.myCommandService.clearMyCommands();
-  }
-
-  onForgotPasswordClick() {
-    this.router.navigate(['/forgot-password']);
   }
 
   togglePasswordVisibility() {

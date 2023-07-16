@@ -17,7 +17,10 @@ export class AuthService {
 
   private isUserLoggedIn$: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
 
-  constructor(private http: HttpClient, private storageService: StorageService, private router: Router) {
+  constructor(
+    private http: HttpClient,
+    private storageService: StorageService,
+    private router: Router) {
     this.isUserLoggedIn$.next(this.storageService.isLoggedIn());
   }
 
@@ -35,19 +38,19 @@ export class AuthService {
 
   logout(): Observable<any> | any {
     this.isUserLoggedIn$.next(false);
-    this.storageService.clean();
+    this.storageService.cleanStorage();
     this.router.navigate(['/home-page']);
   }
 
-  setLoggedIn(loggedIn: boolean) {
-    this.isUserLoggedIn$.next(loggedIn);
+  setLoggedIn(isLoggedIn: boolean): void {
+    this.isUserLoggedIn$.next(isLoggedIn);
   }
 
-  getUsername() {
+  getUsername(): string {
     return this.storageService.getUser().username;
   }
 
-  getUserRasaPort() {
-    return this.http.get<{port: number}>(`${this.baseUrl}/rasa/port/${this.storageService.getUser().pk}`)
+  getUserRasaPort(): Observable<{ port: number }> {
+    return this.http.get<{ port: number }>(`${this.baseUrl}/rasa/port/${this.storageService.getUser().pk}`)
   }
 }

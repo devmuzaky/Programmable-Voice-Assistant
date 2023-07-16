@@ -1,14 +1,14 @@
 <mat-card>
   <mat-card-header>
     <mat-card-title>
-      <h1 class="user-card__name">{{ user.username }}</h1>
+      <h2 class="user-card-name">{{ userProfile.username }}</h2>
     </mat-card-title>
     <mat-card-subtitle>
-      <h3 class="user-card__email">{{ user.email }}</h3>
+      <h4 class="user-card-email">{{ userProfile.email }}</h4>
     </mat-card-subtitle>
   </mat-card-header>
   <mat-card-content>
-    <p></p>
+    <br>
   </mat-card-content>
   <mat-card-actions>
     <button (click)="onLogout()" color="primary" mat-raised-button>Logout</button>

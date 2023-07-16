@@ -1,5 +1,5 @@
 import {Injectable} from '@angular/core';
-import {AuthUser} from "../interface/auth.user";
+import {User} from "../interface/user";
 
 const USER = "user";
 const ACCESS_TOKEN = "access_token";
@@ -12,14 +12,14 @@ export class StorageService {
   constructor() {
   }
 
-  clean(): void {
+  cleanStorage(): void {
     window.localStorage.removeItem(USER);
     window.localStorage.removeItem(ACCESS_TOKEN);
     window.localStorage.removeItem(REFRESH_TOKEN);
     window.localStorage.removeItem('google-token');
   }
 
-  public saveUser(user: AuthUser): void {
+  public saveUser(user: User): void {
     window.localStorage.removeItem(USER);
     window.localStorage.setItem(USER, JSON.stringify(user));
   }
@@ -47,7 +47,7 @@ export class StorageService {
     return window.localStorage.getItem(ACCESS_TOKEN) || '';
   }
 
-  saveRefreshToken(refresh_token: string) {
+  setRefreshToken(refresh_token: string) {
     window.localStorage.removeItem(REFRESH_TOKEN);
     window.localStorage.setItem(REFRESH_TOKEN, refresh_token);
   }

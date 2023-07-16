@@ -1,19 +1,12 @@
+<div class="sign-in-page">
+  <div class="login-container">
+    <div *ngIf="loading" class="loader" style=""></div>
+    <div *ngIf="loading" class="spinner-container">
+      <p-progressSpinner class="progress-spinner"></p-progressSpinner>
+    </div>
+    <mat-card class="mat-elevation-z12">
 
-
-
-
-<div class="login-page">
-    <div  style="position: relative; width: 100%; height: 100%;">
-      <div *ngIf="loading"
-           style="position: absolute; top: 0; left: 0; right: 0; bottom: 0; background-color: rgba(0, 0, 0, 0.5); z-index: 999;"></div>
-
-      <div *ngIf="loading" style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); z-index: 1000;">
-        <p-progressSpinner style="width: 100px; height: 100px;"></p-progressSpinner>
-      </div>
-      <mat-card class="mat-elevation-z12">
-
-      <mat-tab-group #tabGroup *ngIf="!isLoggedIn"
-                     class="example-stretched-tabs">
+      <mat-tab-group #tabGroup *ngIf="!isLoggedIn" class="example-stretched-tabs">
 
         <mat-tab label="Sign In">
           <mat-card-content>
@@ -22,14 +15,13 @@
               [formGroup]="loginForm">
               <mat-form-field>
                 <input
-                  #emailLogin
                   formControlName="email"
                   matInput
                   name="email"
-                  placeholder="Email"
-                >
+                  placeholder="Email">
                 <mat-error *ngIf="emailLoginValue.errors?.required">Email is required</mat-error>
               </mat-form-field>
+
               <mat-form-field>
                 <input
                   [type]="showPassword ? 'text' : 'password'"
@@ -38,8 +30,7 @@
                   minlength="6"
                   name="password"
                   placeholder="Password"
-                  required
-                >
+                  required>
                 <mat-icon (click)="togglePasswordVisibility()" matSuffix>
                   {{ showPassword ? 'visibility_off' : 'visibility' }}
                 </mat-icon>
@@ -48,9 +39,7 @@
               </mat-form-field>
 
               <div class="flex align-items-center justify-content-between ml-5">
-                <a (click)="onForgotPasswordClick()"
-                   class="font-medium no-underline ml-2 text-pink-500 text-right cursor-pointer"
-                >Forgot password?</a>
+                <a class="font-medium no-underline ml-2 text-pink-500 text-right cursor-pointer">Forgot password?</a>
               </div>
 
               <button
@@ -74,8 +63,7 @@
                   formControlName="username"
                   matInput
                   name="username"
-                  placeholder="User Name"
-                >
+                  placeholder="User Name">
                 <mat-icon matSuffix>perm_identity</mat-icon>
 
                 <mat-error *ngIf="usernameValue.errors?.required">User Name is required</mat-error>
@@ -98,8 +86,7 @@
                   formControlName="password"
                   matInput
                   name="password"
-                  placeholder="Password"
-                >
+                  placeholder="Password">
                 <mat-icon (click)="togglePasswordVisibility()" matSuffix>
                   {{ showPassword ? 'visibility_off' : 'visibility' }}
                 </mat-icon>
@@ -149,15 +136,6 @@
       <ng-container *ngIf="isLoggedIn">
         <app-user-card (logout)="onLogout()"></app-user-card>
       </ng-container>
-  </mat-card>
-
-    </div>
-
-
-
-
-
-
-
-
+    </mat-card>
+  </div>
 </div>

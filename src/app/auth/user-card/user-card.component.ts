@@ -1,7 +1,7 @@
-import {Component, EventEmitter, OnInit, Output} from '@angular/core';
-import {AuthService} from "../services/auth-service/auth.service";
-import {Router} from "@angular/router";
 import {StorageService} from "../services/storage.service";
+
+import {Component, EventEmitter, Output} from '@angular/core';
+import {User} from "../interface/user";
 
 @Component({
   selector: 'app-user-card',
@@ -10,12 +10,14 @@ import {StorageService} from "../services/storage.service";
 })
 export class UserCardComponent {
 
-  user = {}
+  userProfile: User;
 
-  @Output('logout') logout = new EventEmitter();
+  @Output('logout') logout: EventEmitter<any> = new EventEmitter<any>();
 
-  constructor(private storageService: StorageService) {
-    this.user = this.storageService.getUser();
+  constructor(
+    private storageService: StorageService
+  ) {
+    this.userProfile = this.storageService.getUser();
   }
 
   onLogout() {
