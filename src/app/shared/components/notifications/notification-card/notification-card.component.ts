@@ -6,13 +6,8 @@ import {CommandNotification, EmptyCommandNotification} from "../interfaces/notif
   templateUrl: './notification-card.component.html',
   styleUrls: ['./notification-card.component.scss']
 })
-export class NotificationCardComponent implements OnInit {
+export class NotificationCardComponent  {
   @Input() notification: CommandNotification = EmptyCommandNotification;
   @Output() onNotificationClick: EventEmitter<CommandNotification> = new EventEmitter<CommandNotification>();
-  constructor() {
-  }
-
-  ngOnInit(): void {
-  }
 
 }

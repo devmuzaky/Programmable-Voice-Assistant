@@ -9,7 +9,7 @@ import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {RouterModule} from '@angular/router';
 import {NotificationCardComponent} from './components/notifications/notification-card/notification-card.component';
 import {NotificationListComponent} from './components/notifications/notification-list/notification-list.component';
-import {ModalComponent} from './components/modal/modal-component/modal.component';
+import {ModalComponent} from './components/modal/modal.component';
 import {TrayModule} from "../tray/tray.module";
 import {AuthModule} from "../auth/auth.module";
 import {OverlayPanelModule} from "primeng/overlaypanel";
@@ -32,10 +32,10 @@ import { LoaderComponent } from './components/loader/loader.component';
         WebviewDirective,
         SidebarComponent,
         ModalComponent,
-        NotificationCardComponent,
         NotificationListComponent,
         LoaderComponent,
-        GoogleTokenComponent
+        GoogleTokenComponent,
+        NotificationCardComponent
       ],
     imports:
       [

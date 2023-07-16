@@ -11,6 +11,7 @@ export class GoogleTokenComponent {
   token: string;
 
   @Output() closeTokenModal: EventEmitter<void> = new EventEmitter();
+
   constructor(private electronService: ElectronService) {
     this.token = localStorage.getItem('google-token') || '';
 
@@ -23,12 +24,10 @@ export class GoogleTokenComponent {
     this.electronService.ipcRenderer.send('get-token-url');
   }
 
-
-
   onSaveToken() {
     localStorage.setItem('google-token', this.token);
     this.electronService.ipcRenderer.send('add-google-token', this.token);
-
     this.closeTokenModal.emit();
   }
+
 }
