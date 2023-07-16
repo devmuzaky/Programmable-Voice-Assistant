@@ -7,7 +7,6 @@ export class RasaSocketService {
   private socket: any;
 
   constructor(private authService: AuthService) {
-
   }
 
   connect() {

@@ -3,7 +3,9 @@
     <h1>Mohamed Zaky</h1>
     <h2>software engineer</h2>
     <figure class="avatar">
-      <img alt="avatar" src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/156381/profile/profile-80.jpg"/>
+      <img alt="avatar"
+           src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/156381/profile/profile-80.jpg"
+      />
     </figure>
   </div>
   <div #messagesContent class="messages">
@@ -24,8 +26,7 @@
     </div>
 
     <button class="mic-btn">
-      <app-mic (recordingState)="recordingState($event)" (recorderOutput)="recorderOutput($event)"
-      ></app-mic>
+      <app-mic (recorderOutput)="recorderOutput($event)" (recordingState)="recordingState($event)"></app-mic>
     </button>
 
     <ng-container *ngIf="isRecording">
@@ -36,5 +37,5 @@
 
 
 </div>
-
 <audio #audioElement></audio>
+

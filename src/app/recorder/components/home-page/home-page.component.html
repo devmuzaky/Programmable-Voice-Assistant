@@ -1,12 +1,10 @@
 <div class="home-page-container">
-
-
   <section>
     <div class="title">
       <span>My Assistant</span>
       <span>a desktop application that helps you
         <a>Organize your daily tasks</a>
-              <div *ngIf="(isLogin$ | async)" class="user-message">
+        <div *ngIf="(isLogin$ | async)" class="user-message">
         Welcome <a>{{ getUsername()}}</a>! Enjoy the full range of features and personalized experience on your assistant.
       </div>
             <div *ngIf="!(isLogin$ | async)" class="user-message">

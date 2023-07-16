@@ -32,7 +32,8 @@ export class ChatComponent implements OnInit, OnDestroy, AfterViewInit {
               private rasaSocketService: RasaSocketService,
               private electronService: ElectronService,
               private zone: NgZone,
-              private authService: AuthService) {
+              private authService: AuthService
+  ) {
   }
 
   updateScrollbar() {
@@ -95,25 +96,42 @@ export class ChatComponent implements OnInit, OnDestroy, AfterViewInit {
   @HostListener('document:keydown', ['$event']) handleKeydown(event: KeyboardEvent) {
 
     if (event.key === 'Enter') {
+
       this.addUserMessageFromInput();
+
       event.preventDefault();
       return false;
     }
   }
 
-  addBotMessage(message: string) {
-    this.messages.push({message, personal: false});
-    this.zone.run(() => {
-      //   fix for delay re-rendering in electron
-    });
-    this.updateScrollbar();
-    this.speak(message);
+  // TODO: update to use the user's name
+  greetUser() {
+    this.addBotMessage('Hi, I\'m your personal assistant. How can I help you?');
+  }
+
+
+  playAudio(audio: string | Uint8Array) {
+    this.audioElement.nativeElement.src = URL.createObjectURL(new Blob([audio], {type: 'audio/wav'}));
+    this.audioElement.nativeElement.play();
+  }
+
+  speak(text: string) {
+    this.ttsService.tts(text);
   }
 
   addUserMessage(message: string) {
     this.messages.push({message: message, personal: true});
     this.rasaSocketService.sendMessage(message);
     this.updateScrollbar();
+  }
+
+  addBotMessage(message: string) {
+    this.messages.push({message, personal: false});
+    this.zone.run(() => {
+      //   fix for delay re-rendering in electron app
+    });
+    this.updateScrollbar();
+    this.speak(message);
   }
 
   addUserMessageFromInput() {
@@ -124,21 +142,6 @@ export class ChatComponent implements OnInit, OnDestroy, AfterViewInit {
     this.addUserMessage(msg);
 
     (document.querySelector('.message-input') as HTMLInputElement).value = '';
-  }
-
-
-  // TODO: update to use the user's name
-  greetUser() {
-    this.addBotMessage('Hi, I\'m your personal assistant. How can I help you?');
-  }
-
-  playAudio(audio: string | Uint8Array) {
-    this.audioElement.nativeElement.src = URL.createObjectURL(new Blob([audio], {type: 'audio/wav'}));
-    this.audioElement.nativeElement.play();
-  }
-
-  speak(text: string) {
-    this.ttsService.tts(text);
   }
 
   recordingState(isRecording: boolean) {
