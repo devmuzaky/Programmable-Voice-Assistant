@@ -3,11 +3,17 @@
   <app-sidebar></app-sidebar>
 
   <div [ngClass]="getBodyClass()" class="main-content" id="body">
+
     <router-outlet></router-outlet>
+
     <app-modal (close)="closeModal()" *ngIf="(toggleModal$ | async)" class="modalApp">
+
       <app-register-component></app-register-component>
+
     </app-modal>
+
   </div>
+
 </ng-container>
 
 <app-tray *ngIf="hideMain"></app-tray>

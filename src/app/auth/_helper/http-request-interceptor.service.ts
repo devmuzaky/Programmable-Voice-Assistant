@@ -20,6 +20,8 @@ export class HttpRequestInterceptor implements HttpInterceptor {
 
     }
 
+    // return next.handle(request);
+
     return next.handle(request).pipe(
       catchError((error) => {
         if (error.status === 401) {
