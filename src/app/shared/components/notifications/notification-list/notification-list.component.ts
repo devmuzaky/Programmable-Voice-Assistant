@@ -25,7 +25,7 @@ export class NotificationListComponent implements OnInit, OnDestroy {
     if (this.storageService.isLoggedIn()) {
       console.log(this.storageService.getUser())
       this.notificationService.connect(this.storageService.getUser().pk);
-      this.notificationService.rasa_connect(this.storageService.getUser().pk);
+      this.notificationService.rasaConnect(this.storageService.getUser().pk);
     }
   }
 

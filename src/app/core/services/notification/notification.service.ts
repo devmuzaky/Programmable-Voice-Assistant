@@ -16,12 +16,15 @@ export class NotificationService {
   private rasa_socket: WebSocket;
 
 
-  constructor(private electronService: ElectronService, private myCommandService: MyCommandService) {
+  constructor(
+    private electronService: ElectronService,
+    private myCommandService: MyCommandService
+  ) {
   }
 
-  connect(user_id: number): void {
-    const ws_url = `ws://localhost:8000/ws/notifications/${user_id}/`;
-    this.socket = new WebSocket(ws_url);
+  connect(userID: number): void {
+    const wsURL = `ws://localhost:8000/ws/notifications/${userID}/`;
+    this.socket = new WebSocket(wsURL);
 
     this.socket.onopen = (event) => {
       console.log('Notification connection opened.');
@@ -48,9 +51,9 @@ export class NotificationService {
 
   }
 
-  rasa_connect(user_id: number): void {
-    const ws_url = `ws://localhost:8000/ws/rasa/notifications/${user_id}/`;
-    this.rasa_socket = new WebSocket(ws_url);
+  rasaConnect(userID: number): void {
+    const wsURL = `ws://localhost:8000/ws/rasa/notifications/${userID}/`;
+    this.rasa_socket = new WebSocket(wsURL);
     this.rasa_socket.onopen = (event) => {
       console.log('Rasa Notification connection opened.');
     };
