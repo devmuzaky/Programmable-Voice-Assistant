@@ -1,5 +1,5 @@
 import {Component, OnInit} from '@angular/core';
-import {Command, CommandForTableDTO} from '../../interfaces/command.model';
+import {Command} from '../../interfaces/command.model';
 import {CommandService} from '../../services/command.service';
 import {ConfirmationService, MessageService} from "primeng/api";
 
@@ -20,44 +20,32 @@ export class CommandManagement implements OnInit {
     requirements: null,
     scriptType: '',
     parameters: [
-      {
-        name: '',
-        type: '',
-        order: 0
-      },
-      {
-        name: '',
-        type: '',
-        order: 1
-      },
-      {
-        name: '',
-        type: '',
-        order: 2
-      },
-      {
-        name: '',
-        type: '',
-        order: 3
-      }
+      {name: '', type: '', order: 0},
+      {name: '', type: '', order: 1},
+      {name: '', type: '', order: 2},
+      {name: '', type: '', order: 3}
     ],
     patterns: ['', '', '', ''],
-    patternsNumber: 1,
+    patternsNumber: 1
   };
   commands: Command[];
   selectedCommands: Command[];
 
-
-  constructor(
-    private commandService: CommandService,
-    private messageService: MessageService,
-    private confirmationService: ConfirmationService) {
+  constructor(private commandService: CommandService,
+              private messageService: MessageService,
+              private confirmationService: ConfirmationService
+  ) {
   }
 
   ngOnInit() {
-    this.commandService.getMyCommands().subscribe(data => {
-      this.commands = data;
-    }, error => console.error(error));
+    this.commandService.getMyCommands().subscribe(
+      (data: Command[]) => {
+        this.commands = data;
+      },
+      error => {
+        console.error(error)
+      }
+    );
   }
 
   openMarketplace() {
@@ -71,8 +59,8 @@ export class CommandManagement implements OnInit {
   openCreateCommandForm() {
     this.showCreateCommandForm = true;
     setTimeout(() => {
-      document.querySelectorAll<HTMLInputElement>('.disable-select-input-number .p-inputnumber-input').forEach(
-        (element) => element.disabled = true)
+      document.querySelectorAll<HTMLInputElement>('.disable-select-input-number .p-inputnumber-input')
+        .forEach((element) => element.disabled = true)
     }, 200);
   }
 
@@ -88,9 +76,13 @@ export class CommandManagement implements OnInit {
       accept: () => {
         this.commands = this.commands.filter(val => !this.selectedCommands.includes(val));
         this.selectedCommands = null;
-        this.messageService.add({severity: 'success', summary: 'Successful', detail: 'Commands Deleted', life: 3000});
+        this.messageService.add({
+          severity: 'success',
+          summary: 'Successful',
+          detail: 'Commands Deleted',
+          life: 3000
+        });
       }
     });
   }
-
 }

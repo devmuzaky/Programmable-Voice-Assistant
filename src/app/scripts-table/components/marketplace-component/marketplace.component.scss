@@ -1,7 +1,4 @@
 :host ::ng-deep {
-
-
-
   .parent {
     height: 89%;
     display: grid;
@@ -28,13 +25,13 @@
     overflow: auto;
     border-right: none;
 
-    &::-webkit-scrollbar{
+    &::-webkit-scrollbar {
       background: #2a323d;
       width: 12px;
       border-radius: 8px;
     }
 
-    &::-webkit-scrollbar-thumb{
+    &::-webkit-scrollbar-thumb {
       background: rgb(107, 116, 124);
       border-radius: 4px;
     }
@@ -51,19 +48,18 @@
     border-left: none;
 
 
-    &::-webkit-scrollbar{
+    &::-webkit-scrollbar {
       background: #2a323d;
       width: 12px;
       border-radius: 8px;
     }
 
-    &::-webkit-scrollbar-thumb{
+    &::-webkit-scrollbar-thumb {
       background: rgb(107, 116, 124);
       border-radius: 4px;
     }
 
   }
-
 
   .btn-marketplace {
     color: rgba(255, 255, 255, 0.51);
@@ -154,5 +150,4 @@
     height: 100%;
     justify-content: center;
   }
-
 }

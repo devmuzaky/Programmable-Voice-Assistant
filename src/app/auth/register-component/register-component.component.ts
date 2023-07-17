@@ -11,7 +11,7 @@ import {MatTabGroup} from "@angular/material/tabs";
 import {NotificationService} from "../../core/services/notification/notification.service";
 import {
   InstalledCommandsService
-} from "../../scripts-table/components/command-management/public-command/installed-commands-service/installed-commands.service";
+} from "../../scripts-table/components/command-management/installed-commands/installed-commands-service/installed-commands.service";
 import {
   MyCommandService
 } from "../../scripts-table/components/command-management/my-commands/my-command-service/my-command.service";
@@ -193,7 +193,7 @@ export class RegisterComponentComponent implements OnInit {
           this.notificationService.rasaConnect(this.storageService.getUser().pk);
 
           this.installedCommandsService.getInstalledCommands();
-          this.myCommandService.getMyCommands();
+          this.myCommandService.fetchMyCommands();
           this.authService.newUserSubject.next(true);
           this.router.navigate(['/my-scripts']);
           this.loading = false;

@@ -1,7 +1,6 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { TranslateModule } from '@ngx-translate/core';
-import { PageNotFoundComponent } from './components/';
 import { WebviewDirective } from './directives/';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {SidebarComponent} from './components/sidebar/sidebar.component';
@@ -28,7 +27,6 @@ import { LoaderComponent } from './components/loader/loader.component';
   {
     declarations:
       [
-        PageNotFoundComponent,
         WebviewDirective,
         SidebarComponent,
         ModalComponent,

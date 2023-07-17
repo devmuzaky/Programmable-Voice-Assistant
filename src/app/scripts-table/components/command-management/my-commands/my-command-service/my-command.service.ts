@@ -1,7 +1,7 @@
 import {Injectable} from '@angular/core';
 import {APP_CONFIG} from "../../../../../../environments/environment";
 import {HttpClient} from "@angular/common/http";
-import {BehaviorSubject, Subject} from "rxjs";
+import {BehaviorSubject} from "rxjs";
 import {CommandForTableDTO} from "../../../../interfaces/command.model";
 
 @Injectable({
@@ -12,7 +12,7 @@ export class MyCommandService {
 
   constructor(
     private http: HttpClient) {
-    this.getMyCommands();
+    this.fetchMyCommands();
   }
 
   private _myCommands$: BehaviorSubject<CommandForTableDTO[]> = new BehaviorSubject<CommandForTableDTO[]>([]);
@@ -21,21 +21,24 @@ export class MyCommandService {
     return this._myCommands$.asObservable();
   }
 
-  getMyCommands() {
+  fetchMyCommands() {
     this.http.get<any>(`${this.baseUrl}/api/commands/mine/`).subscribe(
       (res: CommandForTableDTO[]) => {
         this._myCommands$.next(res);
+      },
+      error => {
+        console.error(error);
       }
     )
   }
 
-  updateToPublic(id: number) {
-    const commands = this._myCommands$.getValue();
-    commands.forEach((command) => {
-      if (command.id === id) {
-        command.state = 'public';
+  updateCommandToPublic(id: number) {
+    const commands: CommandForTableDTO[] = this._myCommands$.getValue();
+    commands.forEach(
+      (command) => {
+        if (command.id === id) command.state = 'public';
       }
-    });
+    );
 
     this._myCommands$.next(commands);
   }

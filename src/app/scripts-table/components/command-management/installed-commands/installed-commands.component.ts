@@ -1,5 +1,5 @@
 import {Component, OnInit} from '@angular/core';
-import {MarketPlaceCommandDTO} from "../../../interfaces/MarketPlaceCommandDTO";
+import {marketPlaceCommandDTO} from "../../../interfaces/MarketPlaceCommandDTO";
 import {Parameter} from "../../../interfaces/parameter";
 import {Pattern} from "../../../interfaces/pattern";
 import {InstalledCommandsService} from "./installed-commands-service/installed-commands.service";
@@ -16,9 +16,9 @@ import {APP_CONFIG} from "../../../../../environments/environment";
   styleUrls: ['./installed-commands.component.scss']
 })
 export class InstalledCommandsComponent implements OnInit {
-  commands: Observable<MarketPlaceCommandDTO[]>;
+  commands: Observable<marketPlaceCommandDTO[]>;
   apiBaseUrl = APP_CONFIG.apiBaseUrl;
-  loading: boolean = false;
+  showLoader: boolean = false;
 
   constructor(
     private installedCommandsService: InstalledCommandsService,
@@ -52,7 +52,7 @@ export class InstalledCommandsComponent implements OnInit {
       header: 'Confirm',
       icon: 'pi pi-exclamation-triangle',
       accept: () => {
-        this.loading = true;
+        this.showLoader = true;
         console.log("show loading");
         this.commandService.uninstallCommand(command.id).subscribe(() => {
           this.messageService.add({
@@ -62,14 +62,14 @@ export class InstalledCommandsComponent implements OnInit {
           });
           this.installedCommandsService.getInstalledCommands();
           this.electronService.ipcRenderer.send('delete-executable-file', command.id);
-          this.loading = false;
+          this.showLoader = false;
         }, error => {
           this.messageService.add({
             severity: 'error',
             summary: 'Error',
             detail: 'Command could not be uninstalled!'
           });
-          this.loading = false;
+          this.showLoader = false;
         });
       }
     });
@@ -82,22 +82,22 @@ export class InstalledCommandsComponent implements OnInit {
       header: 'Confirm',
       icon: 'pi pi-exclamation-triangle',
       accept: () => {
-        this.loading = true;
+        this.showLoader = true;
         this.commandService.forkCommand(command.id).subscribe(() => {
           this.messageService.add({
             severity: 'success',
             summary: 'Success',
             detail: 'Command forked successfully!'
           });
-          this.myCommandService.getMyCommands();
-          this.loading = false;
+          this.myCommandService.fetchMyCommands();
+          this.showLoader = false;
         }, error => {
           this.messageService.add({
             severity: 'error',
             summary: 'Error',
             detail: 'Command could not be forked!'
           });
-          this.loading = false;
+          this.showLoader = false;
         });
       }
     });

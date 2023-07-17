@@ -6,19 +6,15 @@
     cursor: pointer;
     border-bottom: .2px solid rgba(101, 105, 112, 0.26);
 
-
-
     &:hover {
       box-shadow: 0 0.125rem 0.5rem 0 rgba(49, 49, 50, 0.1);
       background-color: rgba(123, 133, 140, 0.39);
     }
-
   }
 
   .card-selected{
     background-color: rgba(74, 135, 198, 0.28) !important;
   }
-
 
   .card-body {
     display: flex;
@@ -68,5 +64,4 @@
     font-size: 14px;
     font-weight: 500;
   }
-
 }

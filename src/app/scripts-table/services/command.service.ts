@@ -5,7 +5,7 @@ import {APP_CONFIG} from "../../../environments/environment";
 import {CommandCreateRequest} from "../interfaces/commandCreateRequest.model";
 import {CommandEditInfoDTO} from "../interfaces/CommandEditInfoDTO";
 import {CommandEditRequest} from "../interfaces/commandEditRequest.model";
-import {MarketPlaceCommandDTO} from "../interfaces/MarketPlaceCommandDTO";
+import {marketPlaceCommandDTO} from "../interfaces/MarketPlaceCommandDTO";
 
 
 @Injectable({
@@ -21,21 +21,22 @@ export class CommandService {
   }
 
 
-  getMyCommands() {
+  getMyCommands(): Observable<any> {
     return this.http.get<any>(`${this.baseUrl}/api/commands/mine/`);
   }
 
 
   searchCommand(search: string) {
     return this.http.get<any>(`${this.baseUrl}/api/commands/public/`)
-      .pipe(map((res: any) => {
-        return res.filter((item: any) => {
-
-          return item.name.toLowerCase().includes(search.toLowerCase())
-            || item.description.toLowerCase().includes(search.toLowerCase())
-            || item.owner.toLowerCase().includes(search.toLowerCase())
-        });
-      }));
+      .pipe(
+        map((res: any) => {
+          return res.filter((item: any) => {
+            return item.name.toLowerCase().includes(search.toLowerCase())
+              || item.description.toLowerCase().includes(search.toLowerCase())
+              || item.owner.toLowerCase().includes(search.toLowerCase())
+          });
+        })
+      );
   }
 
   createCommand(command: CommandCreateRequest) {
@@ -122,7 +123,7 @@ export class CommandService {
   }
 
   getMarketplaceCommands() {
-    return this.http.get<MarketPlaceCommandDTO[]>(`${this.baseUrl}/api/commands/public/`);
+    return this.http.get<marketPlaceCommandDTO[]>(`${this.baseUrl}/api/commands/public/`);
   }
 
   installCommand(id: number) {

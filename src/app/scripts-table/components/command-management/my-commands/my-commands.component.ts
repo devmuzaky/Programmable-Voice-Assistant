@@ -1,32 +1,28 @@
 import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import {CommandForTableDTO} from "../../../interfaces/command.model";
-import {CommandService} from "../../../services/command.service";
-import {CommandEditInfoDTO} from "../../../interfaces/CommandEditInfoDTO";
-import {Parameter} from "../../../interfaces/parameter";
-import {Pattern} from "../../../interfaces/pattern";
 import {ConfirmationService, MessageService} from "primeng/api";
 import {ElectronService} from "../../../../core/services";
 import {MyCommandService} from "./my-command-service/my-command.service";
 import {Observable} from "rxjs";
+import {CommandService} from "../../../services/command.service";
+import {CommandEditInfoDTO} from "../../../interfaces/CommandEditInfoDTO";
+import {Parameter} from "../../../interfaces/parameter";
+import {Pattern} from "../../../interfaces/pattern";
 import {APP_CONFIG} from "../../../../../environments/environment";
 
 @Component({
-  selector: 'app-my-commands',
+  selector: 'my-commands',
   templateUrl: './my-commands.component.html',
   styleUrls: ['./my-commands.component.scss']
 })
 export class MyCommandsComponent implements OnInit {
-
   @Input() selection: CommandForTableDTO[];
-
   @Output() selectionChange = new EventEmitter<CommandForTableDTO[]>();
-
-  commands$: Observable<CommandForTableDTO[]>;
   apiBaseUrl = APP_CONFIG.apiBaseUrl;
-
   showEditCommandForm: boolean;
   commandEditInfoDTO: CommandEditInfoDTO;
-  loading: boolean = false;
+  showLoader: boolean = false;
+  commands$: Observable<CommandForTableDTO[]>;
 
   constructor(
     private commandService: CommandService,
@@ -97,7 +93,7 @@ export class MyCommandsComponent implements OnInit {
       header: 'Confirm',
       icon: 'pi pi-exclamation-triangle',
       accept: () => {
-        this.loading = true;
+        this.showLoader = true;
         this.commandService.deleteCommand(command.id).subscribe(() => {
           this.messageService.add({
             severity: 'success',
@@ -105,15 +101,15 @@ export class MyCommandsComponent implements OnInit {
             detail: 'Command deleted successfully!'
           });
           this.electronService.ipcRenderer.send('delete-executable-file', command.id);
-          this.myCommandService.getMyCommands();
-          this.loading = false;
+          this.myCommandService.fetchMyCommands();
+          this.showLoader = false;
         }, error => {
           this.messageService.add({
             severity: 'error',
             summary: 'Error',
             detail: 'Command could not be deleted!'
           });
-          this.loading = false;
+          this.showLoader = false;
         });
       }
     });

@@ -10,13 +10,12 @@
     <p-toolbar styleClass="mb-4">
       <ng-template pTemplate="left">
         <!--        TODO: add a tooltip -->
-        <button
-          (click)="openCreateCommandForm()"
-          class="p-button-success mr-2 btn-icon-align"
-          icon="pi pi-plus" pButton
-          pRipple
-          title="Create New Command"
-        ></button>
+        <button (click)="openCreateCommandForm()"
+                class="p-button-success mr-2 btn-icon-align"
+                icon="pi pi-plus" pButton
+                pRipple
+                title="Create New Command">
+        </button>
 
         <!--        TODO: add a tooltip -->
         <button
@@ -25,8 +24,8 @@
           class="p-button-danger btn-icon-align"
           icon="pi pi-trash" pButton
           pRipple
-          title="Delete Selected Commands"
-        ></button>
+          title="Delete Selected Commands">
+        </button>
       </ng-template>
 
       <ng-template pTemplate="right">
@@ -36,14 +35,14 @@
           class="p-button-success mr-2 btn-icon-align w-4rem"
           icon="pi pi-shopping-cart" pButton
           pRipple
-          title="Marketplace: where you can install new commands"
-        ></button>
+          title="Marketplace: where you can install new commands">
+        </button>
       </ng-template>
     </p-toolbar>
 
     <mat-tab-group>
       <mat-tab label="My Commands">
-        <app-my-commands [(selection)]='selectedCommands'></app-my-commands>
+        <my-commands [(selection)]='selectedCommands'></my-commands>
       </mat-tab>
 
       <mat-tab label="Installed Commands">
@@ -52,12 +51,9 @@
     </mat-tab-group>
   </div>
 
-  <app-create-command-form
-    (closeForm)="CloseCreateCommandForm()"
-    *ngIf="showCreateCommandForm"
-  ></app-create-command-form>
+  <app-create-command-form (closeForm)="CloseCreateCommandForm()" *ngIf="showCreateCommandForm">
+  </app-create-command-form>
 
 </div>
 
 <app-marketplace (closeMarketplaceEvent)="closeMarketplace()" *ngIf="marketplaceFlag"></app-marketplace>
-

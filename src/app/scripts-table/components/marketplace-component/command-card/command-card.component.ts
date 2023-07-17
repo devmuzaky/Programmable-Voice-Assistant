@@ -1,5 +1,5 @@
 import {Component, EventEmitter, Input, Output} from '@angular/core';
-import {MarketPlaceCommandDTO} from "../../../interfaces/MarketPlaceCommandDTO";
+import {marketPlaceCommandDTO} from "../../../interfaces/MarketPlaceCommandDTO";
 import {APP_CONFIG} from "../../../../../environments/environment";
 
 @Component({
@@ -9,16 +9,14 @@ import {APP_CONFIG} from "../../../../../environments/environment";
 })
 export class CommandCardComponent {
 
-  @Input() command: MarketPlaceCommandDTO;
-  @Input() commandSelectedFlag: MarketPlaceCommandDTO;
+  apiBaseUrl = APP_CONFIG.apiBaseUrl;
+  @Input() commandSelectedFlag: marketPlaceCommandDTO;
+  @Input() command: marketPlaceCommandDTO;
   @Output() commandSelected = new EventEmitter<any>();
   @Output('commandSelectedFlag') selectedCommand = new EventEmitter<any>();
-  apiBaseUrl = APP_CONFIG.apiBaseUrl;
 
-  onSelectCommand(command: MarketPlaceCommandDTO) {
+  onSelectCommand(command: marketPlaceCommandDTO) {
     this.commandSelected.emit(command);
     this.selectedCommand.emit(true);
-
   }
-
 }

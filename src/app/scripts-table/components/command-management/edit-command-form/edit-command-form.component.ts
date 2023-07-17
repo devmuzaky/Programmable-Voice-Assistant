@@ -73,7 +73,7 @@ export class EditCommandFormComponent implements OnInit {
       this.closeForm.emit();
       this.loading = false;
 
-      this.myCommandService.getMyCommands();
+      this.myCommandService.fetchMyCommands();
     }, error => {
       this.messageService.add({severity: 'error', summary: `Error ${error.status}`, detail: error.message, life: 3000});
       this.loading = false;

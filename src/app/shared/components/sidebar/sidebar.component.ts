@@ -36,7 +36,7 @@ import {ToggleLoginService} from "./toggle-login.service";
     ])
   ]
 })
-export class SidebarComponent implements OnInit {
+export class SidebarComponent  {
 
 
   isLogin$: Observable<boolean>;
@@ -48,18 +48,11 @@ export class SidebarComponent implements OnInit {
     this.isLogin$ = this.authService.isUserLoggedIn;
   }
 
-  ngOnInit(): void {
-
-  }
-
-
   setToggleModal(e: MouseEvent) {
     e.preventDefault();
 
     this.toggleLoginService.toggleLogin();
   }
-
-
 
 
 }

@@ -34,7 +34,7 @@ export class NotificationService {
       console.log('Received message:', event.data)
       const notification = JSON.parse(event.data).notification;
       if (notification.type && notification.type === 'approved') {
-        this.myCommandService.updateToPublic(notification.id);
+        this.myCommandService.updateCommandToPublic(notification.id);
         return;
       }
       if (notification.status === 'success') {

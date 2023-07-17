@@ -106,7 +106,7 @@ export class CreateCommandFormComponent {
 
         this.closeForm.emit();
         this.command = {};
-        this.myCommandService.getMyCommands();
+        this.myCommandService.fetchMyCommands();
         this.loading.next(false);
         this.submitted = false;
 
