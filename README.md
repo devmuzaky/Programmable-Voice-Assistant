@@ -579,7 +579,7 @@ npm run start
 
 ## :hearts: Community
 
-The `Devault` community can be found on:
+The `MA` community can be found on:
 
 *   [Whatsaap](https://wa.me/+201062033520)
 
