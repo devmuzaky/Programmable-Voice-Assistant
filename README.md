@@ -582,6 +582,12 @@ Where you can ask questions, suggest new ideas, and get support.
             <sub><b>Mohamed Zaky</b></sub>
         </a>
     </td>
+    <td align="center">
+        <a href="https://github.com/ahmedeid0117">
+        <img src="" width="100px;" alt="Ahmed"/><br />
+            <sub><b>Ahmed Eid</b></sub>
+        </a>
+    </td>
   </tr>
 
 </table>
