@@ -59,26 +59,37 @@
 </div>
 
 
-<div align="center">
-    <a href="&&https://youtu.be/MohamedZaky">
-        Youtube Video
-    </a>
-    &middot;
-    &middot;
-    <a href="&&Demo">
-        Live Instance
-    </a>
-</div>
+[//]: # (<div align="center">)
+
+[//]: # (    <a href="&&https://youtu.be/MohamedZaky">)
+
+[//]: # (        Youtube Video)
+
+[//]: # (    </a>)
+
+[//]: # (    &middot;)
+
+[//]: # (    &middot;)
+
+[//]: # (    <a href="&&Demo">)
+
+[//]: # (        Live Instance)
+
+[//]: # (    </a>)
+
+[//]: # (</div>)
 
 <br />
 
-*If you have any improvements, do not hesitate to post an [issue](https://github.com/devmuzaky/programble-voise-assistant/issues/new/choose) or make a [pull request](https://github.com/devmuzaky/programble-voise-assistant/pulls).*
+[//]: # (*If you have any improvements, do not hesitate to post an [issue]&#40;https://github.com/devmuzaky/programble-voise-assistant/issues/new/choose&#41; or make a [pull request]&#40;https://github.com/devmuzaky/programble-voise-assistant/pulls&#41;.*)
 
 *Your support is very much appreciated!* [star on GitHub](https://github.com/devmuzaky/programble-voise-assistant/stargazers)
 
-<p align="center">
-    :warning: Active development. Unstable. Breaking changes. You get the point. :warning:
-</p>
+[//]: # (<p align="center">)
+
+[//]: # (    :warning: Active development. Unstable. Breaking changes. You get the point. :warning:)
+
+[//]: # (</p>)
 
 ## :scroll: Table of Contents
 
@@ -181,7 +192,8 @@ Our voice assistant addresses the limitations of limited customization found in 
 * #### Commands Library:
   * To further enhance customization options, our voice assistant includes a comprehensive Commands library. Users can access a collection of pre-built automation commands created by both other users and our core team. This allows users to reuse existing commands, leverage community-contributed automations, and easily expand the capabilities of their voice assistant.
 
-#### :cons: Features
+
+#### :star: Features 
 
 * Account Creation and Login:
     - Users can create an account securely to access personalized features, command management, and interaction with the application.
@@ -237,26 +249,25 @@ Our voice assistant addresses the limitations of limited customization found in 
 
 The tools used in this project.
 
-|                                                                                                                                           |                                       Tool                                        |                                           Description                                            |
-|:-----------------------------------------------------------------------------------------------------------------------------------------:|:---------------------------------------------------------------------------------:|:------------------------------------------------------------------------------------------------:|
-| <img src="https://img.shields.io/badge/-ElectronJS-47848F?logo=electron&logoColor=white"  width="32px" height="32px"  alt="ElectronJS" /> |                       [ElectronJS](https://electronjs.org/)                       |       A framework for building cross-platform desktop applications using web technologies.       |
-|                   <img src="https://img.shields.io/badge/-Angular-DD0031?logo=angular&logoColor=white" alt="Angular" />                   |                          [Angular](https://angular.io/)                           |                         Platform for building dynamic web applications.                          |
-|                       <img src="https://img.shields.io/badge/-SASS-CC6699?logo=sass&logoColor=white" alt="SASS" />                        |                          [SASS](https://sass-lang.com/)                           |                 CSS preprocessor for creating scalable and maintainable styles.                  |
-|                 <img src="https://img.shields.io/badge/-Primeng-1C9BE6?logo=primefaces&logoColor=white" alt="Primeng" />                  |                  [PrimeNG](https://www.primefaces.org/primeng/)                   |      UI component library to enhance the visual and interactive aspects of the application.      |
-|         <img src="https://img.shields.io/badge/-Angular%20Material-DE0031?logo=angular&logoColor=white" alt="Angular Material" />         |                 [Angular Material](https://material.angular.io/)                  |              UI component library that follows Google's Material Design guidelines.              |
-|            <img src="https://img.shields.io/badge/-Rasa%20Framework-4B8BF5?logo=rasa&logoColor=white" alt="Rasa Framework" />             |                   [Rasa Framework](https://rasa.com/docs/rasa/)                   |     Framework for natural language processing to understand user commands and interactions.      |
-|                                    <img src="https://img.shields.io/badge/-YAML-333333" alt="YAML" />                                     |                  [YAML](https://yaml.readthedocs.io/en/latest/)                   |                      YAML library used for automating the training process.                      |
-|                  <img src="https://img.shields.io/badge/-Webhook-FF6C37?logo=wikipedia&logoColor=white" alt="Webhook" />                  |                 [Webhook](https://en.wikipedia.org/wiki/Webhook)                  |       A way for two applications to communicate with each other by sending HTTP requests.        |
+|                                                                                                                                           |                                       Tool                                        |                                           Description                                         |
+|:-----------------------------------------------------------------------------------------------------------------------------------------:|:---------------------------------------------------------------------------------:|:---------------------------------------------------------------------------------------------:|
+| <img src="https://img.shields.io/badge/-ElectronJS-47848F?logo=electron&logoColor=white"  width="32px" height="32px"  alt="ElectronJS" /> |                       [ElectronJS](https://electronjs.org/)                       |       A framework for building cross-platform desktop applications using web technologies.    |
+|                   <img src="https://img.shields.io/badge/-Angular-DD0031?logo=angular&logoColor=white" alt="Angular" />                   |                          [Angular](https://angular.io/)                           |                         Platform for building dynamic web applications.                       |
+|                       <img src="https://img.shields.io/badge/-SASS-CC6699?logo=sass&logoColor=white" alt="SASS" />                        |                          [SASS](https://sass-lang.com/)                           |                 CSS preprocessor for creating scalable and maintainable styles.               |
+|                 <img src="https://img.shields.io/badge/-Primeng-1C9BE6?logo=primefaces&logoColor=white" alt="Primeng" />                  |                  [PrimeNG](https://www.primefaces.org/primeng/)                   |      UI component library to enhance the visual and interactive aspects of the application.   |
+|         <img src="https://img.shields.io/badge/-Angular%20Material-DE0031?logo=angular&logoColor=white" alt="Angular Material" />         |                 [Angular Material](https://material.angular.io/)                  |              UI component library that follows Google's Material Design guidelines.           |
+|            <img src="https://img.shields.io/badge/-Rasa%20Framework-4B8BF5?logo=rasa&logoColor=white" alt="Rasa Framework" />             |                   [Rasa Framework](https://rasa.com/docs/rasa/)                   |     Framework for natural language processing to understand user commands and interactions.   |
+|                                    <img src="https://img.shields.io/badge/-YAML-333333" alt="YAML" />                                     |                  [YAML](https://yaml.readthedocs.io/en/latest/)                   |                      YAML library used for automating the training process.                   |
+|                  <img src="https://img.shields.io/badge/-Webhook-FF6C37?logo=wikipedia&logoColor=white" alt="Webhook" />                  |                 [Webhook](https://en.wikipedia.org/wiki/Webhook)                  |       A way for two applications to communicate with each other by sending HTTP requests.     |
 |             <img src="https://img.shields.io/badge/-Multitenancy-22A6F3?logo=wikipedia&logoColor=white" alt="Multitenancy" />             |            [Multitenancy](https://en.wikipedia.org/wiki/Multitenancy)             | A way to allow multiple users to share the same application without interfering with each other. |
-| <img src="https://img.shields.io/badge/-Model%20Linguistic%20Feature-09AEE5?logo=spacy&logoColor=white" alt="Model Linguistic Feature" /> |      [Model Linguistic Feature](https://spacy.io/usage/linguistic-features)       |              A feature that is used to represent the linguistic content of a text.               |
-|     <img src="https://img.shields.io/badge/-Google%20Calendar%20API-4285F4?logo=google&logoColor=white" alt="Google Calendar API" />      | [Google Calendar API](https://developers.google.com/calendar/api/guides/overview) |                   API for interacting with Google Calendar to schedule events.                   |
-|          <img src="https://img.shields.io/badge/-Google%20Cloud-4285F4?logo=google-cloud&logoColor=white" alt="Google Cloud" />           |                  [Google Cloud](https://cloud.google.com/docs/)                   |                  Cloud platform used for hosting and deploying the application.                  |
-|                      <img src="https://img.shields.io/badge/-Redis-DC382D?logo=redis&logoColor=white" alt="Redis" />                      |                  [Redis](https://redis.io/docs/getting-started/)                  |               In-memory data store used for caching and performance optimization.                |
-|                    <img src="https://img.shields.io/badge/-Django-092E20?logo=django&logoColor=white" alt="Django" />                     |                 [Django](https://docs.djangoproject.com/en/4.2/)                  |                Web framework used for the backend server and database management.                |
-|           <img src="https://img.shields.io/badge/-Async%20Channels-1369C2?logo=python&logoColor=white" alt="Async Channels" />            |               [Async Channels](https://pypi.org/project/channels/)                |        A library that allows you to create asynchronous communication channels in Django.        |
-|              <img src="https://img.shields.io/badge/-PostgreSQL-336791?logo=postgresql&logoColor=white" alt="PostgreSQL" />               |                     [PostgreSQL](https://www.postgresql.org/)                     |                   Relational database management system used for data storage.                   |
-|                    <img src="https://img.shields.io/badge/-Daphne-092E20?logo=django&logoColor=white" alt="Daphne" />                     |                    [Daphne](https://github.com/django/daphne)                     |                         ASGI server used to deploy Django applications.                          |
-|:---------------------------------------------------------------------------------------------------------------------------------------------:|   :------------------------------------------------------------------------:  |  :------------------------------------------------------------------------------------------: |
+| <img src="https://img.shields.io/badge/-Model%20Linguistic%20Feature-09AEE5?logo=spacy&logoColor=white" alt="Model Linguistic Feature" /> |      [Model Linguistic Feature](https://spacy.io/usage/linguistic-features)       |              A feature that is used to represent the linguistic content of a text.            |
+|     <img src="https://img.shields.io/badge/-Google%20Calendar%20API-4285F4?logo=google&logoColor=white" alt="Google Calendar API" />      | [Google Calendar API](https://developers.google.com/calendar/api/guides/overview) |                   API for interacting with Google Calendar to schedule events.                |
+|          <img src="https://img.shields.io/badge/-Google%20Cloud-4285F4?logo=google-cloud&logoColor=white" alt="Google Cloud" />           |                  [Google Cloud](https://cloud.google.com/docs/)                   |                  Cloud platform used for hosting and deploying the application.               |
+|                      <img src="https://img.shields.io/badge/-Redis-DC382D?logo=redis&logoColor=white" alt="Redis" />                      |                  [Redis](https://redis.io/docs/getting-started/)                  |               In-memory data store used for caching and performance optimization.             |
+|                    <img src="https://img.shields.io/badge/-Django-092E20?logo=django&logoColor=white" alt="Django" />                     |                 [Django](https://docs.djangoproject.com/en/4.2/)                  |                Web framework used for the backend server and database management.             |
+|           <img src="https://img.shields.io/badge/-Async%20Channels-1369C2?logo=python&logoColor=white" alt="Async Channels" />            |               [Async Channels](https://pypi.org/project/channels/)                |        A library that allows you to create asynchronous communication channels in Django.     |
+|              <img src="https://img.shields.io/badge/-PostgreSQL-336791?logo=postgresql&logoColor=white" alt="PostgreSQL" />               |                     [PostgreSQL](https://www.postgresql.org/)                     |                   Relational database management system used for data storage.                |
+|                    <img src="https://img.shields.io/badge/-Daphne-092E20?logo=django&logoColor=white" alt="Daphne" />                     |                    [Daphne](https://github.com/django/daphne)                     |                         ASGI server used to deploy Django applications.                       |
 
 ## :ladder: Source Code Directory Structure
 
@@ -358,6 +369,127 @@ A quick look at the top-level files and directories:
 *   4.  stt: contains all the source code for the speech-to-text module.
 *   5.  test-files: contains all the test files.
 
+
+## :thinking: Usage
+
+*   1.  Install the voice assistant application on your desktop or device.
+*   2.  Launch the application and create a new account or log in securely with your credentials.
+*   3.  Customize your voice assistant by creating new commands. Provide metadata such as name, description, and patterns for each command.
+<details>
+    <summary>
+        <b>Example:</b> <i>Command to open a website</i>
+</summary>
+    <ul>
+     <li> <img src="/public/screenshots/create-command.png" /> </li>
+    </ul>
+ </details>
+*   5. Edit existing commands to modify their metadata or update the associated files.
+<details>
+    <summary>
+        <b>Example:</b> <i>Command to open a website</i>
+</summary>
+    <ul>
+     <li> <img src="/public/screenshots/edit-command.png" /> </li>
+    </ul>
+ </details>
+*   6.  Uninstall commands you no longer need with a simple click and confirm the deletion.
+<details>
+    <summary>
+        <b>Example:</b> <i>Command to open a website</i>
+</summary>
+    <ul>
+     <li> <img src="/public/screenshots/delete-command.png" /> </li>
+    </ul>
+ </details>
+*   7.  Submit custom commands for admin approval through the intuitive interface.
+<details>
+    <summary>
+        <b>Example:</b> <i>Command to open a website</i>
+</summary>
+    <ul>
+     <li> <img src="/public/screenshots/submit-command.png" /> </li>
+    </ul>
+ </details>
+*   8.  Access your personalized command table, where all your commands are listed for easy management.
+<details>
+    <summary>
+        <b>Example:</b> <i>Command to open a website</i>
+</summary>
+    <ul>
+     <li> <img src="/public/screenshots/commands-table.png" /> </li>
+    </ul>
+ </details>
+*   9.  Browse and explore the marketplace to discover and install commands created by other users or the core team.
+<details>
+    <summary>
+        <b>Example:</b> <i>Command to open a website</i>
+</summary>
+    <ul>
+     <li> <img src="/public/screenshots/marketplace.png" /> </li>
+    </ul>
+ </details>
+*   10. Utilize the voice chat component to interact with the assistant through voice commands.
+<details>
+    <summary>
+        <b>Example:</b> <i>Command to open a website</i>
+</summary>
+    <ul>
+     <li> <img src="/public/screenshots/voice-chat.png" /> </li>
+    </ul>
+ </details>
+*   11. If you encounter any issues with voice commands, use the text input in the chat component as an alternative method.
+<details>
+    <summary>
+        <b>Example:</b> <i>Command to open a website</i>
+</summary>
+    <ul>
+     <li> <img src="/public/screenshots/text-chat.png" /> </li>
+    </ul>
+ </details>
+*   12. Enjoy the flexibility and extensive customization options offered by your new customizable voice assistant!
+
+[//]: # (## :bulb: FAQ)
+
+[//]: # ()
+[//]: # (<details>)
+
+[//]: # (    <summary>Why MA?</summary>)
+
+[//]: # (    <ul>)
+
+[//]: # (        <li> MA is a customizable voice assistant that can be used to automate tasks and increase productivity. It is designed to be flexible and easy to use, allowing users to create custom commands and install commands created by other users. MA is also open-source, which means that anyone can contribute to the project and help improve it.</li>)
+
+[//]: # (    </ul>)
+
+[//]: # (</details>)
+
+[//]: # ()
+[//]: # (<details>)
+
+[//]: # (    <summary>Is it possible to access commands without an account?</summary>)
+
+[//]: # (    <ul>)
+
+[//]: # (        <li> </li>)
+
+[//]: # (    </ul>)
+
+[//]: # (</details>)
+
+[//]: # ()
+[//]: # (<details>)
+
+[//]: # (    <summary>What happens when I</summary>)
+
+[//]: # (    <ul>)
+
+[//]: # (        <li>.</li>)
+
+[//]: # (    </ul>)
+
+[//]: # (</details>)
+
+
 ## :biking\_man: Getting Started
 
 ### :yellow\_circle: Prerequisites
@@ -435,124 +567,6 @@ npm install
 npm run start
 ```
 
-## :thinking: Usage
-
-*   1.  Install the voice assistant application on your desktop or device.
-*   2.  Launch the application and create a new account or log in securely with your credentials.
-*   3.  Customize your voice assistant by creating new commands. Provide metadata such as name, description, and patterns for each command.
-    <details>
-        <summary>
-            <b>Example:</b> <i>Command to open a website</i>
-    </summary>
-        <ul>
-         <li> <img src="/public/screenshots/create-command.png" /> </li>
-        </ul>
-     </details>
-*   5. Edit existing commands to modify their metadata or update the associated files.
-    <details>
-        <summary>
-            <b>Example:</b> <i>Command to open a website</i>
-    </summary>
-        <ul>
-         <li> <img src="/public/screenshots/edit-command.png" /> </li>
-        </ul>
-     </details>
-*   6.  Uninstall commands you no longer need with a simple click and confirm the deletion.
-    <details>
-        <summary>
-            <b>Example:</b> <i>Command to open a website</i>
-    </summary>
-        <ul>
-         <li> <img src="/public/screenshots/delete-command.png" /> </li>
-        </ul>
-     </details>
-*   7.  Submit custom commands for admin approval through the intuitive interface.
-    <details>
-        <summary>
-            <b>Example:</b> <i>Command to open a website</i>
-    </summary>
-        <ul>
-         <li> <img src="/public/screenshots/submit-command.png" /> </li>
-        </ul>
-     </details>
-*   8.  Access your personalized command table, where all your commands are listed for easy management.
-    <details>
-        <summary>
-            <b>Example:</b> <i>Command to open a website</i>
-    </summary>
-        <ul>
-         <li> <img src="/public/screenshots/commands-table.png" /> </li>
-        </ul>
-     </details>
-*   9.  Browse and explore the marketplace to discover and install commands created by other users or the core team.
-    <details>
-        <summary>
-            <b>Example:</b> <i>Command to open a website</i>
-    </summary>
-        <ul>
-         <li> <img src="/public/screenshots/marketplace.png" /> </li>
-        </ul>
-     </details>
-*   10. Utilize the voice chat component to interact with the assistant through voice commands.
-    <details>
-        <summary>
-            <b>Example:</b> <i>Command to open a website</i>
-    </summary>
-        <ul>
-         <li> <img src="/public/screenshots/voice-chat.png" /> </li>
-        </ul>
-     </details>
-*   11. If you encounter any issues with voice commands, use the text input in the chat component as an alternative method.
-    <details>
-        <summary>
-            <b>Example:</b> <i>Command to open a website</i>
-    </summary>
-        <ul>
-         <li> <img src="/public/screenshots/text-chat.png" /> </li>
-        </ul>
-     </details>
-*   12. Enjoy the flexibility and extensive customization options offered by your new customizable voice assistant!
-
-[//]: # (## :bulb: FAQ)
-
-[//]: # ()
-[//]: # (<details>)
-
-[//]: # (    <summary>Why MA?</summary>)
-
-[//]: # (    <ul>)
-
-[//]: # (        <li> MA is a customizable voice assistant that can be used to automate tasks and increase productivity. It is designed to be flexible and easy to use, allowing users to create custom commands and install commands created by other users. MA is also open-source, which means that anyone can contribute to the project and help improve it.</li>)
-
-[//]: # (    </ul>)
-
-[//]: # (</details>)
-
-[//]: # ()
-[//]: # (<details>)
-
-[//]: # (    <summary>Is it possible to access commands without an account?</summary>)
-
-[//]: # (    <ul>)
-
-[//]: # (        <li> </li>)
-
-[//]: # (    </ul>)
-
-[//]: # (</details>)
-
-[//]: # ()
-[//]: # (<details>)
-
-[//]: # (    <summary>What happens when I</summary>)
-
-[//]: # (    <ul>)
-
-[//]: # (        <li>.</li>)
-
-[//]: # (    </ul>)
-
-[//]: # (</details>)
 
 ## :rescue\_worker\_helmet: Future Work
 
