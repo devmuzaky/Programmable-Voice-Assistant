@@ -1,29 +1,28 @@
 import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import {CommandForTableDTO} from "../../../interfaces/command.model";
-import {CommandService} from "../../../services/command.service";
-import {CommandEditInfoDTO} from "../../../interfaces/CommandEditInfoDTO";
-import {Parameter} from "../../../interfaces/parameter";
-import {Pattern} from "../../../interfaces/pattern";
 import {ConfirmationService, MessageService} from "primeng/api";
 import {ElectronService} from "../../../../core/services";
 import {MyCommandService} from "./my-command-service/my-command.service";
 import {Observable} from "rxjs";
+import {CommandService} from "../../../services/command.service";
+import {CommandEditInfoDTO} from "../../../interfaces/CommandEditInfoDTO";
+import {Parameter} from "../../../interfaces/parameter";
+import {Pattern} from "../../../interfaces/pattern";
+import {APP_CONFIG} from "../../../../../environments/environment";
 
 @Component({
-  selector: 'app-my-commands',
+  selector: 'my-commands',
   templateUrl: './my-commands.component.html',
   styleUrls: ['./my-commands.component.scss']
 })
 export class MyCommandsComponent implements OnInit {
-
   @Input() selection: CommandForTableDTO[];
-
   @Output() selectionChange = new EventEmitter<CommandForTableDTO[]>();
-
-  commands$: Observable<CommandForTableDTO[]>;
-
+  apiBaseUrl = APP_CONFIG.apiBaseUrl;
   showEditCommandForm: boolean;
   commandEditInfoDTO: CommandEditInfoDTO;
+  showLoader: boolean = false;
+  commands$: Observable<CommandForTableDTO[]>;
 
   constructor(
     private commandService: CommandService,
@@ -36,7 +35,6 @@ export class MyCommandsComponent implements OnInit {
 
   ngOnInit(): void {
     this.commands$ = this.myCommandService.myCommands$;
-
   }
 
   editCommand(id: number) {
@@ -63,29 +61,29 @@ export class MyCommandsComponent implements OnInit {
 
     return parameters
       .sort(parameter => parameter.order)
-      .map(parameter => `${parameter.name} (${parameter.type})`)
+      .map(parameter => `${parameter.name}`)
       .join(', ');
   }
 
   getPatternsString(patterns: Pattern[]) {
-    return patterns.map(pattern => pattern.syntax).join('/ ');
+    return patterns.map(pattern => pattern.syntax).join(' \n\n');
   }
 
   downloadCommandFiles(command: CommandForTableDTO) {
     const link = document.createElement('a');
     link.target = '_blank';
     link.href = command.script_link;
-    link.download = `${command.name}_script.zip`;
+    link.download = `${command.name}_script.py`;
     link.click();
 
     link.target = '_blank';
     link.href = command.requirements_link;
-    link.download = `${command.name}_requirements.zip`;
+    link.download = `${command.name}_requirements.txt`;
     link.click();
 
     link.target = '_blank';
     link.href = command.icon_link;
-    link.download = `${command.name}_icon.zip`;
+    link.download = `${command.name}_icon.png`;
     link.click();
   }
 
@@ -95,6 +93,7 @@ export class MyCommandsComponent implements OnInit {
       header: 'Confirm',
       icon: 'pi pi-exclamation-triangle',
       accept: () => {
+        this.showLoader = true;
         this.commandService.deleteCommand(command.id).subscribe(() => {
           this.messageService.add({
             severity: 'success',
@@ -102,13 +101,15 @@ export class MyCommandsComponent implements OnInit {
             detail: 'Command deleted successfully!'
           });
           this.electronService.ipcRenderer.send('delete-executable-file', command.id);
-          this.myCommandService.getMyCommands();
+          this.myCommandService.fetchMyCommands();
+          this.showLoader = false;
         }, error => {
           this.messageService.add({
             severity: 'error',
             summary: 'Error',
             detail: 'Command could not be deleted!'
           });
+          this.showLoader = false;
         });
       }
     });

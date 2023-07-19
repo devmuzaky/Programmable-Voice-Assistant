@@ -10,8 +10,7 @@ export interface CommandCreateRequest {
     requirements: File,
     scriptType: string
   };
-
-  visibility: string;
-  icon: File;
   patternsNumber: number;
+  icon: File;
+  visibility: string;
 }

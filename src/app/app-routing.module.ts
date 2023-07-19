@@ -1,7 +1,5 @@
 import {NgModule} from '@angular/core';
 import {Routes, RouterModule} from '@angular/router';
-import {PageNotFoundComponent} from './shared/components';
-
 import {CommandsTableModule} from './scripts-table/commands-table.module';
 import {AuthRoutingModule} from './auth/auth-routing.module';
 import {RecorderRoutingModule} from "./recorder/recorder-routing.module";
@@ -14,7 +12,6 @@ const routes: Routes = [
     path: '',
     redirectTo: 'home-page',
     pathMatch: 'full',
-
   },
   {
     path: 'home-page',
@@ -27,10 +24,6 @@ const routes: Routes = [
   {
     path: 'marketplace',
     component: MarketplaceComponent
-  },
-  {
-    path: '**',
-    component: PageNotFoundComponent
   }
 ];
 

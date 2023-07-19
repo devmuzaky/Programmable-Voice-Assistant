@@ -1,28 +1,24 @@
-<p-card
-  [style]="{width: '100%'}"
-  header="{{command.name}}"
-  styleClass="p-card-shadow"
-  subheader="{{command.owner}}">
+<p-card [style]="{width: '100%'}" header="{{command.name}}" styleClass="p-card-shadow" subheader="{{command.owner}}">
 
+  <button (click)="installCommand(command.id)" class="mb-5" icon="pi pi-check" label="Install" pButton
+          type="button"></button>
+
+  <hr *ngIf="command.description != ''">
+  <h4 *ngIf="command.description != ''" class="m-auto preview-title">Description</h4>
   <p>{{command.description}}!</p>
 
-  <h3>information that need to be provided</h3>
-  <p>
-    <span *ngFor="let parameter of command.parameters" class="p-tag p-tag-rounded p-tag-info mr-2">
-      {{parameter.order}}. {{parameter.name}} ({{parameter.type}})
+  <hr *ngIf="command.parameters.length > 0">
+  <h4 *ngIf="command.parameters.length > 0" class="m-auto preview-title"> Information that need to be provided </h4>
+  <div>
+    <span *ngFor="let parameter of command.parameters" class="p-tag p-tag-rounded p-tag-info tag-color mr-2">
+      {{parameter.order + 1}}. {{parameter.name}} ({{parameter.type}})
     </span>
-  </p>
+  </div>
 
-  <h3>Examples of how to run the command</h3>
-  <p>
-    <span *ngFor="let pattern of command.patterns" class="p-tag p-tag-rounded p-tag-info  mr-2">
-      {{pattern.syntax}}
-    </span>
-  </p>
-
-
-  <p-footer>
-    <button (click)="installCommand(command.id)" icon="pi pi-check" label="Install" pButton type="button"></button>
-  </p-footer>
-
+  <hr *ngIf="command.patterns.length > 0">
+  <h4 class="m-auto preview-title">Examples of how to run the command</h4>
+  <div>
+    <span *ngFor="let pattern of command.patterns"
+          class="p-tag p-tag-rounded p-tag-info tag-color  mr-2">{{pattern.syntax}}</span>
+  </div>
 </p-card>

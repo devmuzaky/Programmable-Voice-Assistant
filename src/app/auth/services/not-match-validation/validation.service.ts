@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import {Injectable} from '@angular/core';
 import {AbstractControl, ValidatorFn} from "@angular/forms";
 
 @Injectable({
@@ -23,8 +23,8 @@ export class ValidationService {
       }
 
       if (passwordControl.value !== confirmPasswordControl.value) {
-        confirmPasswordControl.setErrors({ passwordMismatch: true });
-        return { passwordMismatch: true };
+        confirmPasswordControl.setErrors({passwordMismatch: true});
+        return {passwordMismatch: true};
       } else {
         confirmPasswordControl.setErrors(null);
         return null;

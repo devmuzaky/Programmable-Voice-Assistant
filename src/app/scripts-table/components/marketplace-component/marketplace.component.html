@@ -1,6 +1,5 @@
 <div class="container box">
 
-
   <p-dialog
     [baseZIndex]="10000"
     [contentStyle]="{width: '100%'}"
@@ -38,8 +37,7 @@
             (click)="closeMarketplace()"
             class="btn-close"
             pButton
-            type="button"
-          >
+            type="button">
             <i class="pi pi-times"></i>
           </button>
         </ng-template>
@@ -54,13 +52,13 @@
             (commandSelectedFlag)="commandSelectedFlag = $event"
             *ngFor="let command of commandsList"
             [command]="command"
-          ></app-command-card>
+            [commandSelectedFlag]="commandSelected">
+          </app-command-card>
 
 
           <div *ngIf="!commandsList.length" class="no-commands-found">
             <span>No commands found</span>
           </div>
-
 
         </div>
 
@@ -69,18 +67,16 @@
                   Select Command to preview it
                 </span>
 
-          <app-card-preview
-            *ngIf="commandSelectedFlag"
-            [command]="commandSelected"
-            (showLoader)="showLoader = $event"
-            (closeMarketPlace)="closeMarketplace()"
-          ></app-card-preview>
+          <app-card-preview class="w-full"
+                            (closeMarketPlace)="closeMarketplace()"
+                            (showLoader)="showLoader = $event"
+                            *ngIf="commandSelectedFlag"
+                            [command]="commandSelected">
+          </app-card-preview>
 
         </div>
 
       </div>
     </app-loader>
   </p-dialog>
-
-
 </div>

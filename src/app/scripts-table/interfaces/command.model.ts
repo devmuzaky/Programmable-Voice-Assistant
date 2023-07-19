@@ -17,6 +17,7 @@ export interface Command {
   owner?: string;
 }
 
+
 export interface CommandForTableDTO {
   id: number;
   name: string;
@@ -29,3 +30,4 @@ export interface CommandForTableDTO {
   script_link: string;
   requirements_link: string;
 }
+

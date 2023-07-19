@@ -1,3 +1,4 @@
+<app-loader [showLoader]="showLoader">
 <p-table #dt
          [globalFilterFields]="['name','command','status', 'description']"
          [paginator]="true"
@@ -40,7 +41,7 @@
     <tr>
       <td class="small-cell-width">
         <figure class="avatar">
-          <img [src]="command.icon_link" alt="command-icon" class="shadow-4">
+          <img [src]="apiBaseUrl + command.icon_link" alt="command-icon" class="shadow-4">
         </figure>
       </td>
       <td
@@ -99,3 +100,4 @@
     </div>
   </ng-template>
 </p-table>
+</app-loader>

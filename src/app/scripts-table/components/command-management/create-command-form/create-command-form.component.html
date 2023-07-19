@@ -5,258 +5,262 @@
   [visible]="true"
   header="Create New Command"
   styleClass="p-fluid">
-  <ng-template pTemplate="content">
 
-    <div class="field flex flex-column">
-      <label for="name">Name</label>
-      <input
-        [(ngModel)]="command.name" autofocus id="name"
-        pInputText required type="text">
-      <small *ngIf="submitted && !command.name" class="p-error">Name is required.</small>
-    </div>
+    <ng-template pTemplate="content">
+      <app-loader [showLoader]="(loading | async)">
 
-    <div class="field flex flex-column">
-      <label for="description">Description</label>
-      <textarea
-        [(ngModel)]="command.description"
-        cols="10" id="description" pInputTextarea
-        rows="1"></textarea>
-    </div>
+      <div class="field flex flex-column">
+        <label for="name">Name</label>
+        <input
+          [(ngModel)]="command.name" autofocus id="name"
+          pInputText required type="text">
+        <small *ngIf="submitted && !command.name" class="p-error">Name is required.</small>
+      </div>
 
-    <div class="field flex disable-select-input-number flex-column">
-      <label for="parametersNo">Parameters Number </label>
-      <div class="parameter flex flex-row">
-        <p-inputNumber #paramNum (click)="onParametersStateChange(paramNum.value)"
-                       [(ngModel)]="command.parametersNumber"
-                       [showButtons]="true"
-                       [style]="{width: '110px', height: '30'}"
-                       buttonLayout="horizontal"
-                       class="ml-1 mr-1"
-                       decrementButtonClass="p-button-secondary"
-                       decrementButtonIcon="pi pi-minus"
-                       id="parametersNo"
-                       incrementButtonClass="p-button-secondary"
-                       incrementButtonIcon="pi pi-plus"
-                       max="4"
-                       min="0"
-                       placeholder="0"
-        >
-        </p-inputNumber>
-        <div class="flex-column w-full">
+      <div class="field flex flex-column">
+        <label for="description">Description</label>
+        <textarea
+          [(ngModel)]="command.description"
+          cols="10" id="description" pInputTextarea
+          rows="1"></textarea>
+      </div>
 
-          <app-parameter-field *ngIf="command.parametersNumber >= 1"
-                               [parameters]="command.parameters"
-                               [order]="0"
-                               [submitted]="submitted">
-          </app-parameter-field>
+      <div class="field flex disable-select-input-number flex-column">
+        <label for="parametersNo">Parameters Number </label>
+        <div class="parameter flex flex-row">
+          <p-inputNumber #paramNum (click)="onParametersStateChange(paramNum.value)"
+                         [(ngModel)]="command.parametersNumber"
+                         [showButtons]="true"
+                         [style]="{width: '110px', height: '30'}"
+                         buttonLayout="horizontal"
+                         class="ml-1 mr-1"
+                         decrementButtonClass="p-button-secondary"
+                         decrementButtonIcon="pi pi-minus"
+                         id="parametersNo"
+                         incrementButtonClass="p-button-secondary"
+                         incrementButtonIcon="pi pi-plus"
+                         max="4"
+                         min="0"
+                         placeholder="0"
+          >
+          </p-inputNumber>
+          <div class="flex-column w-full">
 
-          <app-parameter-field *ngIf="command.parametersNumber >= 2"
-                               [parameters]="command.parameters"
-                               [order]="1"
-                               [submitted]="submitted">
-          </app-parameter-field>
+            <app-parameter-field *ngIf="command.parametersNumber >= 1"
+                                 [order]="0"
+                                 [parameters]="command.parameters"
+                                 [submitted]="submitted">
+            </app-parameter-field>
 
-          <app-parameter-field *ngIf="command.parametersNumber >= 3"
-                               [parameters]="command.parameters"
-                               [order]="2"
-                               [submitted]="submitted">
-          </app-parameter-field>
+            <app-parameter-field *ngIf="command.parametersNumber >= 2"
+                                 [order]="1"
+                                 [parameters]="command.parameters"
+                                 [submitted]="submitted">
+            </app-parameter-field>
 
-          <app-parameter-field *ngIf="command.parametersNumber >= 4"
-                               [parameters]="command.parameters"
-                               [order]="3"
-                               [submitted]="submitted">
-          </app-parameter-field>
+            <app-parameter-field *ngIf="command.parametersNumber >= 3"
+                                 [order]="2"
+                                 [parameters]="command.parameters"
+                                 [submitted]="submitted">
+            </app-parameter-field>
 
+            <app-parameter-field *ngIf="command.parametersNumber >= 4"
+                                 [order]="3"
+                                 [parameters]="command.parameters"
+                                 [submitted]="submitted">
+            </app-parameter-field>
+
+          </div>
         </div>
       </div>
-    </div>
 
-    <div class="field disable-select-input-number">
-      <label for="patternsNum" style="display: block">Patterns Number </label>
-      <div class="flex flex-row ">
-        <p-inputNumber #patternsNum (click)="onPatternsStateChange(patternsNum.value)"
-                       [(ngModel)]="command.patternsNumber"
-                       [showButtons]="true"
-                       [style]="{width: '110px', height: '30'}"
-                       buttonLayout="horizontal"
-                       class="ml-1 mr-1"
-                       decrementButtonClass="p-button-secondary"
-                       decrementButtonIcon="pi pi-minus"
-                       id="patternsNum"
-                       incrementButtonClass="p-button-secondary"
-                       incrementButtonIcon="pi pi-plus"
-                       max="4"
-                       min="1"
-                       placeholder="1">
-        </p-inputNumber>
+      <div class="field disable-select-input-number">
+        <label for="patternsNum" style="display: block">Patterns Number </label>
+        <div class="flex flex-row ">
+          <p-inputNumber #patternsNum (click)="onPatternsStateChange(patternsNum.value)"
+                         [(ngModel)]="command.patternsNumber"
+                         [showButtons]="true"
+                         [style]="{width: '110px', height: '30'}"
+                         buttonLayout="horizontal"
+                         class="ml-1 mr-1"
+                         decrementButtonClass="p-button-secondary"
+                         decrementButtonIcon="pi pi-minus"
+                         id="patternsNum"
+                         incrementButtonClass="p-button-secondary"
+                         incrementButtonIcon="pi pi-plus"
+                         max="4"
+                         min="1"
+                         placeholder="1">
+          </p-inputNumber>
 
-        <div class="flex flex-column w-full ">
-          <input
-            *ngIf="command?.patternsNumber >= 1"
-            [(ngModel)]="command?.patterns[0]"
-            autofocus
-            class=" m-1"
-            pInputText
-            required
-            type="text"
-          >
-          <input
-            *ngIf="command.patternsNumber >= 2"
-            [(ngModel)]="command.patterns[1]"
-            autofocus
-            class=" m-1"
-            pInputText
-            required
-            type="text"
-          >
-          <input
-            *ngIf="command.patternsNumber >= 3"
-            [(ngModel)]="command.patterns[2]"
-            autofocus
-            class=" m-1"
-            pInputText
-            required
-            type="text"
-          >
-          <input
-            *ngIf="command.patternsNumber >= 4"
-            [(ngModel)]="command.patterns[3]"
-            autofocus
-            class=" m-1"
-            pInputText
-            required
-            type="text"
-          >
+          <div class="flex flex-column w-full ">
+            <input
+              *ngIf="command?.patternsNumber >= 1"
+              [(ngModel)]="command?.patterns[0]"
+              autofocus
+              class=" m-1"
+              pInputText
+              required
+              type="text"
+            >
+            <input
+              *ngIf="command.patternsNumber >= 2"
+              [(ngModel)]="command.patterns[1]"
+              autofocus
+              class=" m-1"
+              pInputText
+              required
+              type="text"
+            >
+            <input
+              *ngIf="command.patternsNumber >= 3"
+              [(ngModel)]="command.patterns[2]"
+              autofocus
+              class=" m-1"
+              pInputText
+              required
+              type="text"
+            >
+            <input
+              *ngIf="command.patternsNumber >= 4"
+              [(ngModel)]="command.patterns[3]"
+              autofocus
+              class=" m-1"
+              pInputText
+              required
+              type="text"
+            >
+          </div>
         </div>
-      </div>
-      <small *ngIf="submitted && !command.patterns[0]" class="p-error">Patterns Number is required.</small>
-    </div>
-
-    <div [style]="{alignSelf: 'end', marginLeft: 'auto'}" class="field justify-content-between p-1 flex">
-      <div class="field p-1">
-
-        <label for="script" style="display: block">Script</label>
-        <p-fileUpload #scriptUpload
-                      (onSelect)="onUploadScript($event)"
-                      [maxFileSize]="1000000"
-                      [showUploadButton]="false"
-                      [style]="{width: '100%'}"
-                      accept="{{acceptedScripts}}"
-                      cancelLabel="Cancel"
-                      chooseIcon="pi pi-upload"
-                      chooseLabel="Upload Script"
-                      class="mr-2 inline-block scriptUpload"
-                      id="script"
-                      invalidFileTypeMessageSummary="Invalid file type"
-                      mode="basic"
-                      name="script">
-        </p-fileUpload>
-        <button
-          (click)="onClearSelectedFile(scriptUpload, 'Script')"
-          *ngIf="scriptUpload.files && scriptUpload.files.length > 0"
-          class="p-button-rounded p-button-danger ml-1"
-          icon="pi pi-trash"
-          pButton
-          pRipple>
-        </button>
-
-        <small *ngIf="submitted && !command.script" class="p-error">Script is required.</small>
+        <small *ngIf="submitted && !command.patterns[0]" class="p-error">Patterns Number is required.</small>
       </div>
 
-      <div class="flex">
-
-        <div class="field p-1 mr-3">
-          <label for="scriptType">Script type</label>
-          <p-dropdown [(ngModel)]="command.scriptType"
-                      [options]="scriptType" id="scriptType"
-                      placeholder="Select"
-                      required>
-            <ng-template let-option pTemplate="item">
-              <span>{{option.label}}</span>
-            </ng-template>
-          </p-dropdown>
-          <small *ngIf="submitted && !command.scriptType" class="p-error">Script type is required.</small>
-
-        </div>
-
-        <div class="field p-1 ">
-          <label for="visibility">Visibility</label>
-          <p-dropdown [(ngModel)]="command.visibility"
-                      [options]="status" id="visibility"
-                      placeholder="Select">
-            <ng-template let-option pTemplate="item">
-              <span>{{option.label}}</span>
-            </ng-template>
-          </p-dropdown>
-          <small *ngIf="submitted && !command.visibility" class="p-error">Visibility is required.</small>
-        </div>
-
-      </div>
-    </div>
-
-
-    <div class="field justify-content-between p-1 flex">
-      <div class="field p-1">
-        <label for="requirementsFile" style="display: block">Script dependencies</label>
-        <p-fileUpload #requirementsFile
-                      (onSelect)="onUploadRequirementsFile($event)"
-                      [maxFileSize]="1000000"
-                      accept=".txt"
-                      chooseLabel="Upload File"
-                      class="mr-2 inline-block"
-                      id="requirementsFile"
-                      invalidFileTypeMessageSummary="Invalid file type"
-                      label="Upload Requirements File"
-                      mode="basic"
-                      name="requirementsFile">
-        </p-fileUpload>
-        <button
-          (click)="onClearSelectedFile(requirementsFile, 'Requirements File')"
-          *ngIf="requirementsFile.files && requirementsFile.files.length > 0"
-          class="p-button-rounded p-button-danger ml-1"
-          icon="pi pi-trash"
-          pButton
-          pRipple>
-        </button>
-
-        <small *ngIf="submitted && !command.requirements" class="p-error">Requirements File is required.</small>
-
-      </div>
-
-      <div class="field p-1 flex">
+      <div [style]="{alignSelf: 'end', marginLeft: 'auto'}" class="field justify-content-between p-1 flex">
         <div class="field p-1">
-          <label for="icon" style="display: block">Icon</label>
-          <p-fileUpload #iconUpload
-                        (onSelect)="onUploadIcon($event)"
+
+          <label for="script" style="display: block">Script</label>
+          <p-fileUpload #scriptUpload
+                        (onSelect)="onUploadScript($event)"
                         [maxFileSize]="1000000"
-                        accept="image/*"
-                        cancelLabel="Choose Another Icon"
+                        [showUploadButton]="false"
+                        [style]="{width: '100%'}"
+                        accept="{{acceptedScripts}}"
+                        cancelLabel="Cancel"
                         chooseIcon="pi pi-upload"
-                        chooseLabel="Icon"
-                        id="icon"
+                        chooseLabel="Upload Script"
+                        class="mr-2 inline-block scriptUpload"
+                        id="script"
+                        invalidFileTypeMessageSummary="Invalid file type"
                         mode="basic"
-                        name="icon"
-          >
+                        name="script">
           </p-fileUpload>
+          <button
+            (click)="onClearSelectedFile(scriptUpload, 'Script')"
+            *ngIf="scriptUpload.files && scriptUpload.files.length > 0"
+            class="p-button-rounded p-button-danger ml-1"
+            icon="pi pi-trash"
+            pButton
+            pRipple>
+          </button>
+
+          <small *ngIf="submitted && !command.script" class="p-error">Script is required.</small>
         </div>
-        <button (click)="onClearSelectedFile(iconUpload, 'Icon')"
-                *ngIf="iconUpload.files && iconUpload.files.length > 0"
-                [style]="{margin: 'auto'}"
-                class="p-button-rounded p-button-danger ml-3"
-                icon="pi pi-trash"
-                pButton
-                pRipple>
-        </button>
+
+        <div class="flex">
+
+          <div class="field p-1 mr-3">
+            <label for="scriptType">Script type</label>
+            <p-dropdown [(ngModel)]="command.scriptType"
+                        [options]="scriptType" id="scriptType"
+                        placeholder="Select"
+                        required>
+              <ng-template let-option pTemplate="item">
+                <span>{{option.label}}</span>
+              </ng-template>
+            </p-dropdown>
+            <small *ngIf="submitted && !command.scriptType" class="p-error">Script type is required.</small>
+
+          </div>
+
+          <div class="field p-1 ">
+            <label for="visibility">Visibility</label>
+            <p-dropdown [(ngModel)]="command.visibility"
+                        [options]="status" id="visibility"
+                        placeholder="Select">
+              <ng-template let-option pTemplate="item">
+                <span>{{option.label}}</span>
+              </ng-template>
+            </p-dropdown>
+            <small *ngIf="submitted && !command.visibility" class="p-error">Visibility is required.</small>
+          </div>
+
+        </div>
       </div>
-    </div>
 
-  </ng-template>
 
-  <ng-template pTemplate="footer">
-    <button (click)="closeForm.emit()" class="p-button-text" icon="pi pi-times" label="Cancel" pButton
-            pRipple></button>
-    <button (click)="onCreateCommand()" class="p-button-text" icon="pi pi-check" label="Save" pButton
-            pRipple></button>
-  </ng-template>
+      <div class="field justify-content-between p-1 flex">
+        <div class="field p-1">
+          <label for="requirementsFile" style="display: block">Script dependencies</label>
+          <p-fileUpload #requirementsFile
+                        (onSelect)="onUploadRequirementsFile($event)"
+                        [maxFileSize]="1000000"
+                        accept=".txt"
+                        chooseLabel="Upload File"
+                        class="mr-2 inline-block"
+                        id="requirementsFile"
+                        invalidFileTypeMessageSummary="Invalid file type"
+                        label="Upload Requirements File"
+                        mode="basic"
+                        name="requirementsFile">
+          </p-fileUpload>
+          <button
+            (click)="onClearSelectedFile(requirementsFile, 'Requirements File')"
+            *ngIf="requirementsFile.files && requirementsFile.files.length > 0"
+            class="p-button-rounded p-button-danger ml-1"
+            icon="pi pi-trash"
+            pButton
+            pRipple>
+          </button>
+
+          <small *ngIf="submitted && !command.requirements" class="p-error">Requirements File is required.</small>
+
+        </div>
+
+        <div class="field p-1 flex">
+          <div class="field p-1">
+            <label for="icon" style="display: block">Icon</label>
+            <p-fileUpload #iconUpload
+                          (onSelect)="onUploadIcon($event)"
+                          [maxFileSize]="1000000"
+                          accept="image/*"
+                          cancelLabel="Choose Another Icon"
+                          chooseIcon="pi pi-upload"
+                          chooseLabel="Icon"
+                          id="icon"
+                          mode="basic"
+                          name="icon"
+            >
+            </p-fileUpload>
+          </div>
+          <button (click)="onClearSelectedFile(iconUpload, 'Icon')"
+                  *ngIf="iconUpload.files && iconUpload.files.length > 0"
+                  [style]="{margin: 'auto'}"
+                  class="p-button-rounded p-button-danger ml-3"
+                  icon="pi pi-trash"
+                  pButton
+                  pRipple>
+          </button>
+        </div>
+      </div>
+      </app-loader>
+    </ng-template>
+
+    <ng-template pTemplate="footer">
+        <button [disabled]="(loading | async)" (click)="closeForm.emit()" class="p-button-text" icon="pi pi-times" label="Cancel" pButton
+                pRipple></button>
+        <button [disabled]="(loading | async)" (click)="onCreateCommand()" class="p-button-text" icon="pi pi-check" label="Save" pButton
+                pRipple></button>
+    </ng-template>
+
 </p-dialog>
+

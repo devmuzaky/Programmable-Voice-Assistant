@@ -1,0 +1,22 @@
+<div class=" container">
+  <p-panel header="Google Integration">
+    <div class="token-style">
+      <div class="input-container ">
+        <div class=" flex flex-row justify-content-between mb-2 ">
+          <label class="subtitle" for="tokenInput">Add Your Google Token</label>
+          <i (click)="addIcon()" class=" pi pi-plus link" ></i>
+        </div>
+        <div class="flex flex-column  align-center" >
+          <input
+            class="p-2"
+            type="text"
+            id="tokenInput"
+            placeholder="Put your token here"
+            pInputText [(ngModel)]="token"
+          />
+          <button (click)="onSaveToken()" pButton><i class="send  pi pi-save"></i></button>
+        </div>
+      </div>
+    </div>
+  </p-panel>
+</div>

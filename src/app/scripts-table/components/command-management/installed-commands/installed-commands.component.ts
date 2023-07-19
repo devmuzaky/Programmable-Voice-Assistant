@@ -1,5 +1,5 @@
 import {Component, OnInit} from '@angular/core';
-import {MarketPlaceCommandDTO} from "../../../interfaces/MarketPlaceCommandDTO";
+import {marketPlaceCommandDTO} from "../../../interfaces/MarketPlaceCommandDTO";
 import {Parameter} from "../../../interfaces/parameter";
 import {Pattern} from "../../../interfaces/pattern";
 import {InstalledCommandsService} from "./installed-commands-service/installed-commands.service";
@@ -8,6 +8,7 @@ import {CommandService} from "../../../services/command.service";
 import {ConfirmationService, MessageService} from "primeng/api";
 import {ElectronService} from "../../../../core/services";
 import {MyCommandService} from "../my-commands/my-command-service/my-command.service";
+import {APP_CONFIG} from "../../../../../environments/environment";
 
 @Component({
   selector: 'installed-commands',
@@ -15,7 +16,9 @@ import {MyCommandService} from "../my-commands/my-command-service/my-command.ser
   styleUrls: ['./installed-commands.component.scss']
 })
 export class InstalledCommandsComponent implements OnInit {
-  commands: Observable<MarketPlaceCommandDTO[]>;
+  commands: Observable<marketPlaceCommandDTO[]>;
+  apiBaseUrl = APP_CONFIG.apiBaseUrl;
+  showLoader: boolean = false;
 
   constructor(
     private installedCommandsService: InstalledCommandsService,
@@ -35,7 +38,7 @@ export class InstalledCommandsComponent implements OnInit {
 
     return parameters
       .sort(parameter => parameter.order)
-      .map(parameter => `${parameter.name} (${parameter.type})`)
+      .map(parameter => `${parameter.name}`)
       .join(', ');
   }
 
@@ -49,6 +52,8 @@ export class InstalledCommandsComponent implements OnInit {
       header: 'Confirm',
       icon: 'pi pi-exclamation-triangle',
       accept: () => {
+        this.showLoader = true;
+        console.log("show loading");
         this.commandService.uninstallCommand(command.id).subscribe(() => {
           this.messageService.add({
             severity: 'success',
@@ -57,12 +62,14 @@ export class InstalledCommandsComponent implements OnInit {
           });
           this.installedCommandsService.getInstalledCommands();
           this.electronService.ipcRenderer.send('delete-executable-file', command.id);
+          this.showLoader = false;
         }, error => {
           this.messageService.add({
             severity: 'error',
             summary: 'Error',
             detail: 'Command could not be uninstalled!'
           });
+          this.showLoader = false;
         });
       }
     });
@@ -75,20 +82,22 @@ export class InstalledCommandsComponent implements OnInit {
       header: 'Confirm',
       icon: 'pi pi-exclamation-triangle',
       accept: () => {
+        this.showLoader = true;
         this.commandService.forkCommand(command.id).subscribe(() => {
           this.messageService.add({
             severity: 'success',
             summary: 'Success',
             detail: 'Command forked successfully!'
           });
-          this.myCommandService.getMyCommands();
-
+          this.myCommandService.fetchMyCommands();
+          this.showLoader = false;
         }, error => {
           this.messageService.add({
             severity: 'error',
             summary: 'Error',
             detail: 'Command could not be forked!'
           });
+          this.showLoader = false;
         });
       }
     });

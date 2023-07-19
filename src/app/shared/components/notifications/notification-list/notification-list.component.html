@@ -1,5 +1,6 @@
 <p-listbox class="text-red-700" [listStyle]="{ 'max-height': '350px' }" [options]="notificationList">
-  <ng-template let-notification pTemplate="item">
-    <app-notification-card [notification]="notification"></app-notification-card>
-  </ng-template>
+  <ng-template let-notification pTemplate="item" >
+    <app-notification-card (onNotificationClick)="deleteNotification($event)"
+                           [notification]="notification"></app-notification-card>
+  </ng-template >
 </p-listbox>

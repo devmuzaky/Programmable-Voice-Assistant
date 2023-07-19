@@ -1,15 +1,13 @@
-import { Component, OnInit } from '@angular/core';
+import {Component} from '@angular/core';
 
 @Component({
   selector: 'app-tray',
   templateUrl: './tray.component.html',
   styleUrls: ['./tray.component.scss']
 })
-export class TrayComponent implements OnInit {
+export class TrayComponent {
 
-  constructor() { }
-
-  ngOnInit(): void {
+  constructor() {
   }
 
 }

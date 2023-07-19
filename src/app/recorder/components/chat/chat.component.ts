@@ -4,11 +4,13 @@ import {Subscription} from "rxjs";
 import {TtsService} from "../../services/tts/tts.service";
 import {ElectronService} from "../../../core/services";
 import {RasaSocketService} from "../../services/rasa/rasa.socket/rasa-socket.service";
+import {AuthService} from "../../../auth/services/auth-service/auth.service";
 
 @Component({
   selector: 'app-chat',
   templateUrl: './chat.component.html',
-  styleUrls: ['./chat.component.scss']
+  styleUrls: ['./chat.component.scss'],
+  providers: [RasaSocketService]
 })
 export class ChatComponent implements OnInit, OnDestroy, AfterViewInit {
 
@@ -17,6 +19,7 @@ export class ChatComponent implements OnInit, OnDestroy, AfterViewInit {
 
   ttsAudioSubscription: Subscription;
   scriptResponseSubscription: Subscription;
+  AuthSubscription: Subscription;
 
   @ViewChild('audioElement') audioElement: ElementRef<HTMLAudioElement>;
   @ViewChild('messagesContent') messagesContent: ElementRef<HTMLElement>;
@@ -28,7 +31,9 @@ export class ChatComponent implements OnInit, OnDestroy, AfterViewInit {
               private ttsService: TtsService,
               private rasaSocketService: RasaSocketService,
               private electronService: ElectronService,
-              private zone: NgZone) {
+              private zone: NgZone,
+              private authService: AuthService
+  ) {
   }
 
   updateScrollbar() {
@@ -40,6 +45,12 @@ export class ChatComponent implements OnInit, OnDestroy, AfterViewInit {
   }
 
   ngOnInit(): void {
+    this.AuthSubscription = this.authService.newUserSubject.subscribe({
+      next: (data) => {
+        console.log("newUserSubject");
+        this.rasaSocketService.connect();
+      }
+    });
     this.transcribedSubscription = this.sttService.getTranscriptObservable().subscribe({
       next: (msg: string) => {
         this.addUserMessage(msg);
@@ -85,25 +96,42 @@ export class ChatComponent implements OnInit, OnDestroy, AfterViewInit {
   @HostListener('document:keydown', ['$event']) handleKeydown(event: KeyboardEvent) {
 
     if (event.key === 'Enter') {
+
       this.addUserMessageFromInput();
+
       event.preventDefault();
       return false;
     }
   }
 
-  addBotMessage(message: string) {
-    this.messages.push({message, personal: false});
-    this.zone.run(() => {
-      //   fix for delay re-rendering in electron
-    });
-    this.updateScrollbar();
-    this.speak(message);
+  // TODO: update to use the user's name
+  greetUser() {
+    this.addBotMessage('Hi, I\'m your personal assistant. How can I help you?');
+  }
+
+
+  playAudio(audio: string | Uint8Array) {
+    this.audioElement.nativeElement.src = URL.createObjectURL(new Blob([audio], {type: 'audio/wav'}));
+    this.audioElement.nativeElement.play();
+  }
+
+  speak(text: string) {
+    this.ttsService.tts(text);
   }
 
   addUserMessage(message: string) {
     this.messages.push({message: message, personal: true});
     this.rasaSocketService.sendMessage(message);
     this.updateScrollbar();
+  }
+
+  addBotMessage(message: string) {
+    this.messages.push({message, personal: false});
+    this.zone.run(() => {
+      //   fix for delay re-rendering in electron app
+    });
+    this.updateScrollbar();
+    this.speak(message);
   }
 
   addUserMessageFromInput() {
@@ -114,21 +142,6 @@ export class ChatComponent implements OnInit, OnDestroy, AfterViewInit {
     this.addUserMessage(msg);
 
     (document.querySelector('.message-input') as HTMLInputElement).value = '';
-  }
-
-
-  // TODO: update to use the user's name
-  greetUser() {
-    this.addBotMessage('Hi, I\'m your personal assistant. How can I help you?');
-  }
-
-  playAudio(audio: string | Uint8Array) {
-    this.audioElement.nativeElement.src = URL.createObjectURL(new Blob([audio], {type: 'audio/wav'}));
-    this.audioElement.nativeElement.play();
-  }
-
-  speak(text: string) {
-    this.ttsService.tts(text);
   }
 
   recordingState(isRecording: boolean) {

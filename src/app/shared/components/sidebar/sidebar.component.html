@@ -52,12 +52,26 @@
       </p-overlayPanel>
     </li>
 
+
+    <li (click)="gT.toggle($event)" class="sidenav-nav-item">
+      <a [routerLinkActiveOptions]="{exact: true}" class="sidenav-nav-link"
+         routerLinkActive="active">
+        <img alt="google" class="sidenav-link-icon " src="assets/icons/google.svg"/>
+      </a>
+
+      <p-overlayPanel #gT>
+        <app-google-token (closeTokenModal)="gT.hide()"
+        ></app-google-token>
+      </p-overlayPanel>
+
+    </li>
+
     <li class="sidenav-nav-item">
       <a (click)="setToggleModal($event)" [routerLinkActiveOptions]="{exact: true}" class="sidenav-nav-link"
-         routerLinkActive="active"
-      >
+         routerLinkActive="active">
         <img alt="icon" class="sidenav-link-icon" src="assets/icons/acc.svg" title="My Profile"/>
       </a>
+
     </li>
   </ul>
 

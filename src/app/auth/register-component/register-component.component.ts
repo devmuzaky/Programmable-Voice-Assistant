@@ -1,18 +1,17 @@
 import {Component, ElementRef, Input, OnInit, ViewChild,} from '@angular/core';
 import {FormBuilder, Validators} from '@angular/forms';
 import {Router} from '@angular/router';
+import {LoginResponse} from "../interface/login.response";
 import {AuthService} from '../services/auth-service/auth.service';
 import {StorageService} from "../services/storage.service";
 import {SnackbarService} from "../../shared/snackbar-service/snackbar.service";
-import {HttpClient} from "@angular/common/http";
-import {LoginResponse} from "../interface/login.response";
 import {createPasswordStrengthValidator} from "../password-strength.validator";
 import {ValidationService} from "../services/not-match-validation/validation.service";
 import {MatTabGroup} from "@angular/material/tabs";
 import {NotificationService} from "../../core/services/notification/notification.service";
 import {
   InstalledCommandsService
-} from "../../scripts-table/components/command-management/public-command/installed-commands-service/installed-commands.service";
+} from "../../scripts-table/components/command-management/installed-commands/installed-commands-service/installed-commands.service";
 import {
   MyCommandService
 } from "../../scripts-table/components/command-management/my-commands/my-command-service/my-command.service";
@@ -30,10 +29,9 @@ export class RegisterComponentComponent implements OnInit {
   @Input('mat-stretch-tabs')
   stretchTabs: boolean
 
-
+  isLoggedIn: boolean = false;
+  loading: boolean = false;
   showPassword: boolean = false;
-
-
   loginForm = this.fb.group({
     email: ['', {
       validators: [Validators.required, Validators.email],
@@ -45,6 +43,7 @@ export class RegisterComponentComponent implements OnInit {
       Validators.maxLength(20)
     ]]
   });
+
   signUpForm = this.fb.group({
       username: ['', Validators.compose([
         Validators.required
@@ -66,8 +65,6 @@ export class RegisterComponentComponent implements OnInit {
       validator: this.validationService.passwordMatch('password', 'confirmPassword')
     }
   );
-  isLoggedIn: boolean = false;
-
   private isLoginFailed: boolean = false;
   private errorMessage: string = '';
   private isSuccessful: boolean = false;
@@ -75,8 +72,6 @@ export class RegisterComponentComponent implements OnInit {
   private registerErrorMessage: string = '';
 
   constructor(
-    private snackbarService: SnackbarService,
-    private http: HttpClient,
     private fb: FormBuilder,
     private router: Router,
     private authService: AuthService,
@@ -85,6 +80,7 @@ export class RegisterComponentComponent implements OnInit {
     private notificationService: NotificationService,
     private installedCommandsService: InstalledCommandsService,
     private myCommandService: MyCommandService,
+    private snackbarService: SnackbarService
   ) {
   }
 
@@ -132,7 +128,7 @@ export class RegisterComponentComponent implements OnInit {
 
   onSignUpSubmit() {
     const value = this.signUpForm.value;
-
+    this.loading = true;
     this.authService.signUp({
       username: value.username,
       email: value.email,
@@ -157,6 +153,7 @@ export class RegisterComponentComponent implements OnInit {
             this.signUpForm.markAsUntouched();
             this.signUpForm.updateValueAndValidity();
             this.signUpForm.clearValidators();
+            this.loading = false;
           },
 
           error: error => {
@@ -172,6 +169,7 @@ export class RegisterComponentComponent implements OnInit {
             this.isSignUpFailed = true;
             this.isSuccessful = false;
             this.openErrorSnackBar(this.registerErrorMessage);
+            this.loading = false;
           }
         }
       )
@@ -179,24 +177,26 @@ export class RegisterComponentComponent implements OnInit {
 
   onLoginSubmit() {
     const value = this.loginForm.value;
+    this.loading = true;
     this.authService.login({email: value.email, password: value.password})
       .subscribe(
         (data: LoginResponse) => {
           this.storageService.saveUser(data.user);
           this.storageService.saveAccessToken(data.access_token);
-          this.storageService.saveRefreshToken(data.refresh_token);
+          this.storageService.setRefreshToken(data.refresh_token);
           this.isLoginFailed = false;
           this.isLoggedIn = true;
           this.openSnackBar("Successfully logged in as " + data.user.username);
           this.authService.setLoggedIn(true);
 
           this.notificationService.connect(this.storageService.getUser().pk);
+          this.notificationService.rasaConnect(this.storageService.getUser().pk);
 
           this.installedCommandsService.getInstalledCommands();
-          this.myCommandService.getMyCommands();
-
+          this.myCommandService.fetchMyCommands();
+          this.authService.newUserSubject.next(true);
           this.router.navigate(['/my-scripts']);
-
+          this.loading = false;
 
         },
         err => {
@@ -204,6 +204,7 @@ export class RegisterComponentComponent implements OnInit {
           this.isLoginFailed = true;
           this.isLoggedIn = false;
           this.openErrorSnackBar(this.errorMessage);
+          this.loading = false;
         }
       );
 
@@ -215,10 +216,6 @@ export class RegisterComponentComponent implements OnInit {
     this.openSnackBar("Successfully logged out!");
     this.installedCommandsService.clearInstalledCommands();
     this.myCommandService.clearMyCommands();
-  }
-
-  onForgotPasswordClick() {
-    this.router.navigate(['/forgot-password']);
   }
 
   togglePasswordVisibility() {

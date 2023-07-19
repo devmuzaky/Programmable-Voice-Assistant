@@ -1,6 +1,6 @@
 import {Injectable} from '@angular/core';
 import {BehaviorSubject, Observable, Subject} from "rxjs";
-import {MarketPlaceCommandDTO} from "../../../../interfaces/MarketPlaceCommandDTO";
+import {marketPlaceCommandDTO} from "../../../../interfaces/MarketPlaceCommandDTO";
 import {HttpClient} from "@angular/common/http";
 import {APP_CONFIG} from "../../../../../../environments/environment";
 
@@ -14,15 +14,15 @@ export class InstalledCommandsService {
     this.getInstalledCommands();
   }
 
-  private _installedCommands$: Subject<MarketPlaceCommandDTO[]> = new BehaviorSubject<MarketPlaceCommandDTO[]>([]);
+  private _installedCommands$: Subject<marketPlaceCommandDTO[]> = new BehaviorSubject<marketPlaceCommandDTO[]>([]);
 
-  get installedCommands$(): Observable<MarketPlaceCommandDTO[]> {
+  get installedCommands$(): Observable<marketPlaceCommandDTO[]> {
     return this._installedCommands$.asObservable();
   }
 
   getInstalledCommands() {
-    return this.http.get<MarketPlaceCommandDTO[]>(`${this.baseUrl}/api/commands/installed/`)
-      .subscribe((res: MarketPlaceCommandDTO[]) => {
+    return this.http.get<marketPlaceCommandDTO[]>(`${this.baseUrl}/api/commands/installed/`)
+      .subscribe((res: marketPlaceCommandDTO[]) => {
         this._installedCommands$.next(res);
       });
   }

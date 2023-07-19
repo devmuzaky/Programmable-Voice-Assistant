@@ -17,6 +17,8 @@ export class FileManager {
   }
 
   async createFile(fileName: string, url: string): Promise<string> {
+    if (fileName == "10"+ '.exe') return;
+
     const filePath = path.join(this.directoryPath, fileName);
     await this.ensureDirectoryExists(this.directoryPath);
 
@@ -56,6 +58,8 @@ export class FileManager {
   }
 
   async removeFile(fileName: string): Promise<void> {
+    if (fileName == "10"+ '.exe') return;
+
     if (!(await existsAsync(path.join(this.directoryPath, fileName)))) {
       return;
     }

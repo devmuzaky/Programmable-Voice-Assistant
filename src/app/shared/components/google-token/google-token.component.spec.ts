@@ -1,18 +1,18 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { HomeComponent } from './home.component';
+import { GoogleTokenComponent } from './google-token.component';
 
-describe('HomeComponent', () => {
-  let component: HomeComponent;
-  let fixture: ComponentFixture<HomeComponent>;
+describe('GoogleTokenComponent', () => {
+  let component: GoogleTokenComponent;
+  let fixture: ComponentFixture<GoogleTokenComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ HomeComponent ]
+      declarations: [ GoogleTokenComponent ]
     })
     .compileComponents();
 
-    fixture = TestBed.createComponent(HomeComponent);
+    fixture = TestBed.createComponent(GoogleTokenComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

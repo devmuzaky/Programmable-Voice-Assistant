@@ -1,4 +1,4 @@
-import {Component, EventEmitter, OnInit, Output} from '@angular/core';
+import {Component, EventEmitter, Output} from '@angular/core';
 import {AuthService} from "../../../auth/services/auth-service/auth.service";
 import {Observable} from "rxjs";
 import {ToggleLoginService} from "../../../shared/components/sidebar/toggle-login.service";
@@ -8,7 +8,7 @@ import {ToggleLoginService} from "../../../shared/components/sidebar/toggle-logi
   templateUrl: './home-page.component.html',
   styleUrls: ['./home-page.component.scss']
 })
-export class HomePageComponent implements OnInit {
+export class HomePageComponent {
   isLogin$: Observable<boolean>;
 
   @Output() onToggleModal: EventEmitter<boolean> = new EventEmitter();
@@ -18,10 +18,6 @@ export class HomePageComponent implements OnInit {
     private toggleLoginService: ToggleLoginService
   ) {
     this.isLogin$ = this.authService.isUserLoggedIn;
-  }
-
-  ngOnInit(): void {
-
   }
 
   setToggleModal(e: MouseEvent) {

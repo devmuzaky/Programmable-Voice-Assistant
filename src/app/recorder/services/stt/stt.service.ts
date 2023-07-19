@@ -11,12 +11,10 @@ export class SttService {
   constructor(private electronService: ElectronService) {
   }
 
-  // save the audio blob in a file and send it to the electron process to be converted to text
   async sendAudioBlob(audioBlob: Blob) {
     await this.storeAudioBlob(audioBlob, () => this.electronService.processAudio(this.wavPath));
   }
 
-  // This function is used to store the audio blob in a file
   async storeAudioBlob(audioBlob: Blob, cb: Function) {
     const Blob = new Uint8Array(await audioBlob.arrayBuffer());
 

@@ -1,5 +1,5 @@
 import {animate, keyframes, style, transition, trigger} from '@angular/animations';
-import {Component, OnInit} from '@angular/core';
+import {Component, EventEmitter, OnInit, Output} from '@angular/core';
 import {AuthService} from "../../../auth/services/auth-service/auth.service";
 import {Observable} from "rxjs";
 import {ToggleLoginService} from "./toggle-login.service";
@@ -36,7 +36,7 @@ import {ToggleLoginService} from "./toggle-login.service";
     ])
   ]
 })
-export class SidebarComponent implements OnInit {
+export class SidebarComponent  {
 
 
   isLogin$: Observable<boolean>;
@@ -48,14 +48,11 @@ export class SidebarComponent implements OnInit {
     this.isLogin$ = this.authService.isUserLoggedIn;
   }
 
-  ngOnInit(): void {
-
-  }
-
-
   setToggleModal(e: MouseEvent) {
     e.preventDefault();
 
     this.toggleLoginService.toggleLogin();
   }
+
+
 }

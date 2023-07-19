@@ -1,7 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import {ElectronService} from './core/services';
 import {TranslateService} from '@ngx-translate/core';
-import {APP_CONFIG} from '../environments/environment';
 import {NavigationEnd, Router} from "@angular/router";
 import {Observable} from "rxjs";
 import {ToggleLoginService} from "./shared/components/sidebar/toggle-login.service";
@@ -25,12 +24,9 @@ export class AppComponent implements OnInit {
     private toggleLoginService: ToggleLoginService
   ) {
     this.translate.setDefaultLang('en');
-    console.log('APP_CONFIG', APP_CONFIG);
-
     if (electronService.isElectron) {
-      console.log(process.env);
       console.log('Run in electron');
-      console.log('Electron ipcRenderer', this.electronService.ipcRenderer);
+
     } else {
       console.log('Run in browser');
     }
@@ -41,8 +37,7 @@ export class AppComponent implements OnInit {
           this.hideMain = true;
         }
       }
-    });
-  }
+    });}
 
   ngOnInit() {
     this.toggleModal$ = this.toggleLoginService.toggleModal$;
