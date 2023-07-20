@@ -104,25 +104,25 @@ https://github.com/devmuzaky/Programmable-Voice-Assistant/assets/55113727/b2a953
 *   [About the Project](#tada-about-the-project)
     *   [Screenshots](#camera-screenshots)
     *   [Color Reference](#art-color-reference)
-    *   [Tech stack and Tools](#hammer_and_wrench-tech-stack-and-tools)
     *   [What is Programmable Voice Assistant](#microphone-what-is-programmable-voice-assistant)
     *   [Why Programmable Voice Assistant](#mag-why-programmable-voice-assistant)
-        *   [History of Voice Assistants](#writing-hand-history-of-voice-assistants)
-        *   [The Problem with Traditional Voice Assistant](#-1-the-problem-with-traditional-voice-assistant)
-        *   [Solution with My Assistant](#1-the-solution-with-my-assistant)
-        *   [Features](#cons-features)
-    *   [How My Assistant Works](#closed_lock_with_key-how-my-assistant-works)
+        *   [History of Voice Assistants](#writinghand-history-of-voice-assistants)
+        *   [The Problem with Traditional Voice Assistant](#negativesquaredcrossmark-the-problem-with-traditional-voice-assistants)
+        *   [Solution with My Assistant](#whitecheckmark-the-solution-with-my-assistant)
+        *   [Features](#star-features)
+    *   [How My Assistant Works](#closedlockwithkey-how-my-assistant-works)
+    *  [Tech Stack and Tools](#hammerandwrenchtech-stack-and-tools)
 *   [Source Code Directory Structure](#ladder-source-code-directory-structure)
-*   [Getting Started](#biking_man-getting-started)
-    *   [Prerequisites](#yellow_circle-prerequisites)
-        *   [Package Manager](#package-package-manager)
-        *   [Environment Requirements](#key-environment-variables)
-    *   [Run for Development](#wrench-run-for-development)
 *   [Usage](#thinking-usage)
+*   [Getting Started](#bikingman-getting-started)
+  *   [Prerequisites](#yellowcircle-prerequisites)
+    *   [Package Manager](#package-package-manager)
+    *   [Environment Requirements](#key-environment-requirements)
+  *   [Run for Development](#wrench-run-for-development)
 *   [FAQ](#bulb-faq)
-*   [Future Work](#rescue_worker_helmet-future-work)
+*   [Future Work](#rescueworkerhelmet-future-work)
 *   [Community](#hearts-community)
-*   [Contributors](#hatching_chick-contributors)
+*   [Contributors](#hatchingchick-contributors)
 *   [License](#warning-license)
 
 ## :tada: About the Project
@@ -150,14 +150,14 @@ robust data privacy and security measures.
 
 ### :art: [Color Reference](https://coolors.co/palette/264653-2a9d8f-e9c46a-f4a261-e76f51)
 
-## :microphone: What is programmable-voice-assistant
+## :microphone: What is Programmable Voice Assistant
 
 Build a customizable virtual voice assistant. The assistant should provide users with more control and flexibility over its features and functionality rather than limiting them to preset options.
 Allow users to define their own automation scenarios and workflows. Users should be able to craft new commands tailored to their unique needs and preferences.
 Include traditional voice assistant features. In addition to offering more customization options, the assistant should support all the features of a traditional Voice assistance
 
 
-### :mag: Why programmable-voice-assistant
+### :mag: Why Programmable Voice Assistant
 * Customization: Customize the assistant's behavior and capabilities to suit individual needs and workflows.
 * Flexibility: Design complex automation scenarios and workflows beyond predefined actions.
 * Extensibility: Integrate with external services and APIs to enhance functionality.
@@ -166,7 +166,7 @@ Include traditional voice assistant features. In addition to offering more custo
 * Learning and Exploration: Gain insights into AI and voice-based interaction systems through hands-on experience.
 
 
-### :writing_hand: History of Voice Assistants
+## :writing_hand: History Of Voice Assistants
 <h5 align="justify" style="font-size: 16px; font-weight: inherit" > The idea of voice assistants has been around for decades, with the first voice recognition
 system being introduced in the 1950s by Bell Laboratories. However, it was not until the
 late 1990s that voice assistants began to gain popularity with the introduction of IBM’s
@@ -188,7 +188,7 @@ devices.</h5>
 * #### Lack of Customization:
   - Another drawback of traditional voice assistants is the lack of customization options. Users have limited control over modifying or enhancing the assistant's features to align with their preferences and unique needs. The inability to personalize or customize the assistant's behavior hinders its ability to adapt to individual users' workflows or specific requirements, limiting its overall utility.
 
-#### :white_check_mark: The Solution with My Assistant
+#### :white_check_mark: The solution with my assistant
 Our voice assistant addresses the limitations of limited customization found in traditional voice assistants by providing users with extensive customization and personalization options. The key features of our solution include:
 
 * #### User-Crafted Automation Scenarios:
@@ -201,8 +201,7 @@ Our voice assistant addresses the limitations of limited customization found in 
   * To further enhance customization options, our voice assistant includes a comprehensive Commands library. Users can access a collection of pre-built automation commands created by both other users and our core team. This allows users to reuse existing commands, leverage community-contributed automations, and easily expand the capabilities of their voice assistant.
 
 
-#### :star: Features 
-
+#### :star: Features
 * Account Creation and Login:
     - Users can create an account securely to access personalized features, command management, and interaction with the application.
     - The system allows users to log in with their credentials, maintaining user authentication throughout the session.
@@ -234,7 +233,6 @@ Our voice assistant addresses the limitations of limited customization found in 
   - Users receive appropriate feedback regarding the uninstallation status over awesome notifications service.
 
 ### :closed_lock_with_key: How My Assistant Works
-
 * User Interaction: Users interact with your voice assistant through a desktop app with a user-friendly interface.
 * Voice Input: Users can record voice commands using the app's microphone feature or enter text commands if they prefer. 
 * Speech-to-Text (STT) Conversion: The recorded voice commands are sent to the Speech-to-Text engine, which converts the audio input into text. 
@@ -253,8 +251,7 @@ Our voice assistant addresses the limitations of limited customization found in 
 * The core components of the system are the Desktop App, which serves as the user-facing interface, and the API, which acts as the central component handling communication between various components and external services. The NLP Manager is responsible for natural language processing, while the Executable Builder generates executable files for the commands. The system also integrates with Google's Speech-to-Text and Text-to-Speech APIs for voice-based interactions.
 
 
-### :hammer\_and\_wrench: Tech Stack and Tools
-
+### :hammer\_and\_wrench:Tech Stack and Tools
 The tools used in this project.
 
 |                                                                                                                                           |                                       Tool                                        |                                           Description                                         |
@@ -278,7 +275,6 @@ The tools used in this project.
 |                    <img src="https://img.shields.io/badge/-Daphne-092E20?logo=django&logoColor=white" alt="Daphne" />                     |                    [Daphne](https://github.com/django/daphne)                     |                         ASGI server used to deploy Django applications.                       |
 
 ## :ladder: Source Code Directory Structure
-
 A quick look at the top-level files and directories:
 
 ```sh
@@ -379,7 +375,6 @@ A quick look at the top-level files and directories:
 
 
 ## :thinking: Usage
-
 *   1.  Install the voice assistant application on your desktop or device.
 *   2.  Launch the application and create a new account or log in securely with your credentials.
 *   3.  Customize your voice assistant by creating new commands. Provide metadata such as name, description, and patterns for each command.
