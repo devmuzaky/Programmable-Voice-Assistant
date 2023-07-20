@@ -116,8 +116,8 @@ https://github.com/devmuzaky/Programmable-Voice-Assistant/assets/55113727/b2a953
 *   [Usage](#thinking-usage)
 *   [Getting Started](#bikingman-getting-started)
   *   [Prerequisites](#yellowcircle-prerequisites)
-    *   [Package Manager](#package-package-manager)
-    *   [Environment Requirements](#key-environment-requirements)
+  *   [Package Manager](#package-package-manager)
+  *   [Environment Requirements](#key-environment-requirements)
   *   [Run for Development](#wrench-run-for-development)
 *   [FAQ](#bulb-faq)
 *   [Future Work](#rescueworkerhelmet-future-work)
@@ -540,7 +540,7 @@ ng serve
 You have successfully set up the project and can now explore and interact with the customizable voice assistant application. Happy coding!
 
 
-#### :key: **Environment Requirements**
+### :key: **Environment Requirements**
 
 **_To run this project, you will need some requirements:**_
 * Google Cloud bucket with the following files:
