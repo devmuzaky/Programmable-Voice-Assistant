@@ -104,7 +104,7 @@ Video Demo:
     *   [Tech stack and Tools](#hammer_and_wrench-tech-stack-and-tools)
     *   [What is Programmable Voice Assistant](#microphone-what-is-programmable-voice-assistant)
     *   [Why Programmable Voice Assistant](#mag-why-programmable-voice-assistant)
-        *   [History of Voice Assistants](#history-history-of-voice-assistants)
+        *   [History of Voice Assistants](#writing-hand-history-of-voice-assistants)
         *   [The Problem with Traditional Voice Assistant](#-1-the-problem-with-traditional-voice-assistant)
         *   [Solution with My Assistant](#1-the-solution-with-my-assistant)
         *   [Features](#cons-features)
@@ -163,7 +163,7 @@ Include traditional voice assistant features. In addition to offering more custo
 * Learning and Exploration: Gain insights into AI and voice-based interaction systems through hands-on experience.
 
 
-### :history: History of Voice Assistants
+### :writing_hand: History of Voice Assistants
 <h5 align="justify" style="font-size: 16px; font-weight: inherit" > The idea of voice assistants has been around for decades, with the first voice recognition
 system being introduced in the 1950s by Bell Laboratories. However, it was not until the
 late 1990s that voice assistants began to gain popularity with the introduction of IBM’s
