@@ -383,12 +383,13 @@ A quick look at the top-level files and directories:
         <b>Example:</b> <i>Command to open a website</i>
 </summary>
     <ul>
-     <li> <img src="/public/screenshots/create-command.png" /> </li>
+     <li> <img src="/src/assets/background.jpg" alt="" /> </li>
     </ul>
  </details>
 *   5. Edit existing commands to modify their metadata or update the associated files.
 <details>
     <summary>
+
         <b>Example:</b> <i>Command to open a website</i>
 </summary>
     <ul>
@@ -593,21 +594,12 @@ Where you can ask questions, suggest new ideas, and get support.
 
 <table>
   <tr>
-    <td align="center">
-        <a href="https://github.com/devmuzaky">
-        <img src="https://i.pinimg.com/originals/f3/67/4c/f3674c93ccdf69ec2a780645d2737def.png" width="100px;" alt="Mohamed"/><br />
-            <sub><b>Mohamed Zaky</b></sub>
-        </a>
-    </td>
-    <td align="center">
-        <a href="https://github.com/ahmedeid0117">
-        <img src="" width="100px;" alt="Ahmed"/><br />
-            <sub><b>Ahmed Eid</b></sub>
-        </a>
-    </td>
+    <td align="center"><a href="https://github.com/devmuzaky"><img src="https://avatars.githubusercontent.com/u/55113727?s=400&u=60bdd35b30ff93665de83262c50ed3b7a1989efc&v=4?s=100" width="100px;" alt=""/><br /><sub><b>Mohamed Zaky</b></sub></a><br /><a href="https://github.com/devmuzaky/Programmable-Voice-Assistant/commits?author=devmuzaky">💻</a></td>
+    <td align="center"><a href="https://github.com/ahmedEid1"><img src="https://avatars.githubusercontent.com/u/53142237?v=4?s=100" width="100px;" alt=""/><br /><sub><b>Ahmad Eid</b></sub></a><br /><a href="https://github.com/ahmedEid1">💻</a></td>
+    <td align="center"><a href="https://github.com/AhmedBedeir"><img src="https://avatars.githubusercontent.com/u/66643588?v=4" width="100px;" alt=""/><br /><sub><b>Ahmad Bedeir</b></sub></a><br /><a href="https://github.com/AhmedBedeir">💻</a></td>
   </tr>
-
 </table>
+
 
 ## :warning: License
 
